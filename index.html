@@ -3,107 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holistic Data Pro | BI & Data Intelligence</title>
+    <title>Holistic Data Pro | Expert Data Solutions</title>
     <style>
+        /* BASE STYLES */
         :root {
-            --primary: #d4af37; /* Gold color from your logo */
-            --bg: #1a1a1a;      /* Dark Grey to match card background */
-            --text: #f8fafc;    /* White/Grey */
-            --card: #2d2d2d;    /* Lighter grey for cards */
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            margin: 0;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        header {
-            text-align: center;
-            padding: 2rem 0; /* Reduced padding since image is large */
-            border-bottom: 1px solid #333;
-        }
-        
-        /* New Image Styling */
-        .hero-banner {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            --dvt-blue: #005c97; 
+            --dvt-dark: #002d58; /* The deep background blue */
+            --accent-gold: #fbbf24; /* The yellow button color */
+            --text-white: #ffffff;
         }
 
-        .cta-button {
-            display: inline-block;
-            background-color: var(--primary);
-            color: #000; /* Black text on gold background */
-            padding: 12px 30px;
-            border-radius: 5px;
-            text-decoration: none;
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dvt-blue) 0%, var(--dvt-dark) 100%);
+            color: var(--text-white);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAVIGATION */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: rgba(0,0,0,0.2); /* Slight transparent dark bar */
+        }
+
+        .logo {
+            font-size: 1.5rem;
             font-weight: bold;
-            margin-top: 2rem;
-            transition: opacity 0.3s;
+            color: var(--text-white);
+            letter-spacing: 1px;
+        }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* HERO SECTION (The main area) */
+        .hero {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3.5rem; /* Big Headline like DVT */
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            max-width: 800px;
+        }
+
+        .sub-headline {
+            font-size: 1.2rem;
+            color: #fbbf24; /* Gold text for emphasis */
+            font-weight: bold;
+            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .cta-button:hover { opacity: 0.9; }
-        
-        .services {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            color: #e2e8f0;
         }
-        .card {
-            background-color: var(--card);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary);
+
+        /* BUTTONS */
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 4rem;
         }
-        .card h3 { margin-top: 0; color: var(--primary); }
-        footer {
+
+        .btn-primary {
+            background-color: var(--accent-gold);
+            color: #0f172a;
+            padding: 12px 30px;
+            border-radius: 50px; /* Rounded pill shape */
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s;
+            border: 2px solid var(--accent-gold);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-white);
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border: 2px solid var(--text-white);
+            transition: background 0.2s;
+        }
+
+        .btn-primary:hover { transform: scale(1.05); }
+        .btn-secondary:hover { background-color: rgba(255,255,255,0.1); }
+
+        /* CIRCLE STATS (The bubbles at the bottom) */
+        .stats-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .stat-circle {
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            margin-top: 4rem;
-            color: #64748b;
-            font-size: 0.9rem;
+            padding: 10px;
+            background: rgba(255,255,255,0.05); /* Glass effect */
         }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .stat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <img src="banner.png" alt="Holistic Data - Your Data Simplified Optimized" class="hero-banner">
-            
-            <br>
-            <a href="mailto:bartusdepaiva@bdphd.com" class="cta-button">Contact Me</a>
+    <nav>
+        <div class="logo">HOLISTIC DATA PRO</div>
+        <div class="nav-links">
+            <a href="#">Services</a>
+            <a href="#">Solutions</a>
+            <a href="mailto:bartusdepaiva@bdphd.com">Contact</a>
         </div>
-    </header>
+    </nav>
 
-    <div class="container">
-        <section class="services">
-            <div class="card">
-                <h3>Business Intelligence</h3>
-                <p>Enterprise-grade reporting and dashboarding tailored to operational needs.</p>
+    <div class="hero">
+        <div class="sub-headline">Better Data delivers benefits from AI</div>
+        <h1>Expert Data-Driven Business Intelligence</h1>
+        
+        <p class="description">
+            Holistic Data Pro is a proudly South African technology provider. 
+            We partner with clients to build, enhance, and maintain your SQL, 
+            BI, and Automation solutions using expert T-SQL and PowerShell engineering.
+        </p>
+
+        <div class="btn-group">
+            <a href="mailto:bartusdepaiva@bdphd.com" class="btn-primary">CONNECT WITH ME</a>
+            <a href="#" class="btn-secondary">DOWNLOAD PROFILE</a>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-circle">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Years Exp</div>
             </div>
-            <div class="card">
-                <h3>SQL & Database Logic</h3>
-                <p>Expert T-SQL development, stored procedures, and complex query optimization.</p>
+            <div class="stat-circle">
+                <div class="stat-number">SQL</div>
+                <div class="stat-label">Expert</div>
             </div>
-            <div class="card">
-                <h3>Automation</h3>
-                <p>PowerShell scripting and workflow automation to eliminate manual data tasks.</p>
+            <div class="stat-circle">
+                <div class="stat-number">BI</div>
+                <div class="stat-label">Developer</div>
             </div>
-        </section>
+            <div class="stat-circle">
+                <div class="stat-number">Auto</div>
+                <div class="stat-label">Mation</div>
+            </div>
+        </div>
     </div>
-
-    <footer>
-        <p>&copy; 2025 Bartus de Paiva - Holistic Data Pro. All rights reserved.</p>
-    </footer>
 
 </body>
 </html>
