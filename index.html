@@ -34,7 +34,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 5%;
+            padding: 1.5rem 2%; /* Reduced padding slightly to fit more items */
             background: rgba(0, 31, 63, 0.3); /* Slight background for readability */
             backdrop-filter: blur(10px); /* Modern blur effect */
             border-bottom: 1px solid var(--glass-border);
@@ -43,11 +43,11 @@
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 40px;
+            gap: 20px; /* Reduced gap to fit the longer menu */
         }
 
         .logo {
-            font-size: 1.6rem;
+            font-size: 1.4rem; /* Slightly adjusted for space */
             font-weight: 800;
             color: var(--text-white);
             letter-spacing: 1.5px;
@@ -57,16 +57,17 @@
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 15px; /* Compact spacing for the long menu list */
         }
 
         .nav-links a {
             color: var(--text-white);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.9rem; /* Slightly smaller text for better fit */
             font-weight: 600;
             opacity: 0.9;
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
 
         .nav-links a:hover { 
@@ -77,17 +78,17 @@
         /* Header Buttons Container */
         .nav-buttons {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             align-items: center;
         }
 
         /* Base Header Button Style */
         .nav-btn {
             text-decoration: none;
-            padding: 10px 24px;
+            padding: 10px 20px;
             border-radius: 50px;
             font-weight: 700;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 0.5px;
             transition: all 0.3s ease;
             white-space: nowrap;
@@ -120,11 +121,12 @@
             box-shadow: 0 0 15px rgba(74, 222, 128, 0.2);
         }
 
-        /* RESPONSIVE NAV: Hide buttons on small screens if needed */
-        @media (max-width: 900px) {
-            nav { flex-direction: column; gap: 20px; padding: 20px; }
-            .nav-left { flex-direction: column; gap: 20px; }
-            .nav-buttons { width: 100%; justify-content: center; }
+        /* RESPONSIVE NAV: Collapse gracefully on smaller screens */
+        @media (max-width: 1200px) {
+            nav { flex-direction: column; gap: 15px; padding: 15px; }
+            .nav-left { flex-direction: column; gap: 15px; width: 100%; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .nav-buttons { width: 100%; justify-content: center; margin-top: 10px; }
         }
 
         /* --- HERO SECTION --- */
@@ -232,9 +234,15 @@
         <div class="nav-left">
             <div class="logo">HOLISTIC DATA PRO</div>
             <div class="nav-links">
+                <a href="#">About Us</a>
                 <a href="#">Services</a>
                 <a href="#">Solutions</a>
-                <a href="mailto:bartusdepaiva@bdphd.com">Contact</a>
+                <a href="#">Industries</a>
+                <a href="#">Clients</a>
+                <a href="#">Academy</a>
+                <a href="#">Media</a>
+                <a href="#">Careers</a>
+                <a href="mailto:bartusdepaiva@bdphd.com">Contact Us</a>
             </div>
         </div>
 
@@ -250,7 +258,7 @@
         <h1>Expert Data-Driven Business Intelligence</h1>
         
         <p class="description">
-            Holistic Data Pro is led by Bartus de Paiva, a Senior BI Developer with over  years of specialized experience. We specialize in <strong>reverse engineering legacy systems</strong> and <strong>automating data files from FTP sites</strong>—auditing and modeling them into embedded email reports. From robust <strong>ETL pipelines</strong> to advanced reporting using <strong>Excel Power Pivot and Power BI</strong>, we engineer end-to-end intelligence solutions.
+            Holistic Data Pro is led by Bartus de Paiva, a Senior BI Developer with over 12 years of specialized experience. We specialize in <strong>reverse engineering legacy systems</strong> and <strong>automating data files from FTP sites</strong>—auditing and modeling them into embedded email reports. From robust <strong>ETL pipelines</strong> to advanced reporting using <strong>Excel Power Pivot and Power BI</strong>, we engineer end-to-end intelligence solutions.
         </p>
 
         <div class="stats-row">
