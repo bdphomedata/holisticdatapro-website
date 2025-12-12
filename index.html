@@ -7,16 +7,18 @@
     <style>
         /* BASE STYLES */
         :root {
-            --dvt-blue: #005c97; 
-            --dvt-dark: #002d58; /* The deep background blue */
-            --accent-gold: #fbbf24; /* The yellow button color */
+            /* COLORS EXTRACTED FROM DVT IMAGE */
+            --dvt-blue-light: #0077c8; /* Vibrant top-left blue */
+            --dvt-blue-dark: #004d80;  /* Deep bottom-right blue */
+            --accent-gold: #ffc629;    /* The specific DVT button yellow */
             --text-white: #ffffff;
         }
 
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--dvt-blue) 0%, var(--dvt-dark) 100%);
+            /* Updated Gradient to match the DVT screenshot direction */
+            background: linear-gradient(120deg, var(--dvt-blue-light) 0%, var(--dvt-blue-dark) 100%);
             color: var(--text-white);
             min-height: 100vh;
             display: flex;
@@ -29,7 +31,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 5%;
-            background-color: rgba(0,0,0,0.2); /* Slight transparent dark bar */
+            background-color: transparent; /* Cleaner look like the image */
         }
 
         .logo {
@@ -60,27 +62,28 @@
         }
 
         h1 {
-            font-size: 3.5rem; /* Big Headline like DVT */
+            font-size: 3.8rem; /* Slightly larger to match the impact of the image */
             line-height: 1.1;
             margin-bottom: 1rem;
             max-width: 900px;
+            font-weight: 700;
         }
 
         .sub-headline {
-            font-size: 1.2rem;
-            color: #fbbf24; /* Gold text for emphasis */
+            font-size: 1.25rem;
+            color: var(--accent-gold); /* Updated to the new Gold */
             font-weight: bold;
             margin-bottom: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            text-transform: inherit; /* Keeps natural casing like the image */
+            letter-spacing: 0.5px;
         }
 
         .description {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             line-height: 1.6;
             max-width: 900px;
             margin-bottom: 2.5rem;
-            color: #e2e8f0;
+            color: #f1f5f9; /* Soft white for readability */
         }
 
         /* BUTTONS */
@@ -92,30 +95,32 @@
 
         .btn-primary {
             background-color: var(--accent-gold);
-            color: #0f172a;
-            padding: 12px 30px;
-            border-radius: 50px; /* Rounded pill shape */
+            color: #003355; /* Dark blue text on the gold button, exactly like the image */
+            padding: 14px 35px; /* Slightly bigger button */
+            border-radius: 50px; 
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 800; /* Extra bold text */
             transition: transform 0.2s;
             border: 2px solid var(--accent-gold);
+            font-size: 0.9rem;
         }
 
         .btn-secondary {
             background-color: transparent;
             color: var(--text-white);
-            padding: 12px 30px;
+            padding: 14px 35px;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 800;
             border: 2px solid var(--text-white);
             transition: background 0.2s;
+            font-size: 0.9rem;
         }
 
         .btn-primary:hover { transform: scale(1.05); }
         .btn-secondary:hover { background-color: rgba(255,255,255,0.1); }
 
-        /* CIRCLE STATS (The bubbles at the bottom) */
+        /* CIRCLE STATS */
         .stats-row {
             display: flex;
             gap: 20px;
@@ -124,27 +129,28 @@
         }
 
         .stat-circle {
-            width: 100px;
-            height: 100px;
-            border: 2px solid rgba(255,255,255,0.3);
+            width: 105px;
+            height: 105px;
+            border: 2px solid rgba(255,255,255,0.4);
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 10px;
-            background: rgba(255,255,255,0.05); /* Glass effect */
+            padding: 8px;
+            background: rgba(0,0,0,0.1); /* Slight dark tint for contrast */
         }
 
         .stat-number {
-            font-size: 1.3rem; /* Adjusted size to fit 'Rev Eng' perfectly */
+            font-size: 1.3rem;
             font-weight: bold;
         }
         .stat-label {
             font-size: 0.65rem;
             text-transform: uppercase;
             margin-top: 5px;
+            letter-spacing: 0.5px;
         }
 
     </style>
