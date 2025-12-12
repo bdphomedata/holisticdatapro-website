@@ -7,19 +7,20 @@
     <style>
         /* BASE STYLES */
         :root {
-            /* COLORS EXTRACTED FROM DVT IMAGE */
-            --dvt-blue-light: #0077c8; /* Vibrant top-left blue */
-            --dvt-blue-dark: #004d80;  /* Deep bottom-right blue */
-            --accent-gold: #ffc629;    /* The specific DVT button yellow */
-            --text-white: #ffffff;
+            /* COLORS EXTRACTED FROM YOUR LOGO IMAGE */
+            --bg-dark: #1a1a1a;      /* Deep Charcoal Black */
+            --bg-light: #2d2d2d;     /* Slightly lighter grey for gradient */
+            --luxury-gold: #ead08c;  /* Champagne Gold from the text */
+            --text-silver: #e2e8f0;  /* Silver/White for body text */
+            --accent-line: #555555;  /* Dark grey for subtle lines */
         }
 
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Updated Gradient to match the DVT screenshot direction */
-            background: linear-gradient(120deg, var(--dvt-blue-light) 0%, var(--dvt-blue-dark) 100%);
-            color: var(--text-white);
+            /* New Premium Dark Gradient */
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+            color: var(--text-silver);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -31,23 +32,28 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 5%;
-            background-color: transparent; /* Cleaner look like the image */
+            background-color: transparent;
+            border-bottom: 1px solid rgba(234, 208, 140, 0.1); /* Subtle gold line */
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-            color: var(--text-white);
-            letter-spacing: 1px;
+            color: var(--luxury-gold); /* Gold Logo */
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .nav-links a {
-            color: var(--text-white);
+            color: var(--luxury-gold); /* Gold Links */
             text-decoration: none;
             margin-left: 20px;
             font-size: 0.9rem;
             font-weight: 500;
+            transition: color 0.3s;
         }
+        
+        .nav-links a:hover { color: #fff; }
 
         /* HERO SECTION (The main area) */
         .hero {
@@ -62,20 +68,21 @@
         }
 
         h1 {
-            font-size: 3.8rem; /* Slightly larger to match the impact of the image */
+            font-size: 3.8rem;
             line-height: 1.1;
             margin-bottom: 1rem;
             max-width: 900px;
             font-weight: 700;
+            color: var(--luxury-gold); /* Gold Headline */
         }
 
         .sub-headline {
-            font-size: 1.25rem;
-            color: var(--accent-gold); /* Updated to the new Gold */
-            font-weight: bold;
+            font-size: 1.1rem;
+            color: #c0c0c0; /* Silver sub-headline */
+            font-weight: 600;
             margin-bottom: 1rem;
-            text-transform: inherit; /* Keeps natural casing like the image */
-            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
         }
 
         .description {
@@ -83,7 +90,11 @@
             line-height: 1.6;
             max-width: 900px;
             margin-bottom: 2.5rem;
-            color: #f1f5f9; /* Soft white for readability */
+            color: var(--text-silver);
+        }
+        
+        .description strong {
+            color: var(--luxury-gold); /* Highlight key words in gold */
         }
 
         /* BUTTONS */
@@ -94,31 +105,33 @@
         }
 
         .btn-primary {
-            background-color: var(--accent-gold);
-            color: #003355; /* Dark blue text on the gold button, exactly like the image */
-            padding: 14px 35px; /* Slightly bigger button */
-            border-radius: 50px; 
+            background-color: var(--luxury-gold);
+            color: #1a1a1a; /* Black text on Gold button */
+            padding: 14px 35px;
+            border-radius: 2px; /* Sharper corners for luxury look */
             text-decoration: none;
-            font-weight: 800; /* Extra bold text */
+            font-weight: 800;
             transition: transform 0.2s;
-            border: 2px solid var(--accent-gold);
+            border: 2px solid var(--luxury-gold);
             font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
         .btn-secondary {
             background-color: transparent;
-            color: var(--text-white);
+            color: var(--luxury-gold);
             padding: 14px 35px;
-            border-radius: 50px;
+            border-radius: 2px;
             text-decoration: none;
             font-weight: 800;
-            border: 2px solid var(--text-white);
+            border: 2px solid var(--luxury-gold);
             transition: background 0.2s;
             font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
         .btn-primary:hover { transform: scale(1.05); }
-        .btn-secondary:hover { background-color: rgba(255,255,255,0.1); }
+        .btn-secondary:hover { background-color: rgba(234, 208, 140, 0.1); }
 
         /* CIRCLE STATS */
         .stats-row {
@@ -131,7 +144,7 @@
         .stat-circle {
             width: 105px;
             height: 105px;
-            border: 2px solid rgba(255,255,255,0.4);
+            border: 1px solid rgba(234, 208, 140, 0.4); /* Thin gold border */
             border-radius: 50%;
             display: flex;
             flex-direction: column;
@@ -139,18 +152,23 @@
             align-items: center;
             text-align: center;
             padding: 8px;
-            background: rgba(0,0,0,0.1); /* Slight dark tint for contrast */
+            background: rgba(255,255,255,0.02);
+            transition: border-color 0.3s;
         }
+        
+        .stat-circle:hover { border-color: var(--luxury-gold); }
 
         .stat-number {
             font-size: 1.3rem;
             font-weight: bold;
+            color: var(--luxury-gold); /* Gold Numbers */
         }
         .stat-label {
             font-size: 0.65rem;
             text-transform: uppercase;
             margin-top: 5px;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            color: #aaa;
         }
 
     </style>
@@ -158,7 +176,7 @@
 <body>
 
     <nav>
-        <div class="logo">HOLISTIC DATA PRO</div>
+        <div class="logo">HOLISTIC DATA</div>
         <div class="nav-links">
             <a href="#">Services</a>
             <a href="#">Solutions</a>
@@ -167,7 +185,7 @@
     </nav>
 
     <div class="hero">
-        <div class="sub-headline">Better Data delivers benefits from AI</div>
+        <div class="sub-headline">Your Data. Simplified. Optimized.</div>
         
         <h1>Expert Data-Driven Business Intelligence</h1>
         
