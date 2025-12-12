@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holistic Data Pro | BI & Data Intelligence</title>
+    <style>
+        :root {
+            --primary: #10b981; /* Data Green */
+            --bg: #0f172a;      /* Deep Blue/Black */
+            --text: #f8fafc;    /* White/Grey */
+            --card: #1e293b;    /* Slightly lighter dark */
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        header {
+            text-align: center;
+            padding: 4rem 0;
+            border-bottom: 1px solid #334155;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+        .subtitle {
+            font-size: 1.25rem;
+            color: #94a3b8;
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: #064e3b;
+            padding: 10px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1.5rem;
+            transition: opacity 0.3s;
+        }
+        .cta-button:hover { opacity: 0.9; }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .card {
+            background-color: var(--card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+        }
+        .card h3 { margin-top: 0; }
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>Holistic Data Pro</h1>
+            <p class="subtitle">Turning Complex Data into Actionable Intelligence</p>
+            <p style="color: #64748b; margin-top: 10px;">EST. 2025</p>
+            <a href="mailto:bartusdepaiva@bdphd.com" class="cta-button">Contact Me</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="services">
+            <div class="card">
+                <h3>Business Intelligence</h3>
+                <p>Enterprise-grade reporting and dashboarding tailored to operational needs.</p>
+            </div>
+            <div class="card">
+                <h3>SQL & Database Logic</h3>
+                <p>Expert T-SQL development, stored procedures, and complex query optimization.</p>
+            </div>
+            <div class="card">
+                <h3>Automation</h3>
+                <p>PowerShell scripting and workflow automation to eliminate manual data tasks.</p>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Bartus de Paiva - Holistic Data Pro. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
