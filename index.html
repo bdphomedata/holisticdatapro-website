@@ -6,10 +6,10 @@
     <title>Holistic Data Pro | BI & Data Intelligence</title>
     <style>
         :root {
-            --primary: #10b981; /* Data Green */
-            --bg: #0f172a;      /* Deep Blue/Black */
+            --primary: #d4af37; /* Gold color from your logo */
+            --bg: #1a1a1a;      /* Dark Grey to match card background */
             --text: #f8fafc;    /* White/Grey */
-            --card: #1e293b;    /* Slightly lighter dark */
+            --card: #2d2d2d;    /* Lighter grey for cards */
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -25,28 +25,30 @@
         }
         header {
             text-align: center;
-            padding: 4rem 0;
-            border-bottom: 1px solid #334155;
+            padding: 2rem 0; /* Reduced padding since image is large */
+            border-bottom: 1px solid #333;
         }
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -1px;
+        
+        /* New Image Styling */
+        .hero-banner {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
         }
-        .subtitle {
-            font-size: 1.25rem;
-            color: #94a3b8;
-        }
+
         .cta-button {
             display: inline-block;
             background-color: var(--primary);
-            color: #064e3b;
-            padding: 10px 25px;
+            color: #000; /* Black text on gold background */
+            padding: 12px 30px;
             border-radius: 5px;
             text-decoration: none;
             font-weight: bold;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
             transition: opacity 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .cta-button:hover { opacity: 0.9; }
         
@@ -62,7 +64,7 @@
             border-radius: 8px;
             border-left: 4px solid var(--primary);
         }
-        .card h3 { margin-top: 0; }
+        .card h3 { margin-top: 0; color: var(--primary); }
         footer {
             text-align: center;
             margin-top: 4rem;
@@ -75,9 +77,9 @@
 
     <header>
         <div class="container">
-            <h1>Holistic Data Pro</h1>
-            <p class="subtitle">Turning Complex Data into Actionable Intelligence</p>
-            <p style="color: #64748b; margin-top: 10px;">EST. 2025</p>
+            <img src="banner.png" alt="Holistic Data - Your Data Simplified Optimized" class="hero-banner">
+            
+            <br>
             <a href="mailto:bartusdepaiva@bdphd.com" class="cta-button">Contact Me</a>
         </div>
     </header>
