@@ -10,6 +10,7 @@
             --brand-blue-light: #0077c8; /* Vibrant Azure */
             --brand-blue-dark: #001f3f;  /* Deep Navy */
             --brand-gold: #ffc629;       /* Signal Gold */
+            --brand-green: #4ade80;      /* NEW: Vibrant Data Green */
             --text-white: #ffffff;
             --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
@@ -53,7 +54,7 @@
             opacity: 0.9;
             transition: opacity 0.3s;
         }
-        .nav-links a:hover { opacity: 1; text-decoration: underline; }
+        .nav-links a:hover { opacity: 1; text-decoration: underline; color: var(--brand-green); }
 
         /* HERO SECTION */
         .hero {
@@ -72,20 +73,21 @@
             margin-bottom: 1.5rem;
             max-width: 950px;
             font-weight: 800;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Subtle text shadow for depth */
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .sub-headline {
             font-size: 1.2rem;
-            color: var(--brand-gold);
+            color: var(--brand-green); /* GREEN TEXT */
             font-weight: 700;
             margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             display: inline-block;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0,0,0,0.3);
             padding: 5px 15px;
             border-radius: 4px;
+            border-left: 4px solid var(--brand-green);
         }
 
         .description {
@@ -98,7 +100,7 @@
         }
         
         .description strong {
-            color: var(--brand-gold);
+            color: var(--brand-green); /* GREEN HIGHLIGHTS */
             font-weight: 600;
         }
 
@@ -109,30 +111,33 @@
             margin-bottom: 4rem;
         }
 
+        /* Gold Button */
         .btn-primary {
             background-color: var(--brand-gold);
-            color: #002d58; /* Dark blue text for contrast */
+            color: #002d58;
             padding: 16px 40px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 800;
             font-size: 1rem;
             letter-spacing: 0.5px;
-            box-shadow: 0 4px 15px rgba(255, 198, 41, 0.4); /* Gold Glow */
+            box-shadow: 0 4px 15px rgba(255, 198, 41, 0.4);
             transition: transform 0.2s, box-shadow 0.2s;
             border: 2px solid var(--brand-gold);
         }
 
+        /* Green Button */
         .btn-secondary {
             background-color: transparent;
-            color: var(--text-white);
+            color: var(--brand-green); /* GREEN TEXT */
             padding: 16px 40px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 700;
             font-size: 1rem;
-            border: 2px solid rgba(255,255,255,0.8);
+            border: 2px solid var(--brand-green); /* GREEN BORDER */
             transition: background 0.2s;
+            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.1);
         }
 
         .btn-primary:hover { 
@@ -140,8 +145,8 @@
             box-shadow: 0 6px 20px rgba(255, 198, 41, 0.6);
         }
         .btn-secondary:hover { 
-            background-color: rgba(255,255,255,0.1); 
-            border-color: #fff;
+            background-color: rgba(74, 222, 128, 0.1); 
+            box-shadow: 0 6px 20px rgba(74, 222, 128, 0.3);
         }
 
         /* MODERN GLASS STATS CIRCLES */
@@ -173,7 +178,7 @@
 
         .stat-circle:hover {
             transform: translateY(-5px);
-            border-color: var(--brand-gold);
+            border-color: var(--brand-green); /* GREEN HOVER */
             background: rgba(255, 255, 255, 0.15);
         }
 
@@ -182,6 +187,7 @@
             font-weight: 800;
             margin-bottom: 2px;
             text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            color: var(--brand-green); /* GREEN NUMBERS */
         }
         .stat-label {
             font-size: 0.65rem;
