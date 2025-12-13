@@ -199,7 +199,7 @@
             .nav-buttons { width: 100%; justify-content: center; margin-top: 10px; }
         }
 
-        /* --- CONTACT SECTION (Centered and standalone) --- */
+        /* --- CONTACT SECTION --- */
         .contact-section {
             padding: 120px 5%;
             flex: 1;
@@ -212,7 +212,6 @@
             max-width: 900px;
             width: 100%;
             text-align: center;
-            /* Glass card effect for the form container */
             background: rgba(0, 31, 63, 0.6);
             padding: 50px;
             border-radius: 20px;
@@ -374,23 +373,28 @@
             <h2 class="section-title">Ready to optimize your data?</h2>
             <p class="section-subtitle">Connect with Bartus de Paiva for a consultation on your legacy systems or BI needs.</p>
             
-            <form class="contact-form" action="mailto:bartusdepaiva@bdphd.com" method="post" enctype="text/plain">
+            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                
                 <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" name="name" placeholder="John Doe" required>
                 </div>
+                
                 <div class="form-group">
                     <label>Email Address</label>
                     <input type="email" name="email" placeholder="john@company.com" required>
                 </div>
+                
                 <div class="form-group full-width">
                     <label>Company / Organization</label>
                     <input type="text" name="company" placeholder="Your Company Ltd">
                 </div>
+                
                 <div class="form-group full-width">
                     <label>How can we help?</label>
                     <textarea name="message" rows="4" placeholder="Tell us about your data challenges..." required></textarea>
                 </div>
+                
                 <button type="submit" class="submit-btn">Send Message</button>
             </form>
         </div>
