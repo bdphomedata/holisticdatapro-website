@@ -98,7 +98,7 @@
         .nav-links {
             display: flex;
             gap: 15px;
-            align-items: center; /* Ensures dropdown aligns with other links */
+            align-items: center; 
             height: 100%;
         }
 
@@ -118,52 +118,69 @@
             color: var(--brand-gold); 
         }
 
-        /* --- DROPDOWN MENU STYLES --- */
+        /* --- DROPDOWN MENU STYLES (TECH SHAPE) --- */
         .dropdown {
             position: relative;
             display: inline-block;
             height: 100%;
-            padding: 10px 0; /* Increases hit area slightly */
+            padding: 10px 0;
         }
 
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: var(--brand-blue-dark);
-            min-width: 220px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            /* Deeper gradient for a premium look */
+            background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%);
+            min-width: 240px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
             border: 1px solid var(--glass-border);
-            border-top: 3px solid var(--brand-gold); /* Gold accent line */
+            border-top: 3px solid var(--brand-gold);
             z-index: 2000;
-            border-radius: 0 0 8px 8px;
-            backdrop-filter: blur(15px);
-            top: 100%; /* Positions directly below */
+            
+            /* THE COOL TECH SHAPE: Cuts the bottom-right corner */
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+            
+            backdrop-filter: blur(20px);
+            top: 100%;
             left: 0;
-            margin-top: 0; /* CRITICAL FIX: Removes gap so hover stays active */
+            margin-top: 0;
+            
+            /* Entrance Animation */
+            animation: slideDown 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform-origin: top center;
+        }
+
+        @keyframes slideDown {
+            0% { opacity: 0; transform: translateY(-10px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         /* Links inside the dropdown */
         .dropdown-content a {
             color: var(--text-white);
-            padding: 15px 20px;
+            padding: 16px 20px;
             text-decoration: none;
             display: block;
             font-size: 0.9rem;
             border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-left: 3px solid transparent; /* Hidden border for hover effect */
             transition: all 0.2s ease;
             text-align: left;
-            opacity: 1; /* Reset opacity for inner links */
+            opacity: 1;
         }
 
         .dropdown-content a:last-child {
             border-bottom: none;
+            padding-bottom: 25px; /* Extra space for the cut corner */
         }
 
-        /* Hover effects for dropdown items - UPDATED TO GREEN */
+        /* Hover effects for dropdown items (Green Glow) */
         .dropdown-content a:hover {
-            background-color: rgba(74, 222, 128, 0.1); /* Green tint */
-            color: var(--brand-green); /* Green text */
-            padding-left: 25px; /* Slide effect */
+            background: linear-gradient(90deg, rgba(74, 222, 128, 0.1) 0%, transparent 100%);
+            color: var(--brand-green);
+            border-left: 3px solid var(--brand-green); /* Tech indicator lights up */
+            padding-left: 28px; /* Slide effect */
+            text-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
         }
 
         /* Show menu on hover */
@@ -176,6 +193,12 @@
             margin-left: 5px;
             font-size: 0.8em;
             color: var(--brand-green);
+            transition: transform 0.3s ease;
+        }
+        
+        /* Rotate arrow when hovering */
+        .dropdown:hover .fa-caret-down {
+            transform: rotate(180deg);
         }
 
         .nav-buttons {
@@ -224,7 +247,13 @@
             .nav-buttons { width: 100%; justify-content: center; margin-top: 10px; }
             
             /* Mobile adjustment for dropdown */
-            .dropdown-content { position: static; min-width: 100%; border: none; background: rgba(0,0,0,0.2); }
+            .dropdown-content { 
+                position: static; 
+                min-width: 100%; 
+                border: none; 
+                background: rgba(0,0,0,0.2); 
+                clip-path: none; /* Remove fancy shape on mobile for better usability */
+            }
             .dropdown:hover .dropdown-content { display: block; }
         }
 
