@@ -139,11 +139,34 @@
             min-height: 80vh; 
         }
 
-        /* REMOVED H1 and SUB-HEADLINE STYLES */
+        /* Restored H1 Style - Non-Bold as requested */
+        h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 950px;
+            font-weight: 400; /* Regular weight, not bold */
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Restored Sub-headline Style */
+        .sub-headline {
+            font-size: 1.2rem;
+            color: var(--brand-green); 
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 15px;
+            border-radius: 4px;
+            border-left: 4px solid var(--brand-green);
+        }
 
         .description {
-            font-size: 1.35rem; /* Slightly larger since there is no headline now */
-            line-height: 1.8;
+            font-size: 1.25rem;
+            line-height: 1.7;
             max-width: 950px;
             margin-bottom: 4rem;
             color: #f0f4f8;
@@ -335,6 +358,10 @@
 
     <div class="hero">
         
+        <div class="sub-headline">Better Data delivers benefits from AI</div>
+        
+        <h1>Expert Data-Driven Business Intelligence</h1>
+        
         <p class="description">
             Holistic Data Pro is led by Bartus de Paiva, a Senior BI Developer with over 12 years of specialized experience. We specialize in <strong>reverse engineering legacy systems</strong> and <strong>automating data files from FTP sites</strong>—auditing and modeling them into embedded email reports. From robust <strong>ETL pipelines</strong> to advanced reporting using <strong>Excel Power Pivot and Power BI</strong>, we engineer end-to-end intelligence solutions.
         </p>
@@ -377,7 +404,7 @@
 
     <div class="services-section">
         <div class="section-header">
-            <div class="sub-headline" style="color: var(--brand-green); font-weight: 700; margin-bottom: 10px; text-transform: uppercase;">Our Capabilities</div>
+            <div class="sub-headline" style="margin-bottom: 10px;">Our Capabilities</div>
             <h2 class="section-title">Core Expertise</h2>
             <p class="section-subtitle">Delivering high-performance data infrastructure and business intelligence solutions tailored to your operational needs.</p>
         </div>
