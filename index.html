@@ -98,8 +98,10 @@
         .nav-links {
             display: flex;
             gap: 15px;
+            align-items: center; /* Ensures dropdown aligns with other links */
         }
 
+        /* Base Link Styles */
         .nav-links a {
             color: var(--text-white);
             text-decoration: none;
@@ -110,9 +112,68 @@
             white-space: nowrap;
         }
 
-        .nav-links a:hover { 
+        .nav-links > a:hover { 
             opacity: 1; 
             color: var(--brand-gold); 
+        }
+
+        /* --- DROPDOWN MENU STYLES (NEW) --- */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            height: 100%;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--brand-blue-dark);
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            border: 1px solid var(--glass-border);
+            border-top: 3px solid var(--brand-gold); /* Gold accent line */
+            z-index: 2000;
+            border-radius: 0 0 8px 8px;
+            backdrop-filter: blur(15px);
+            top: 100%;
+            left: 0;
+            margin-top: 10px; /* Slight gap fix if needed */
+        }
+
+        /* Links inside the dropdown */
+        .dropdown-content a {
+            color: var(--text-white);
+            padding: 15px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.2s ease;
+            text-align: left;
+            opacity: 1; /* Reset opacity for inner links */
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        /* Hover effects for dropdown items */
+        .dropdown-content a:hover {
+            background-color: rgba(255, 198, 41, 0.1);
+            color: var(--brand-gold);
+            padding-left: 25px; /* Slide effect */
+        }
+
+        /* Show menu on hover */
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Arrow Icon */
+        .fa-caret-down {
+            margin-left: 5px;
+            font-size: 0.8em;
+            color: var(--brand-green);
         }
 
         .nav-buttons {
@@ -159,6 +220,10 @@
             .nav-left { flex-direction: column; gap: 15px; width: 100%; }
             .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
             .nav-buttons { width: 100%; justify-content: center; margin-top: 10px; }
+            
+            /* Mobile adjustment for dropdown */
+            .dropdown-content { position: static; min-width: 100%; border: none; background: rgba(0,0,0,0.2); }
+            .dropdown:hover .dropdown-content { display: block; }
         }
 
         /* --- HERO SPLIT LAYOUT --- */
@@ -459,8 +524,19 @@
     <nav>
         <div class="nav-left">
             <div class="logo">HOLISTIC DATA PRO</div>
+            
             <div class="nav-links">
-                <a href="index.html">About Us</a>
+                <div class="dropdown">
+                    <a href="index.html" style="cursor: default;">
+                        About Us <i class="fas fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="about.html#overview">Professional Overview</a>
+                        <a href="about.html#journey">My Journey (1999-2025)</a>
+                        <a href="about.html#qualifications">Qualifications & Tech</a>
+                        <a href="about.html#projects">Project Highlights</a>
+                    </div>
+                </div>
                 <a href="index.html#services">Services</a>
                 <a href="#">Solutions</a>
                 <a href="#">Industries</a>
@@ -468,7 +544,7 @@
                 <a href="#">Academy</a>
                 <a href="#">Media</a>
                 <a href="#">Careers</a>
-                </div>
+            </div>
         </div>
 
         <div class="nav-buttons">
