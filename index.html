@@ -23,12 +23,46 @@
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--brand-blue-light) 0%, var(--brand-blue-dark) 100%);
-            background-attachment: fixed;
             color: var(--text-white);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            /* We removed the static background color here to let the video show */
+            background-color: #001f3f; 
+        }
+
+        /* --- VIDEO BACKGROUND STYLES --- */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* Sends video to the very back */
+            overflow: hidden;
+        }
+
+        #bg-video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        /* The Overlay: Darkens the video so text is readable */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 119, 200, 0.8) 0%, rgba(0, 31, 63, 0.9) 100%);
+            z-index: -1; /* sits just above the video but behind text */
         }
 
         /* --- NAVIGATION BAR --- */
@@ -37,7 +71,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2%;
-            background: rgba(0, 31, 63, 0.3);
+            background: rgba(0, 31, 63, 0.3); /* Keep semi-transparent to see video move behind it */
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
             position: sticky;
@@ -139,9 +173,8 @@
             min-height: 80vh; 
         }
 
-        /* Hero Headline Style */
         h1 {
-            font-size: 3.5rem; /* Desktop Size */
+            font-size: 3.5rem;
             line-height: 1.1;
             margin-bottom: 1.5rem;
             max-width: 950px;
@@ -149,12 +182,26 @@
             text-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        /* DESCRIPTION TEXT - REDUCED SIZE */
+        .sub-headline {
+            font-size: 1.2rem;
+            color: var(--brand-green); 
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 15px;
+            border-radius: 4px;
+            border-left: 4px solid var(--brand-green);
+        }
+
+        /* Reduced font size as requested */
         .description {
-            font-size: 1.1rem; /* CHANGED: Reduced from 1.25rem */
+            font-size: 1.1rem; 
             line-height: 1.6;
             max-width: 950px;
-            margin-bottom: 3rem; /* Slightly reduced margin */
+            margin-bottom: 3rem; 
             color: #f0f4f8;
             font-weight: 400;
         }
@@ -164,14 +211,13 @@
             font-weight: 600;
         }
 
-        /* MOBILE OPTIMIZATION */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.2rem; /* Smaller headline for phones */
+                font-size: 2.2rem;
                 margin-bottom: 1rem;
             }
             .description {
-                font-size: 1rem; /* CHANGED: Standard size for mobile reading */
+                font-size: 1rem;
                 line-height: 1.5;
             }
             .hero {
@@ -227,8 +273,10 @@
         /* --- SERVICES SECTION STYLES --- */
         .services-section {
             padding: 80px 5%;
-            background: rgba(0, 0, 0, 0.2);
+            /* Make sure the service section has a slightly darker background so content is readable */
+            background: rgba(0, 31, 63, 0.6); 
             border-top: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px); /* Blurs the video behind the cards */
         }
 
         .section-header {
@@ -335,6 +383,13 @@
 </head>
 <body>
 
+    <div class="video-container">
+        <video id="bg-video" autoplay loop muted playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-network-connection-background-3179-large.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
     <nav>
         <div class="nav-left">
             <div class="logo">HOLISTIC DATA PRO</div>
@@ -358,6 +413,8 @@
     </nav>
 
     <div class="hero">
+        
+        <div class="sub-headline">Better Data delivers benefits from AI</div>
         
         <h1>Expert Data-Driven Business Intelligence</h1>
         
