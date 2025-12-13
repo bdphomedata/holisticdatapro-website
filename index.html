@@ -141,15 +141,25 @@
 
         /* Hero Headline Style */
         h1 {
-            font-size: 4rem;
+            font-size: 3.5rem; /* Reduced from 4rem for Desktop */
             line-height: 1.1;
             margin-bottom: 1.5rem;
             max-width: 950px;
-            font-weight: 400; /* Regular weight, not bold */
+            font-weight: 400; /* Regular weight */
             text-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        /* Sub-headline Style (Used in Services Section) */
+        /* MOBILE OPTIMIZATION FOR HEADLINE */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem; /* Significantly smaller for phones */
+                margin-bottom: 1rem;
+            }
+            .hero {
+                padding: 30px 5%; /* Less padding on mobile */
+            }
+        }
+
         .sub-headline {
             font-size: 1.2rem;
             color: var(--brand-green); 
