@@ -27,8 +27,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            /* We removed the static background color here to let the video show */
-            background-color: #001f3f; 
+            background: transparent; /* CHANGED: Made transparent so video shows */
         }
 
         /* --- VIDEO BACKGROUND STYLES --- */
@@ -38,8 +37,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -2; /* Sends video to the very back */
+            z-index: -2; /* Stays behind everything */
             overflow: hidden;
+            background-color: #001f3f; /* Fallback color if video fails */
         }
 
         #bg-video {
@@ -54,15 +54,16 @@
             object-fit: cover;
         }
 
-        /* The Overlay: Darkens the video so text is readable */
+        /* The Overlay: Crucial for readability */
         .video-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 119, 200, 0.8) 0%, rgba(0, 31, 63, 0.9) 100%);
-            z-index: -1; /* sits just above the video but behind text */
+            /* Semi-transparent blue layer over the video */
+            background: linear-gradient(135deg, rgba(0, 119, 200, 0.7) 0%, rgba(0, 31, 63, 0.85) 100%);
+            z-index: -1; 
         }
 
         /* --- NAVIGATION BAR --- */
@@ -71,7 +72,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2%;
-            background: rgba(0, 31, 63, 0.3); /* Keep semi-transparent to see video move behind it */
+            background: rgba(0, 31, 63, 0.3); /* See-through glass */
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
             position: sticky;
@@ -196,7 +197,6 @@
             border-left: 4px solid var(--brand-green);
         }
 
-        /* Reduced font size as requested */
         .description {
             font-size: 1.1rem; 
             line-height: 1.6;
@@ -273,10 +273,9 @@
         /* --- SERVICES SECTION STYLES --- */
         .services-section {
             padding: 80px 5%;
-            /* Make sure the service section has a slightly darker background so content is readable */
             background: rgba(0, 31, 63, 0.6); 
             border-top: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px); /* Blurs the video behind the cards */
+            backdrop-filter: blur(10px); 
         }
 
         .section-header {
@@ -385,7 +384,7 @@
 
     <div class="video-container">
         <video id="bg-video" autoplay loop muted playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-network-connection-background-3179-large.mp4" type="video/mp4">
+            <source src="https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4" type="video/mp4">
         </video>
     </div>
     <div class="video-overlay"></div>
