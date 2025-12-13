@@ -99,6 +99,7 @@
             display: flex;
             gap: 15px;
             align-items: center; /* Ensures dropdown aligns with other links */
+            height: 100%;
         }
 
         /* Base Link Styles */
@@ -117,11 +118,12 @@
             color: var(--brand-gold); 
         }
 
-        /* --- DROPDOWN MENU STYLES (NEW) --- */
+        /* --- DROPDOWN MENU STYLES --- */
         .dropdown {
             position: relative;
             display: inline-block;
             height: 100%;
+            padding: 10px 0; /* Increases hit area slightly */
         }
 
         .dropdown-content {
@@ -135,9 +137,9 @@
             z-index: 2000;
             border-radius: 0 0 8px 8px;
             backdrop-filter: blur(15px);
-            top: 100%;
+            top: 100%; /* Positions directly below */
             left: 0;
-            margin-top: 10px; /* Slight gap fix if needed */
+            margin-top: 0; /* CRITICAL FIX: Removes gap so hover stays active */
         }
 
         /* Links inside the dropdown */
