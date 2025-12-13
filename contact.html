@@ -114,45 +114,6 @@
             color: var(--brand-gold); 
         }
 
-        /* --- DROPDOWN MENU STYLES --- */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background: rgba(0, 31, 63, 0.9);
-            backdrop-filter: blur(10px);
-            min-width: 180px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            z-index: 1;
-            border: 1px solid var(--glass-border);
-            border-radius: 4px;
-            top: 100%;
-            left: 0;
-        }
-
-        .dropdown-content a {
-            color: var(--text-white);
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .dropdown-content a:hover {
-            background-color: var(--card-hover-bg);
-            color: var(--brand-gold);
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
         .nav-buttons {
             display: flex;
             gap: 10px;
@@ -353,13 +314,7 @@
                 <a href="#">Academy</a>
                 <a href="#">Media</a>
                 <a href="#">Careers</a>
-                <div class="dropdown">
-                    <a href="#" style="cursor: default;">Contact Us <i class="fas fa-caret-down"></i></a>
-                    <div class="dropdown-content">
-                        <a href="contact.html">Holistic Data Pro</a>
-                    </div>
                 </div>
-            </div>
         </div>
 
         <div class="nav-buttons">
@@ -373,7 +328,7 @@
             <h2 class="section-title">Ready to optimize your data?</h2>
             <p class="section-subtitle">Connect with Bartus de Paiva for a consultation on your legacy systems or BI needs.</p>
             
-            <form class="contact-form" action="https://formspree.io/f/xvgelrbw" method="POST">
+            <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
                 
                 <div class="form-group">
                     <label>Full Name</label>
