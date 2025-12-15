@@ -180,7 +180,7 @@
             font-weight: 500;
         }
 
-        /* --- NETWORK GRAPHIC (CLUSTERED) --- */
+        /* --- NETWORK GRAPHIC (CLUSTERED LIKE PICTURE 1) --- */
         
         .network-graphic {
             width: 45%; 
@@ -188,14 +188,14 @@
             position: relative;
         }
 
-        /* Nodes (Bubbles) Styling */
+        /* Nodes (Bubbles) Styling - Softer look */
         .node {
             position: absolute;
-            width: 110px; /* Bubbles size */
+            width: 110px;
             height: 110px;
             border-radius: 50%;
             background: rgba(0, 50, 80, 0.6); 
-            border: 1px solid rgba(0, 230, 118, 0.3); 
+            border: 1px solid rgba(0, 230, 118, 0.3); /* Fainter border */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -203,11 +203,12 @@
             text-align: center;
             font-size: 11px;
             color: #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            box-shadow: 0 0 15px rgba(0,0,0,0.5); /* Softer glow */
             z-index: 2;
             transition: all 0.3s ease;
         }
         
+        /* Keep the green hover effect you liked */
         .node:hover {
             border-color: #00e676;
             background: rgba(0, 50, 80, 0.8);
@@ -227,23 +228,22 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 120px; /* Slightly larger center */
+            width: 120px;
             height: 120px;
             background: rgba(0, 70, 100, 0.8);
             border: 2px solid #00e676; 
             z-index: 10;
         }
 
-        /* --- POSITIONING (CLUSTERED TIGHTLY) --- */
-        /* Using translate to center elements on their points ensures they cluster nicely */
+        /* --- POSITIONING (TIGHT CLUSTER LIKE PICTURE 1) --- */
 
-        .pos-1 { top: 20%; left: 20%; } /* Rev Eng (Top Left) */
-        .pos-2 { top: 15%; left: 50%; transform: translateX(-50%); } /* SSIS (Top Center) */
-        .pos-3 { top: 20%; left: 80%; } /* SSAS (Top Right) */
-        .pos-4 { top: 50%; left: 85%; transform: translateY(-50%); } /* PBI (Right) */
-        .pos-5 { top: 80%; left: 50%; transform: translateX(-50%); } /* ETL (Bottom Center) */
-        .pos-6 { top: 80%; left: 20%; } /* Excel (Bottom Left) */
-        .pos-7 { top: 50%; left: 15%; transform: translateY(-50%); } /* SSMS (Left) */
+        .pos-1 { top: 20%; left: 20%; } /* Rev Eng */
+        .pos-2 { top: 15%; left: 50%; transform: translateX(-50%); } /* SSIS */
+        .pos-3 { top: 20%; left: 80%; } /* SSAS */
+        .pos-4 { top: 50%; left: 85%; transform: translateY(-50%); } /* PBI */
+        .pos-5 { top: 80%; left: 50%; transform: translateX(-50%); } /* ETL */
+        .pos-6 { top: 80%; left: 20%; } /* Excel */
+        .pos-7 { top: 50%; left: 15%; transform: translateY(-50%); } /* SSMS */
 
         /* Connector Lines - SHORTENED */
         .connector {
@@ -256,14 +256,13 @@
             z-index: 1;
         }
 
-        /* Lengths reduced to ~130px to keep them tight */
-        .c1 { width: 150px; transform: rotate(225deg); } /* To Rev Eng */
-        .c2 { width: 130px; transform: rotate(270deg); } /* To SSIS (Up) */
-        .c3 { width: 150px; transform: rotate(315deg); } /* To SSAS */
-        .c4 { width: 140px; transform: rotate(0deg); }   /* To PBI (Right) */
-        .c5 { width: 130px; transform: rotate(90deg); }  /* To ETL (Down) */
-        .c6 { width: 150px; transform: rotate(135deg); } /* To Excel */
-        .c7 { width: 140px; transform: rotate(180deg); } /* To SSMS (Left) */
+        .c1 { width: 150px; transform: rotate(225deg); }
+        .c2 { width: 130px; transform: rotate(270deg); }
+        .c3 { width: 150px; transform: rotate(315deg); }
+        .c4 { width: 140px; transform: rotate(0deg); }
+        .c5 { width: 130px; transform: rotate(90deg); }
+        .c6 { width: 150px; transform: rotate(135deg); }
+        .c7 { width: 140px; transform: rotate(180deg); }
 
         /* --- CSS ENDS HERE --- */
     </style>
