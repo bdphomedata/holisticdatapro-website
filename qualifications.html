@@ -6,16 +6,19 @@
     <title>Qualifications & Tech | Holistic Data Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- CORE VARIABLES & RESET --- */
+        /* --- CORE VARIABLES (MATCHING OTHER PAGES) --- */
         :root {
-            --brand-blue-light: #0077c8;
-            --brand-blue-dark: #001f3f;
-            --brand-gold: #ffc629;
-            --brand-green: #4ade80;
+            --brand-blue-top: #005582;    /* Lighter blue top */
+            --brand-blue-bottom: #001a2d; /* Darker blue bottom */
+            --brand-gold: #ffc107;        /* Vibrant Gold */
+            --brand-green: #4ade80;       /* Tech Green/Cyan */
             --text-white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --card-hover-bg: rgba(0, 31, 63, 0.9);
+            --text-gray: #e0f2fe;
+            
+            /* Blue Glass Effects */
+            --glass-bg: rgba(0, 60, 95, 0.4); 
+            --glass-border: rgba(74, 222, 128, 0.2); 
+            --card-hover-bg: rgba(0, 85, 130, 0.6);
         }
 
         * { box-sizing: border-box; }
@@ -24,119 +27,126 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
-            background-color: #000b1a;
+            background-color: var(--brand-blue-bottom);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* --- BACKGROUND --- */
-        .page-bg {
+        /* --- VIDEO BACKGROUND SETUP --- */
+        #bg-video {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #001f3f 0%, #000b1a 100%);
-            z-index: -2;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -2; 
+            object-fit: cover;
+            filter: brightness(0.8); 
         }
 
-        .bg-grid {
-            position: absolute;
-            width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
+        /* --- GRADIENT OVERLAY --- */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(0, 85, 130, 0.85) 0%,   
+                rgba(0, 35, 55, 0.92) 100%   
+            );
+            z-index: -1; 
         }
 
-        /* --- NAVIGATION (STRICT WHITE LINKS) --- */
+        /* --- NAVIGATION --- */
         nav {
             display: flex; 
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2%;
-            background: rgba(0, 31, 63, 0.8);
+            background: rgba(0, 60, 95, 0.8); 
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             position: sticky; top: 0; z-index: 1000;
         }
 
-        /* LEFT SIDE */
         .nav-left { display: flex; align-items: center; gap: 30px; }
-        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); white-space: nowrap; }
+        .logo { font-size: 1.4rem; font-weight: 900; letter-spacing: 1px; color: var(--text-white); text-transform: uppercase; }
         
-        /* 1. Top Level Menu Items - Force White */
-        .nav-links a, 
-        .nav-links a:visited, 
-        .nav-links a:active {
-            color: #ffffff !important; /* Force White */
+        .nav-links a, .nav-links a:visited {
+            color: #ffffff !important; 
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 600;
-            opacity: 0.9;
+            opacity: 0.95;
             transition: all 0.3s ease;
-            white-space: nowrap;
         }
-        .nav-links > a:hover { opacity: 1; color: var(--brand-gold) !important; }
+        .nav-links > a:hover { color: var(--brand-green) !important; opacity: 1; }
 
-        /* Dropdown Container */
+        /* Dropdown */
         .dropdown { position: relative; display: inline-block; padding: 10px 0; }
-        
         .dropdown-content { 
             display: none; 
             position: absolute; 
-            background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%); 
+            background: #002d45; 
             min-width: 240px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.6); 
-            border: 1px solid var(--glass-border); 
-            border-top: 3px solid var(--brand-gold); 
+            border: 1px solid var(--brand-green); 
             z-index: 2000; 
-            top: 100%; 
-            left: 0; 
-            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%); 
+            top: 100%; left: 0; 
         }
-
-        /* 2. Dropdown Items - Force White */
-        .dropdown-content a,
-        .dropdown-content a:visited,
-        .dropdown-content a:active { 
-            color: #ffffff !important; /* Force White */
+        .dropdown-content a { 
+            color: #ffffff !important; 
             padding: 16px 20px; 
-            text-decoration: none; 
             display: block; 
             border-bottom: 1px solid rgba(255,255,255,0.05); 
-            border-left: 3px solid transparent; 
-            transition: all 0.2s ease; 
         }
-
         .dropdown-content a:hover { 
-            background: linear-gradient(90deg, rgba(74, 222, 128, 0.1) 0%, transparent 100%); 
+            background: rgba(74, 222, 128, 0.1); 
             color: var(--brand-green) !important; 
-            border-left: 3px solid var(--brand-green); 
-            padding-left: 28px; 
         }
-
         .dropdown:hover .dropdown-content { display: block; }
+        .fa-caret-down { margin-left: 5px; color: var(--brand-green); }
+
+        /* Buttons */
+        .nav-buttons { display: flex; gap: 15px; align-items: center; }
         
-        .fa-caret-down { margin-left: 5px; font-size: 0.8em; color: var(--brand-green); transition: transform 0.3s ease; }
-        .dropdown:hover .fa-caret-down { transform: rotate(180deg); }
+        .nav-btn-gold { 
+            background-color: var(--brand-gold); 
+            color: #002337; 
+            padding: 12px 24px; 
+            border-radius: 50px; 
+            font-weight: 800; 
+            font-size: 0.85rem; 
+            text-decoration: none;
+            transition: transform 0.2s;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+        .nav-btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5); }
 
-        /* RIGHT SIDE BUTTONS */
-        .nav-buttons { display: flex; gap: 10px; align-items: center; }
-        .nav-btn { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; white-space: nowrap; }
-        .nav-btn-gold { background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold); }
-        .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
-        .nav-btn-green { background-color: transparent; color: var(--brand-green); border: 2px solid var(--brand-green); }
-        .nav-btn-green:hover { background-color: rgba(74, 222, 128, 0.1); }
-
+        .nav-btn-outline { 
+            background: transparent; 
+            color: var(--brand-green); 
+            border: 2px solid var(--brand-green);
+            padding: 10px 22px; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .nav-btn-outline:hover { background: rgba(74, 222, 128, 0.15); }
 
         /* --- HEADER --- */
         .page-header {
             text-align: center;
-            padding: 80px 20px 50px;
+            padding: 100px 20px 50px;
             max-width: 900px;
             margin: 0 auto;
         }
         .page-header h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; }
         .page-header strong { color: var(--brand-green); font-weight: 700; }
-        .page-header p { color: #d1d5db; line-height: 1.6; font-size: 1.1rem; }
+        .page-header p { color: var(--text-gray); line-height: 1.6; font-size: 1.1rem; }
 
         /* --- SECTION STYLES --- */
         .section-container {
@@ -152,6 +162,7 @@
             padding-left: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
 
         /* --- CERTIFICATION GRID --- */
@@ -162,22 +173,24 @@
         }
 
         .cert-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            /* Blue Glass Card style */
+            background: linear-gradient(160deg, rgba(0, 85, 130, 0.3) 0%, rgba(0, 35, 55, 0.3) 100%);
+            border: 1px solid rgba(255,255,255,0.1);
             padding: 30px;
             border-radius: 8px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            backdrop-filter: blur(5px);
         }
 
-        .cert-card::top {
+        .cert-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--brand-gold);
         }
 
         .cert-card:hover {
             transform: translateY(-5px);
-            background: var(--card-hover-bg);
+            background: linear-gradient(160deg, rgba(0, 95, 140, 0.5) 0%, rgba(0, 45, 65, 0.5) 100%);
             border-color: var(--brand-gold);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
@@ -198,8 +211,8 @@
         .skill-tags { display: flex; flex-wrap: wrap; gap: 15px; }
         
         .skill-tag {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0, 40, 70, 0.6);
+            border: 1px solid rgba(74, 222, 128, 0.2);
             padding: 10px 20px;
             border-radius: 4px;
             font-size: 0.95rem;
@@ -213,22 +226,30 @@
         .skill-tag i { color: var(--brand-green); }
 
         .skill-tag:hover {
-            background: rgba(74, 222, 128, 0.1);
+            background: rgba(74, 222, 128, 0.15);
             border-color: var(--brand-green);
             transform: scale(1.05);
         }
 
         /* --- EDUCATION LIST --- */
+        .edu-container {
+            background: linear-gradient(135deg, rgba(0, 60, 95, 0.4) 0%, rgba(0, 30, 50, 0.5) 100%);
+            border: 1px solid var(--glass-border); 
+            border-radius: 8px;
+            backdrop-filter: blur(5px);
+        }
+
         .edu-item {
             display: flex;
             gap: 20px;
-            padding: 20px;
-            border-bottom: 1px solid var(--glass-border);
+            padding: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         .edu-item:last-child { border-bottom: none; }
-        .edu-year { color: var(--brand-gold); font-weight: 700; min-width: 100px; }
-        .edu-details h4 { margin: 0 0 5px 0; font-size: 1.1rem; }
-        .edu-details p { margin: 0; color: #a0aec0; font-size: 0.9rem; }
+        
+        .edu-year { color: var(--brand-gold); font-weight: 700; min-width: 100px; font-size: 1.1rem; }
+        .edu-details h4 { margin: 0 0 5px 0; font-size: 1.2rem; color: var(--text-white); }
+        .edu-details p { margin: 0; color: #a0aec0; font-size: 0.95rem; }
 
         @media (max-width: 900px) {
             .page-header h1 { font-size: 2rem; }
@@ -243,8 +264,11 @@
 </head>
 <body>
 
-    <div class="page-bg"></div>
-    <div class="bg-grid"></div>
+    <video autoplay muted loop id="bg-video">
+        <source src="assets/video/WebsiteVideo.mp4" type="video/mp4">
+    </video>
+    
+    <div class="video-overlay"></div>
 
     <nav>
         <div class="nav-left">
@@ -273,8 +297,8 @@
         </div>
         
         <div class="nav-buttons">
-            <a href="contact.html" class="nav-btn nav-btn-gold">CONNECT WITH ME</a>
-            <a href="Profile.pdf" class="nav-btn nav-btn-green" download>DOWNLOAD PROFILE</a>
+            <a href="contact.html" class="nav-btn-gold">CONNECT WITH ME</a>
+            <a href="Profile.pdf" class="nav-btn-outline" download>DOWNLOAD PROFILE</a>
         </div>
     </nav>
     
@@ -366,7 +390,7 @@
 
     <div class="section-container">
         <h2 class="section-title">Education & Courses</h2>
-        <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px;">
+        <div class="edu-container">
             <div class="edu-item">
                 <div class="edu-year">Courses</div>
                 <div class="edu-details">
