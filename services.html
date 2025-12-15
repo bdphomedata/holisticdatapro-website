@@ -7,19 +7,163 @@
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- General Typography --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* --- Navigation Bar Styling --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            background-color: #ffffff;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #03182e; /* Dark Blue */
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #556b8d;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #008060;
+        }
+
+        /* Dropdown Styling */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #ffffff;
+            min-width: 220px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+            z-index: 1;
+            border-radius: 6px;
+            top: 100%;
+            left: 0;
+            padding: 10px 0;
+            border: 1px solid #eee;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f9fa;
+            color: #008060;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn-gold {
+            background-color: transparent;
+            color: #bfa15f;
+            border: 2px solid #bfa15f;
+        }
+        
+        .nav-btn-gold:hover {
+            background-color: #bfa15f;
+            color: #fff;
+        }
+
+        .nav-btn-green {
+            background-color: #008060;
+            color: white;
+            border: 2px solid #008060;
+        }
+
+        .nav-btn-green:hover {
+            background-color: #006048;
+            border-color: #006048;
+        }
+
+        /* --- Card Styling Improvements --- */
+        .card {
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #2ecc71 !important;
+        }
+        
+        .badge {
+            font-weight: 500;
+            padding: 6px 10px;
+            background-color: rgba(255, 255, 255, 0.1) !important; /* Semi-transparent background for tags */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+    </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-<nav>
+    <nav>
         <div class="nav-left">
             <a href="index.html" style="text-decoration: none;">
                 <div class="logo">HOLISTIC DATA PRO</div>
             </a>
             
-            <div class="nav-links">
-                <div class="dropdown">
+            <div class="nav-links d-none d-lg-flex"> <div class="dropdown">
                     <a href="index.html" style="cursor: pointer;">
-                        About Us <i class="fas fa-caret-down"></i>
+                        About Us <i class="fas fa-caret-down ms-1"></i>
                     </a>
                     <div class="dropdown-content">
                         <a href="index.html">Home</a> 
@@ -30,28 +174,32 @@
                     </div>
                 </div>
 
-                <a href="services.html">Services</a>
+                <a href="services.html" style="color: #03182e; font-weight: bold;">Services</a>
                 
                 <a href="construction.html">Solutions</a>
             </div>
         </div>
         
-        <div class="nav-buttons">
-            <a href="contact.html" class="nav-btn nav-btn-gold">CONNECT WITH ME</a>
-            <a href="Profile.pdf" class="nav-btn nav-btn-green" download>DOWNLOAD PROFILE</a>
+        <div class="nav-buttons d-none d-md-flex">
+            <a href="contact.html" class="nav-btn nav-btn-gold">Connect With Me</a>
+            <a href="Profile.pdf" class="nav-btn nav-btn-green" download>Download Profile</a>
         </div>
+
+        <button class="btn btn-outline-dark d-lg-none" type="button">
+            <i class="bi bi-list"></i>
+        </button>
     </nav>
 
     <section id="core-expertise" class="py-5 flex-grow-1" style="background-color: #03182e; color: white;">
-        <div class="container">
+        <div class="container py-4">
             
             <div class="mb-5">
-                <span class="d-inline-block py-1 px-3 mb-3 fw-bold" 
-                      style="background-color: #008060; color: #fff; letter-spacing: 1px; font-size: 0.8rem;">
+                <span class="d-inline-block py-1 px-3 mb-3 fw-bold rounded-1" 
+                      style="background-color: #008060; color: #fff; letter-spacing: 1px; font-size: 0.75rem;">
                     OUR CAPABILITIES
                 </span>
-                <h2 class="display-5 fw-bold text-white">Core Expertise</h2>
-                <p class="lead" style="color: #aebecd; max-width: 700px;">
+                <h2 class="display-5 fw-bold text-white mb-3">Core Expertise</h2>
+                <p class="lead" style="color: #aebecd; max-width: 700px; font-size: 1.1rem;">
                     Delivering high-performance data infrastructure and business intelligence solutions tailored to your operational needs.
                 </p>
             </div>
@@ -59,76 +207,76 @@
             <div class="row g-4">
                 
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
-                        <div class="card-body">
+                    <div class="card h-100 p-4 border" style="background-color: rgba(255,255,255,0.03); border-color: #1f3a52 !important; border-radius: 8px;">
+                        <div class="card-body p-0">
                             <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-code-slash fs-2"></i>
+                                <i class="bi bi-code-slash fs-1"></i>
                             </div>
-                            <h4 class="card-title text-white h5 fw-bold">Legacy Reverse Engineering</h4>
-                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
+                            <h4 class="card-title text-white h5 fw-bold mb-3">Legacy Reverse Engineering</h4>
+                            <p class="card-text text-light opacity-75 mb-4" style="font-size: 0.9rem; line-height: 1.6;">
                                 Unlocking value from older systems. We dissect, document, and migrate legacy logic into modern, scalable data architectures without losing business context.
                             </p>
-                            <div class="mt-4 pt-2 border-top border-secondary">
-                                <span class="badge bg-secondary me-1 mb-1">SQL Server</span>
-                                <span class="badge bg-secondary me-1 mb-1">T-SQL</span>
-                                <span class="badge bg-secondary mb-1">Auditing</span>
+                            <div class="pt-3 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
+                                <span class="badge me-1 mb-1">SQL Server</span>
+                                <span class="badge me-1 mb-1">T-SQL</span>
+                                <span class="badge mb-1">Auditing</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
-                        <div class="card-body">
+                    <div class="card h-100 p-4 border" style="background-color: rgba(255,255,255,0.03); border-color: #1f3a52 !important; border-radius: 8px;">
+                        <div class="card-body p-0">
                             <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-hdd-network fs-2"></i>
+                                <i class="bi bi-hdd-network fs-1"></i>
                             </div>
-                            <h4 class="card-title text-white h5 fw-bold">FTP Data Automation</h4>
-                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
+                            <h4 class="card-title text-white h5 fw-bold mb-3">FTP Data Automation</h4>
+                            <p class="card-text text-light opacity-75 mb-4" style="font-size: 0.9rem; line-height: 1.6;">
                                 Seamlessly retrieve, validate, and process external data files from FTP/SFTP sources. We build robust listeners and schedulers to ensure data arrives on time.
                             </p>
-                            <div class="mt-4 pt-2 border-top border-secondary">
-                                <span class="badge bg-secondary me-1 mb-1">WinSCP</span>
-                                <span class="badge bg-secondary me-1 mb-1">PowerShell</span>
-                                <span class="badge bg-secondary mb-1">Batch Scripting</span>
+                            <div class="pt-3 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
+                                <span class="badge me-1 mb-1">WinSCP</span>
+                                <span class="badge me-1 mb-1">PowerShell</span>
+                                <span class="badge mb-1">Batch Scripting</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
-                        <div class="card-body">
+                    <div class="card h-100 p-4 border" style="background-color: rgba(255,255,255,0.03); border-color: #1f3a52 !important; border-radius: 8px;">
+                        <div class="card-body p-0">
                             <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-diagram-3 fs-2"></i>
+                                <i class="bi bi-diagram-3 fs-1"></i>
                             </div>
-                            <h4 class="card-title text-white h5 fw-bold">ETL & Integration</h4>
-                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
+                            <h4 class="card-title text-white h5 fw-bold mb-3">ETL & Integration</h4>
+                            <p class="card-text text-light opacity-75 mb-4" style="font-size: 0.9rem; line-height: 1.6;">
                                 High-speed data transformation pipelines using SSIS. We clean, aggregate, and warehouse your data to prepare it for high-level analysis.
                             </p>
-                            <div class="mt-4 pt-2 border-top border-secondary">
-                                <span class="badge bg-secondary me-1 mb-1">SSIS</span>
-                                <span class="badge bg-secondary me-1 mb-1">Data Warehousing</span>
-                                <span class="badge bg-secondary mb-1">Pipelines</span>
+                            <div class="pt-3 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
+                                <span class="badge me-1 mb-1">SSIS</span>
+                                <span class="badge me-1 mb-1">Data Warehousing</span>
+                                <span class="badge mb-1">Pipelines</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
-                        <div class="card-body">
+                    <div class="card h-100 p-4 border" style="background-color: rgba(255,255,255,0.03); border-color: #1f3a52 !important; border-radius: 8px;">
+                        <div class="card-body p-0">
                             <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-graph-up-arrow fs-2"></i>
+                                <i class="bi bi-graph-up-arrow fs-1"></i>
                             </div>
-                            <h4 class="card-title text-white h5 fw-bold">Advanced Reporting</h4>
-                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
+                            <h4 class="card-title text-white h5 fw-bold mb-3">Advanced Reporting</h4>
+                            <p class="card-text text-light opacity-75 mb-4" style="font-size: 0.9rem; line-height: 1.6;">
                                 Turning raw numbers into visual insights. From Power BI dashboards to complex Excel Power Pivot models and embedded HTML email reports.
                             </p>
-                            <div class="mt-4 pt-2 border-top border-secondary">
-                                <span class="badge bg-secondary me-1 mb-1">Power BI</span>
-                                <span class="badge bg-secondary me-1 mb-1">Power Pivot</span>
-                                <span class="badge bg-secondary mb-1">Email Reporting</span>
+                            <div class="pt-3 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
+                                <span class="badge me-1 mb-1">Power BI</span>
+                                <span class="badge me-1 mb-1">Power Pivot</span>
+                                <span class="badge mb-1">Email Reporting</span>
                             </div>
                         </div>
                     </div>
@@ -137,6 +285,7 @@
             </div>
         </div>
     </section>
+    
     <footer class="py-4 text-center text-white" style="background-color: #021222; border-top: 1px solid #1f3a52;">
         <div class="container">
             <small>&copy; 2025 Holistic Data. All Rights Reserved.</small>
