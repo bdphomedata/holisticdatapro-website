@@ -1,229 +1,95 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holistic Data Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-body {
-    background: radial-gradient(circle at 60% 50%, #004e92, #001f3f, #000814); /* Deep blue gradient */
-    color: white;
-    height: 100vh;
-    overflow-x: hidden;
-}
+    <header>
+        <div class="logo">HOLISTIC DATA PRO</div>
+        
+        <nav>
+            <ul>
+                <li class="active-item">
+                    <a href="#">About Us <span class="arrow">▲</span></a>
+                    
+                    <div class="dropdown">
+                        <a href="overview.html">Professional Overview</a>
+                        <a href="journey.html">My Journey (1999-2025)</a>
+                        <a href="qualifications.html">Qualifications & Tech</a>
+                        <a href="projects.html">Project Highlights</a>
+                    </div>
+                </li>
+                <li><a href="construction.html">Services</a></li>
+                <li><a href="construction.html">Solutions</a></li>
+                <li><a href="construction.html">Industries</a></li>
+                <li><a href="construction.html">Clients</a></li>
+                <li><a href="construction.html">Academy</a></li>
+                <li><a href="construction.html">Media</a></li>
+                <li><a href="construction.html">Careers</a></li>
+            </ul>
+        </nav>
 
-/* Header Styling */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 50px;
-    background: transparent; /* Blends with body */
-}
+        <div class="cta-buttons">
+            <a href="contact.html" class="btn-yellow">CONNECT WITH ME</a>
+            <a href="profile.pdf" class="btn-outline">DOWNLOAD PROFILE</a>
+        </div>
+    </header>
 
-.logo {
-    font-weight: 800;
-    font-size: 24px;
-    letter-spacing: 1px;
-    color: #fff;
-    text-transform: uppercase;
-}
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Expert Data-Driven<br>Business Intelligence</h1>
+            <p>
+                Holistic Data Pro is led by Bartus de Paiva, a Senior BI Developer 
+                with <span class="highlight">over 25 years of specialized experience</span>. 
+                We specialize in <span class="highlight">reverse engineering legacy systems</span> 
+                and <span class="highlight">automating data files from FTP sites</span>—auditing 
+                and modeling them into embedded email reports. From robust <span class="highlight">ETL pipelines</span> 
+                to advanced reporting using <span class="highlight">Excel Power Pivot and Power BI</span>, 
+                we engineer end-to-end intelligence solutions.
+            </p>
+        </div>
 
-/* Navigation */
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-}
+        <div class="network-graphic">
+            <div class="node center-node">
+                <strong>VS</strong><br>VISUAL STUDIO
+            </div>
 
-nav ul li {
-    position: relative;
-    font-size: 14px;
-    font-weight: 500;
-}
+            <div class="node pos-1">
+                <strong>Rev Eng</strong><br>LEGACY SYS
+            </div>
+            <div class="node pos-2">
+                <strong>SSIS</strong><br>INTEGRATION
+            </div>
+            <div class="node pos-3">
+                <strong>SSAS</strong><br>ANALYSIS
+            </div>
+            <div class="node pos-4">
+                <strong>PBI</strong><br>POWER BI
+            </div>
+            <div class="node pos-5">
+                <strong>ETL</strong><br>EXPERT
+            </div>
+            <div class="node pos-6">
+                <strong>Excel</strong><br>POWER PIVOT
+            </div>
+            <div class="node pos-7">
+                <strong>SSMS</strong><br>SQL MGMT
+            </div>
+            
+            <div class="connector c1"></div>
+            <div class="connector c2"></div>
+            <div class="connector c3"></div>
+            <div class="connector c4"></div>
+            <div class="connector c5"></div>
+            <div class="connector c6"></div>
+            <div class="connector c7"></div>
+        </div>
+    </section>
 
-nav ul li a {
-    text-decoration: none;
-    color: #ddd;
-    transition: color 0.3s;
-}
-
-nav ul li a:hover {
-    color: #fff;
-}
-
-/* The 'About Us' Active State with Dropdown */
-.active-item > a {
-    color: #fff;
-    border-bottom: 2px solid #ffcc00; /* Yellow underline */
-    padding-bottom: 5px;
-}
-
-.arrow {
-    font-size: 10px;
-    margin-left: 5px;
-}
-
-.dropdown {
-    position: absolute;
-    top: 40px; /* Space from menu */
-    left: -20px;
-    background-color: #001220; /* Very dark blue box */
-    padding: 20px 0;
-    width: 220px;
-    display: flex; /* Force display as per image */
-    flex-direction: column;
-    border-left: 4px solid #ffcc00; /* Yellow accent bar on left */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-    z-index: 100;
-}
-
-.dropdown a {
-    padding: 10px 20px;
-    color: #ccc;
-    font-size: 14px;
-    border: none;
-    display: block;
-}
-
-.dropdown a:hover {
-    color: white;
-    background: rgba(255,255,255,0.05);
-}
-
-/* CTA Buttons */
-.cta-buttons {
-    display: flex;
-    gap: 15px;
-}
-
-.btn-yellow {
-    background-color: #ffcc00;
-    color: #000;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 12px;
-    text-decoration: none;
-}
-
-.btn-outline {
-    background-color: transparent;
-    color: #00e676; /* Green text */
-    border: 1px solid #00e676; /* Green border */
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-weight: 700;
-    font-size: 12px;
-    text-decoration: none;
-}
-
-/* Hero Section */
-.hero-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 80px 100px;
-    height: calc(100vh - 80px);
-}
-
-.hero-content {
-    width: 50%;
-}
-
-.hero-content h1 {
-    font-size: 48px;
-    line-height: 1.2;
-    margin-bottom: 30px;
-    font-weight: 400;
-}
-
-.hero-content p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #ddd;
-    max-width: 600px;
-}
-
-/* The Green Highlights in text */
-.highlight {
-    color: #00e676; /* Bright Green/Teal */
-    font-weight: 500;
-}
-
-/* Network Graphic Construction */
-.network-graphic {
-    width: 45%;
-    height: 400px;
-    position: relative;
-    /* This creates the faded background lines effect can be enhanced with an SVG later */
-}
-
-/* Nodes Styling */
-.node {
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: rgba(0, 50, 80, 0.6); /* Semi-transparent blue */
-    border: 1px solid rgba(0, 230, 118, 0.3); /* Faint green border */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 10px;
-    color: #fff;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    z-index: 2;
-}
-
-.node strong {
-    font-size: 14px;
-    color: #00e676; /* Green title inside bubble */
-    margin-bottom: 2px;
-    display: block;
-}
-
-/* Center Node (VS) */
-.center-node {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
-    background: rgba(0, 70, 100, 0.8);
-    border: 2px solid #00e676; /* Stronger border for center */
-    z-index: 10;
-}
-
-/* Positioning surrounding nodes (Clockwise logic roughly) */
-
-.pos-1 { top: 10%; left: 20%; } /* Rev Eng */
-.pos-2 { top: 10%; left: 80%; } /* SSIS */
-.pos-3 { top: 35%; left: 90%; } /* SSAS */
-.pos-4 { top: 65%; left: 85%; } /* PBI */
-.pos-5 { top: 85%; left: 60%; } /* ETL */
-.pos-6 { top: 85%; left: 30%; } /* Excel */
-.pos-7 { top: 60%; left: 10%; } /* SSMS */
-
-/* Simple Connector Lines (CSS lines for the 'network' look) */
-.connector {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 1px;
-    background: rgba(0, 230, 118, 0.2); /* Faint green line */
-    transform-origin: 0 0;
-    z-index: 1;
-}
-
-/* Angles/Lengths for connectors roughly connecting center to nodes */
-.c1 { width: 140px; transform: rotate(225deg); } /* To Rev Eng */
-.c2 { width: 140px; transform: rotate(315deg); } /* To SSIS */
-.c3 { width: 160px; transform: rotate(345deg); } /* To SSAS */
-.c4 { width: 150px; transform: rotate(20deg); }  /* To PBI */
-.c5 { width: 120px; transform: rotate(80deg); }  /* To ETL */
-.c6 { width: 120px; transform: rotate(110deg); } /* To Excel */
-.c7 { width: 140px; transform: rotate(160deg); } /* To SSMS */
+</body>
+</html>
