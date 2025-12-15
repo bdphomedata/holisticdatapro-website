@@ -3,147 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holistic Data | Home</title>
+    <title>Holistic Data Pro | Home</title>
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* Custom Styles for Hero Section */
-        .hero-section {
-            background: linear-gradient(rgba(3, 24, 46, 0.9), rgba(3, 24, 46, 0.8)), url('https://source.unsplash.com/random/1920x1080/?code,server') no-repeat center center/cover;
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #002b49; /* Deep Blue Background */
             color: white;
-            padding: 100px 0;
-            border-bottom: 1px solid #1f3a52;
+            overflow-x: hidden;
         }
+
+        /* --- NAVBAR STYLES --- */
+        .navbar {
+            background-color: #001f3f; /* Slightly darker nav */
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .navbar-brand {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: white !important;
+            letter-spacing: 1px;
+        }
+        .nav-link {
+            color: #dbe4eb !important;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-right: 15px;
+        }
+        .nav-link:hover {
+            color: #00d48a !important; /* Green hover */
+        }
+        .dropdown-menu {
+            background-color: #001f3f;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .dropdown-item {
+            color: #dbe4eb;
+        }
+        .dropdown-item:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: #fff;
+        }
+
+        /* CTA Buttons in Nav */
+        .btn-connect {
+            background-color: #ffcc00;
+            color: #000;
+            font-weight: 700;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            margin-right: 10px;
+        }
+        .btn-download {
+            background-color: transparent;
+            border: 2px solid #00d48a;
+            color: #fff;
+            font-weight: 700;
+            border-radius: 20px;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+        }
+        .btn-download:hover {
+            background-color: #00d48a;
+            color: #000;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero-section {
+            padding-top: 80px;
+            padding-bottom: 100px;
+            background: radial-gradient(circle at top right, #00406b, #002b49);
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 30px;
+        }
+        
+        .hero-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #dbe4eb;
+            max-width: 600px;
+        }
+        
+        /* The Green Highlights in text */
+        .highlight-green {
+            color: #00d48a;
+            font-weight: 600;
+        }
+
+        /* --- NETWORK DIAGRAM (CSS Bubbles) --- */
+        .network-container {
+            position: relative;
+            height: 400px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tech-node {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0, 212, 138, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 15px rgba(0, 212, 138, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .tech-node:hover {
+            border-color: #00d48a;
+            background: rgba(0, 212, 138, 0.1);
+            transform: scale(1.1);
+        }
+
+        .node-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #00d48a;
+            margin: 0;
+        }
+        .node-sub {
+            font-size: 0.65rem;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        /* Positioning the Nodes */
+        .node-center { z-index: 10; width: 120px; height: 120px; border-color: #00d48a; }
+        .node-1 { top: 0; } /* SSIS */
+        .node-2 { top: 50px; right: 20px; } /* SSAS */
+        .node-3 { bottom: 80px; right: 20px; } /* PBI */
+        .node-4 { bottom: 0; } /* ETL */
+        .node-5 { bottom: 50px; left: 20px; } /* Excel */
+        .node-6 { top: 80px; left: 20px; } /* SSMS */
+        .node-7 { top: 10px; left: 80px; } /* Rev Eng - adjusted */
+
+        /* Decorative Lines (Simple) */
+        .connector-line {
+            position: absolute;
+            background-color: rgba(0, 212, 138, 0.2);
+            z-index: 1;
+        }
+
     </style>
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #03182e;">
-        <div class="container">
-            <a class="navbar-brand fw-bold" href="index.html">HOLISTIC DATA</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+    <nav class="navbar navbar-expand-xl navbar-dark fixed-top">
+        <div class="container-fluid px-5">
+            <a class="navbar-brand" href="#">HOLISTIC DATA PRO</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
+
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-4">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            About Us
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Professional Overview</a></li>
+                            <li><a class="dropdown-item" href="#">My Journey (1999-2025)</a></li>
+                            <li><a class="dropdown-item" href="#">Qualifications & Tech</a></li>
+                            <li><a class="dropdown-item" href="#">Project Highlights</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Solutions</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Industries</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Clients</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Academy</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Media</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Careers</a></li>
                 </ul>
+
+                <div class="d-flex">
+                    <a href="#" class="btn btn-connect">CONNECT WITH ME</a>
+                    <a href="#" class="btn btn-download">DOWNLOAD PROFILE</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <header class="hero-section text-center">
+    <section class="hero-section d-flex align-items-center min-vh-100">
         <div class="container">
-            <h1 class="display-4 fw-bold mb-3">Intelligent Data Solutions</h1>
-            <p class="lead mb-4" style="color: #aebecd;">Empowering your business with robust data architecture and clear insights.</p>
-            <a href="#core-expertise" class="btn btn-success btn-lg">View Capabilities</a>
-        </div>
-    </header>
-
-    <section id="core-expertise" class="py-5" style="background-color: #03182e; color: white;">
-        <div class="container">
-            
-            <div class="mb-5">
-                <span class="d-inline-block py-1 px-3 mb-3 fw-bold" 
-                      style="background-color: #008060; color: #fff; letter-spacing: 1px; font-size: 0.8rem;">
-                    OUR CAPABILITIES
-                </span>
-                <h2 class="display-5 fw-bold text-white">Core Expertise</h2>
-                <p class="lead" style="color: #aebecd; max-width: 700px;">
-                    Delivering high-performance data infrastructure and business intelligence solutions tailored to your operational needs.
-                </p>
-            </div>
-
-            <div class="row g-4">
+            <div class="row align-items-center">
                 
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
-                        <div class="card-body">
-                            <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-code-slash fs-2"></i>
-                            </div>
-                            <h4 class="card-title text-white h5 fw-bold">Legacy Reverse Engineering</h4>
-                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
-                                Unlocking value from older systems. We dissect, document, and migrate legacy logic into modern, scalable data architectures without losing business context.
-                            </p>
-                            <div class="mt-4 pt-2 border-top border-secondary">
-                                <span class="badge bg-secondary me-1 mb-1">SQL Server</span>
-                                <span class="badge bg-secondary me-1 mb-1">T-SQL</span>
-                                <span class="badge bg-secondary mb-1">Auditing</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-lg-6">
+                    <h1 class="hero-title text-white">
+                        Expert Data-Driven <br>
+                        Business Intelligence
+                    </h1>
+                    
+                    <p class="hero-text">
+                        Holistic Data Pro is led by Bartus de Paiva, a Senior BI Developer with 
+                        <span class="highlight-green">over 25 years of specialized experience</span>. 
+                        We specialize in <span class="highlight-green">reverse engineering legacy systems</span> and 
+                        <span class="highlight-green">automating data files from FTP sites</span>—auditing and modeling them into embedded email reports.
+                        <br><br>
+                        From robust <span class="highlight-green">ETL pipelines</span> to advanced reporting using 
+                        <span class="highlight-green">Excel Power Pivot and Power BI</span>, we engineer end-to-end intelligence solutions.
+                    </p>
                 </div>
 
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
-                        <div class="card-body">
-                            <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-hdd-network fs-2"></i>
-                            </div>
-                            <h4 class="card-title text-white h5 fw-bold">FTP Data Automation</h4>
-                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
-                                Seamlessly retrieve, validate, and process external data files from FTP/SFTP sources. We build robust listeners and schedulers to ensure data arrives on time.
-                            </p>
-                            <div class="mt-4 pt-2 border-top border-secondary">
-                                <span class="badge bg-secondary me-1 mb-1">WinSCP</span>
-                                <span class="badge bg-secondary me-1 mb-1">PowerShell</span>
-                                <span class="badge bg-secondary mb-1">Batch Scripting</span>
-                            </div>
+                <div class="col-lg-6 position-relative">
+                    <div class="network-container">
+                        
+                        <div class="tech-node node-center">
+                            <h5 class="node-title">VS</h5>
+                            <span class="node-sub">Visual Studio</span>
                         </div>
-                    </div>
-                </div>
 
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
-                        <div class="card-body">
-                            <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-diagram-3 fs-2"></i>
-                            </div>
-                            <h4 class="card-title text-white h5 fw-bold">ETL & Integration</h4>
-                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
-                                High-speed data transformation pipelines using SSIS. We clean, aggregate, and warehouse your data to prepare it for high-level analysis.
-                            </p>
-                            <div class="mt-4 pt-2 border-top border-secondary">
-                                <span class="badge bg-secondary me-1 mb-1">SSIS</span>
-                                <span class="badge bg-secondary me-1 mb-1">Data Warehousing</span>
-                                <span class="badge bg-secondary mb-1">Pipelines</span>
-                            </div>
+                        <div class="tech-node node-1" style="transform: translate(0, -140px);">
+                            <h5 class="node-title">SSIS</h5>
+                            <span class="node-sub">Integration</span>
                         </div>
-                    </div>
-                </div>
+                        
+                        <div class="tech-node node-2" style="transform: translate(120px, -70px);">
+                            <h5 class="node-title">SSAS</h5>
+                            <span class="node-sub">Analysis</span>
+                        </div>
 
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
-                        <div class="card-body">
-                            <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-graph-up-arrow fs-2"></i>
-                            </div>
-                            <h4 class="card-title text-white h5 fw-bold">Advanced Reporting</h4>
-                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
-                                Turning raw numbers into visual insights. From Power BI dashboards to complex Excel Power Pivot models and embedded HTML email reports.
-                            </p>
-                            <div class="mt-4 pt-2 border-top border-secondary">
-                                <span class="badge bg-secondary me-1 mb-1">Power BI</span>
-                                <span class="badge bg-secondary me-1 mb-1">Power Pivot</span>
-                                <span class="badge bg-secondary mb-1">Email Reporting</span>
-                            </div>
+                        <div class="tech-node node-3" style="transform: translate(120px, 70px);">
+                            <h5 class="node-title">PBI</h5>
+                            <span class="node-sub">Power BI</span>
                         </div>
+
+                        <div class="tech-node node-4" style="transform: translate(0, 140px);">
+                            <h5 class="node-title">ETL</h5>
+                            <span class="node-sub">Expert</span>
+                        </div>
+
+                        <div class="tech-node node-5" style="transform: translate(-120px, 70px);">
+                            <h5 class="node-title">Excel</h5>
+                            <span class="node-sub">Power Pivot</span>
+                        </div>
+
+                        <div class="tech-node node-6" style="transform: translate(-120px, -70px);">
+                            <h5 class="node-title">SSMS</h5>
+                            <span class="node-sub">SQL Mgmt</span>
+                        </div>
+
+                        <div class="tech-node node-7" style="transform: translate(-150px, 0px);">
+                            <h5 class="node-title">Rev Eng</h5>
+                            <span class="node-sub">Legacy Sys</span>
+                        </div>
+
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-
-    <footer class="py-4 text-center text-white mt-auto" style="background-color: #021222; border-top: 1px solid #1f3a52;">
-        <div class="container">
-            <small>&copy; 2025 Holistic Data. All Rights Reserved.</small>
-        </div>
-    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
