@@ -103,11 +103,9 @@
             height: 100%;
         }
 
-/* Base Link Styles - FORCED WHITE */
-        .nav-links a, 
-        .nav-links a:visited, 
-        .nav-links a:active {
-            color: var(--text-white); /* Forces white color always */
+        /* Base Link Styles */
+        .nav-links a {
+            color: var(--text-white);
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 600;
@@ -122,17 +120,28 @@
         }
 
         /* --- DROPDOWN MENU --- */
-.dropdown-content a,
-        .dropdown-content a:visited {
-            color: var(--text-white); /* Forces white in dropdowns too */
-            padding: 16px 20px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9rem;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            border-left: 3px solid transparent; 
-            transition: all 0.2s ease;
-            text-align: left;
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            height: 100%;
+            padding: 10px 0;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%);
+            min-width: 240px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            border: 1px solid var(--glass-border);
+            border-top: 3px solid var(--brand-gold);
+            z-index: 2000;
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+            backdrop-filter: blur(20px);
+            top: 100%;
+            left: 0;
+            animation: slideDown 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transform-origin: top center;
         }
 
         @keyframes slideDown {
@@ -360,7 +369,7 @@
     </div>
     <div class="video-overlay"></div>
 
-  <nav>
+    <nav>
         <div class="nav-left">
             <div class="logo">HOLISTIC DATA PRO</div>
             <div class="nav-links">
@@ -369,17 +378,19 @@
                         About Us <i class="fas fa-caret-down"></i>
                     </a>
                     <div class="dropdown-content">
-                        <a href="overview.html">Professional Overview</a>
-                        <a href="journey.html">My Journey (1999-2025)</a>
-                        <a href="qualifications.html">Qualifications & Tech</a>
-                        <a href="projects.html">Project Highlights</a>
+                        <a href="construction.html">Professional Overview</a>
+                        <a href="construction.html">My Journey (1999-2025)</a>
+                        <a href="construction.html">Qualifications & Tech</a>
+                        <a href="construction.html">Project Highlights</a>
                     </div>
                 </div>
-
-                <a href="services.html">Services</a>
-                
-                <a href="construction.html">Solutions</a>
-
+                <a href="#services">Services</a>
+                <a href="#">Solutions</a>
+                <a href="#">Industries</a>
+                <a href="#">Clients</a>
+                <a href="#">Academy</a>
+                <a href="#">Media</a>
+                <a href="#">Careers</a>
             </div>
         </div>
         <div class="nav-buttons">
