@@ -11,13 +11,14 @@
     <style>
         /* Custom Styles for Hero Section */
         .hero-section {
-            background: linear-gradient(rgba(3, 24, 46, 0.9), rgba(3, 24, 46, 0.8)), url('https://source.unsplash.com/random/1920x1080/?technology,data') no-repeat center center/cover;
+            background: linear-gradient(rgba(3, 24, 46, 0.9), rgba(3, 24, 46, 0.8)), url('https://source.unsplash.com/random/1920x1080/?code,server') no-repeat center center/cover;
             color: white;
             padding: 100px 0;
+            border-bottom: 1px solid #1f3a52;
         }
     </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #03182e;">
         <div class="container">
@@ -29,7 +30,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-                    </ul>
+                </ul>
             </div>
         </div>
     </nav>
@@ -37,28 +38,108 @@
     <header class="hero-section text-center">
         <div class="container">
             <h1 class="display-4 fw-bold mb-3">Intelligent Data Solutions</h1>
-            <p class="lead mb-4">Empowering your business with robust data architecture and clear insights.</p>
-            <a href="services.html" class="btn btn-success btn-lg">Explore Our Services</a>
+            <p class="lead mb-4" style="color: #aebecd;">Empowering your business with robust data architecture and clear insights.</p>
+            <a href="#core-expertise" class="btn btn-success btn-lg">View Capabilities</a>
         </div>
     </header>
 
-    <section class="py-5" style="background-color: #f8f9fa;">
-        <div class="container text-center">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <h2 class="fw-bold text-dark mb-3">Looking for Technical Specifics?</h2>
-                    <p class="lead text-secondary mb-4">
-                        From Legacy Reverse Engineering to Advanced Power BI Reporting, 
-                        view our full technical capabilities and data stack.
-                    </p>
-                    <a href="services.html" class="btn btn-primary btn-lg px-5">
-                        View Full Services &rarr;
-                    </a>
+    <section id="core-expertise" class="py-5" style="background-color: #03182e; color: white;">
+        <div class="container">
+            
+            <div class="mb-5">
+                <span class="d-inline-block py-1 px-3 mb-3 fw-bold" 
+                      style="background-color: #008060; color: #fff; letter-spacing: 1px; font-size: 0.8rem;">
+                    OUR CAPABILITIES
+                </span>
+                <h2 class="display-5 fw-bold text-white">Core Expertise</h2>
+                <p class="lead" style="color: #aebecd; max-width: 700px;">
+                    Delivering high-performance data infrastructure and business intelligence solutions tailored to your operational needs.
+                </p>
+            </div>
+
+            <div class="row g-4">
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
+                        <div class="card-body">
+                            <div class="mb-4" style="color: #2ecc71;">
+                                <i class="bi bi-code-slash fs-2"></i>
+                            </div>
+                            <h4 class="card-title text-white h5 fw-bold">Legacy Reverse Engineering</h4>
+                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
+                                Unlocking value from older systems. We dissect, document, and migrate legacy logic into modern, scalable data architectures without losing business context.
+                            </p>
+                            <div class="mt-4 pt-2 border-top border-secondary">
+                                <span class="badge bg-secondary me-1 mb-1">SQL Server</span>
+                                <span class="badge bg-secondary me-1 mb-1">T-SQL</span>
+                                <span class="badge bg-secondary mb-1">Auditing</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
+                        <div class="card-body">
+                            <div class="mb-4" style="color: #2ecc71;">
+                                <i class="bi bi-hdd-network fs-2"></i>
+                            </div>
+                            <h4 class="card-title text-white h5 fw-bold">FTP Data Automation</h4>
+                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
+                                Seamlessly retrieve, validate, and process external data files from FTP/SFTP sources. We build robust listeners and schedulers to ensure data arrives on time.
+                            </p>
+                            <div class="mt-4 pt-2 border-top border-secondary">
+                                <span class="badge bg-secondary me-1 mb-1">WinSCP</span>
+                                <span class="badge bg-secondary me-1 mb-1">PowerShell</span>
+                                <span class="badge bg-secondary mb-1">Batch Scripting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
+                        <div class="card-body">
+                            <div class="mb-4" style="color: #2ecc71;">
+                                <i class="bi bi-diagram-3 fs-2"></i>
+                            </div>
+                            <h4 class="card-title text-white h5 fw-bold">ETL & Integration</h4>
+                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
+                                High-speed data transformation pipelines using SSIS. We clean, aggregate, and warehouse your data to prepare it for high-level analysis.
+                            </p>
+                            <div class="mt-4 pt-2 border-top border-secondary">
+                                <span class="badge bg-secondary me-1 mb-1">SSIS</span>
+                                <span class="badge bg-secondary me-1 mb-1">Data Warehousing</span>
+                                <span class="badge bg-secondary mb-1">Pipelines</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 p-3 border" style="background-color: rgba(255,255,255,0.05); border-color: #1f3a52 !important;">
+                        <div class="card-body">
+                            <div class="mb-4" style="color: #2ecc71;">
+                                <i class="bi bi-graph-up-arrow fs-2"></i>
+                            </div>
+                            <h4 class="card-title text-white h5 fw-bold">Advanced Reporting</h4>
+                            <p class="card-text mt-3" style="color: #aebecd; font-size: 0.95rem;">
+                                Turning raw numbers into visual insights. From Power BI dashboards to complex Excel Power Pivot models and embedded HTML email reports.
+                            </p>
+                            <div class="mt-4 pt-2 border-top border-secondary">
+                                <span class="badge bg-secondary me-1 mb-1">Power BI</span>
+                                <span class="badge bg-secondary me-1 mb-1">Power Pivot</span>
+                                <span class="badge bg-secondary mb-1">Email Reporting</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
-    <footer class="py-4 text-center text-white" style="background-color: #03182e;">
+
+    <footer class="py-4 text-center text-white mt-auto" style="background-color: #021222; border-top: 1px solid #1f3a52;">
         <div class="container">
             <small>&copy; 2025 Holistic Data. All Rights Reserved.</small>
         </div>
