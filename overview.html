@@ -137,6 +137,35 @@
         .page-header h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; }
         .page-header strong { color: var(--brand-green); font-weight: 700; }
         
+        /* --- NEW VIDEO SECTION STYLES --- */
+        .video-container {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.3);
+        }
+        
+        /* Optional: Add a subtle gold glow to the video border */
+        .video-wrapper:hover {
+            border-color: rgba(255, 198, 41, 0.3);
+            transition: border-color 0.3s ease;
+        }
+
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        /* --- BIO SECTION --- */
         .bio-quote-container {
             max-width: 1000px;
             margin: 0 auto 60px;
@@ -262,6 +291,14 @@
         <p>Beyond the code: A mindset driven by precision, efficiency, and relationship building.</p>
     </div>
 
+    <div class="video-container">
+        <div class="video-wrapper">
+            <video controls>
+                <source src="assets/video/WebsiteVideo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
     <div class="bio-quote-container">
         <div class="bio-text">
             "I bring an extremely solid background in <span>Data Warehousing</span> and <span>SQL Development</span> to the table. 
