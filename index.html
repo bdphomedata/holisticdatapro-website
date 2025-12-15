@@ -153,11 +153,13 @@
             justify-content: space-between;
             align-items: center;
             padding: 80px 100px;
-            height: calc(100vh - 80px);
+            /* Adjust height if necessary, removed fixed calc to allow image scaling */
+            min-height: calc(100vh - 80px); 
         }
 
         .hero-content {
-            width: 50%;
+            width: 50%; /* Text takes up left half */
+            padding-right: 40px; /* Space between text and image */
         }
 
         .hero-content h1 {
@@ -180,89 +182,45 @@
             font-weight: 500;
         }
 
-        /* --- NETWORK GRAPHIC (CLUSTERED LIKE PICTURE 1) --- */
+        /* --- NEW IMAGE DIAGRAM STYLING --- */
         
-        .network-graphic {
-            width: 45%; 
-            height: 500px;
-            position: relative;
-        }
-
-        /* Nodes (Bubbles) Styling - Softer look */
-        .node {
-            position: absolute;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: rgba(0, 50, 80, 0.6); 
-            border: 1px solid rgba(0, 230, 118, 0.3); /* Fainter border */
+        /* This container replaces the old .network-graphic */
+        .skills-container {
+            width: 45%; /* Takes up the right half of the screen */
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            justify-content: center; /* Center image horizontally in this block */
             align-items: center;
-            text-align: center;
-            font-size: 11px;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5); /* Softer glow */
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-        
-        /* Keep the green hover effect you liked */
-        .node:hover {
-            border-color: #00e676;
-            background: rgba(0, 50, 80, 0.8);
-            transform: scale(1.1); 
-            cursor: default;
         }
 
-        .node strong {
-            font-size: 15px;
-            color: #00e676; 
-            margin-bottom: 2px;
+        /* The Image Constraints */
+        .skills-image {
+            width: 100%;             /* Allow it to fill the container width */
+            max-width: 650px;        /* Prevent it from getting too huge on big screens */
+            height: auto;            /* Maintain aspect ratio */
             display: block;
+            /* Optional: Add a subtle shadow or radius if desired */
+            /* border-radius: 10px; */
+            /* box-shadow: 0 10px 30px rgba(0,0,0,0.3); */
         }
 
-        /* Center Node (VS) */
-        .center-node {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: rgba(0, 70, 100, 0.8);
-            border: 2px solid #00e676; 
-            z-index: 10;
+        /* --- MOBILE RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            .hero-section {
+                flex-direction: column; /* Stack text and image on tablets/phones */
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            .hero-content {
+                width: 100%;
+                margin-bottom: 40px;
+                padding-right: 0;
+            }
+
+            .skills-container {
+                width: 100%;
+            }
         }
-
-        /* --- POSITIONING (TIGHT CLUSTER LIKE PICTURE 1) --- */
-
-        .pos-1 { top: 20%; left: 20%; } /* Rev Eng */
-        .pos-2 { top: 15%; left: 50%; transform: translateX(-50%); } /* SSIS */
-        .pos-3 { top: 20%; left: 80%; } /* SSAS */
-        .pos-4 { top: 50%; left: 85%; transform: translateY(-50%); } /* PBI */
-        .pos-5 { top: 80%; left: 50%; transform: translateX(-50%); } /* ETL */
-        .pos-6 { top: 80%; left: 20%; } /* Excel */
-        .pos-7 { top: 50%; left: 15%; transform: translateY(-50%); } /* SSMS */
-
-        /* Connector Lines - SHORTENED */
-        .connector {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            height: 1px;
-            background: rgba(0, 230, 118, 0.3); 
-            transform-origin: 0 0;
-            z-index: 1;
-        }
-
-        .c1 { width: 150px; transform: rotate(225deg); }
-        .c2 { width: 130px; transform: rotate(270deg); }
-        .c3 { width: 150px; transform: rotate(315deg); }
-        .c4 { width: 140px; transform: rotate(0deg); }
-        .c5 { width: 130px; transform: rotate(90deg); }
-        .c6 { width: 150px; transform: rotate(135deg); }
-        .c7 { width: 140px; transform: rotate(180deg); }
 
         /* --- CSS ENDS HERE --- */
     </style>
@@ -314,42 +272,10 @@
             </p>
         </div>
 
-        <div class="network-graphic">
-            <div class="node center-node">
-                <strong>VS</strong><br>VISUAL STUDIO
-            </div>
-
-            <div class="node pos-1">
-                <strong>Rev Eng</strong><br>LEGACY SYS
-            </div>
-            <div class="node pos-2">
-                <strong>SSIS</strong><br>INTEGRATION
-            </div>
-            <div class="node pos-3">
-                <strong>SSAS</strong><br>ANALYSIS
-            </div>
-            <div class="node pos-4">
-                <strong>PBI</strong><br>POWER BI
-            </div>
-            <div class="node pos-5">
-                <strong>ETL</strong><br>EXPERT
-            </div>
-            <div class="node pos-6">
-                <strong>Excel</strong><br>POWER PIVOT
-            </div>
-            <div class="node pos-7">
-                <strong>SSMS</strong><br>SQL MGMT
-            </div>
-            
-            <div class="connector c1"></div>
-            <div class="connector c2"></div>
-            <div class="connector c3"></div>
-            <div class="connector c4"></div>
-            <div class="connector c5"></div>
-            <div class="connector c6"></div>
-            <div class="connector c7"></div>
+        <div class="skills-container">
+            <img src="assets/images/skills-diagram.png" alt="Business Intelligence Skills Diagram" class="skills-image">
         </div>
-    </section>
+        </section>
 
 </body>
 </html>
