@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Highlights | Holistic Data Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- CORE VARIABLES & RESET --- */
+        :root {
+            --brand-blue-light: #0077c8;
+            --brand-blue-dark: #001f3f;
+            --brand-gold: #ffc629;
+            --brand-green: #4ade80;
+            --text-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-hover-bg: rgba(0, 31, 63, 0.9);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-white);
+            background-color: #000b1a;
+            min-height: 100vh;
+        }
+
+        /* --- BACKGROUND --- */
+        .page-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #001f3f 0%, #000b1a 100%);
+            z-index: -2;
+        }
+
+        .bg-grid {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* --- NAVIGATION (SPLIT LAYOUT) --- */
+        nav {
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2%;
+            background: rgba(0, 31, 63, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        /* LEFT SIDE */
+        .nav-left { display: flex; align-items: center; gap: 30px; }
+        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); white-space: nowrap; }
+        
+        /* Dropdown */
+        .dropdown { position: relative; display: inline-block; padding: 10px 0; }
+        .dropdown-content { display: none; position: absolute; background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%); min-width: 240px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); border: 1px solid var(--glass-border); border-top: 3px solid var(--brand-gold); z-index: 2000; top: 100%; left: 0; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%); }
+        .dropdown-content a { color: var(--text-white); padding: 16px 20px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); border-left: 3px solid transparent; transition: all 0.2s ease; }
+        .dropdown-content a:hover { background: linear-gradient(90deg, rgba(74, 222, 128, 0.1) 0%, transparent 100%); color: var(--brand-green); border-left: 3px solid var(--brand-green); padding-left: 28px; }
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        .fa-caret-down { margin-left: 5px; font-size: 0.8em; color: var(--brand-green); transition: transform 0.3s ease; }
+        .dropdown:hover .fa-caret-down { transform: rotate(180deg); }
+
+        /* RIGHT SIDE */
+        .nav-right { display: flex; align-items: center; gap: 30px; }
+        .nav-link-simple { color: var(--text-white); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.7; transition: all 0.3s ease; }
+        .nav-link-simple:hover { opacity: 1; color: var(--brand-gold); }
+        .nav-btn { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; white-space: nowrap; }
+        .nav-btn-gold { background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold); }
+        .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
+
+        /* --- HEADER --- */
+        .page-header {
+            text-align: center;
+            padding: 80px 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .page-header h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; }
+        .page-header strong { color: var(--brand-green); font-weight: 700; }
+        .page-header p { color: #d1d5db; line-height: 1.6; font-size: 1.1rem; }
+
+        /* --- PROJECT GRID --- */
+        .projects-section {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            color: var(--brand-gold);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 198, 41, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .project-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            background: var(--card-hover-bg);
+            border-color: var(--brand-green);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .client-badge {
+            position: absolute;
+            top: 20px; right: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: #a0aec0;
+            text-transform: uppercase;
+        }
+
+        .project-title { font-size: 1.3rem; font-weight: 700; color: var(--text-white); margin-top: 10px; margin-bottom: 15px; padding-right: 60px; }
+        
+        .project-desc { font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
+        
+        .tech-tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: rgba(0, 119, 200, 0.2);
+            color: #4ade80;
+            border-radius: 20px;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        @media (max-width: 900px) {
+            .page-header h1 { font-size: 2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            
+            nav { flex-direction: column; gap: 20px; padding-bottom: 20px; }
+            .nav-left { flex-direction: column; gap: 10px; }
+            .nav-right { flex-direction: column; gap: 15px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-bg"></div>
+    <div class="bg-grid"></div>
+
+    <nav>
+        <div class="nav-left">
+            <div class="logo">HOLISTIC DATA PRO</div>
+            
+            <div class="dropdown">
+                <a href="#" style="color: var(--brand-gold); font-weight: 600; text-decoration: none;">
+                    Project Highlights <i class="fas fa-caret-down"></i>
+                </a>
+                <div class="dropdown-content">
+                    <a href="index.html">Home</a>
+                    <a href="overview.html">Professional Overview</a>
+                    <a href="journey.html">My Journey (1999-2025)</a>
+                    <a href="qualifications.html">Qualifications & Tech</a>
+                    <a href="projects.html">Project Highlights</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <a href="index.html#services" class="nav-link-simple">Services</a>
+            <a href="contact.html" class="nav-btn nav-btn-gold">CONNECT WITH ME</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>High-Impact <strong>Case Studies</strong></h1>
+        <p>A selection of complex data challenges solved through intelligent architecture, automation, and reverse engineering.</p>
+    </div>
+
+    <div class="projects-section">
+        
+        [cite_start]<h2 class="category-title">Ithuba Lottery (Current) [cite: 52-54]</h2>
+        <div class="projects-grid">
+            
+            <div class="project-card">
+                <div class="client-badge">Project 1</div>
+                <h3 class="project-title">Tanzania & Uganda XML Data</h3>
+                <p class="project-desc">
+                    Built a robust process that connects to FTP, downloads file manifests, and compares filenames against 
+                    audit logs to identify new files. Dynamic scripts fetch, load, and shred XML into relational staging marts 
+                    for immediate reporting via PowerShell HTML graphs.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">XML Parsing</span>
+                    <span class="tech-tag">FTP Audit</span>
+                    <span class="tech-tag">T-SQL</span>
+                </div>
+            </div>
+
+            <div class="project-card" style="border-left: 4px solid var(--brand-green);">
+                <div class="client-badge" style="color: var(--brand-green);">Project 2</div>
+                <h3 class="project-title">B2B Automation (PLS Winners and Reconciliation)</h3>
+                <p class="project-desc">
+                    Automated the daily file exchange checks ("Reconciliation") with major partners (ABSA, FNB, etc.). 
+                    Engineered a multi-step <strong>SQL Agent Job</strong> to Audit, Forecast, and Distribute a color-coded 
+                    <strong>HTML Status Dashboard</strong> using <strong>PowerShell and SQL Mail</strong>.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">SQL Agent</span>
+                    <span class="tech-tag">SQL Mail</span>
+                    <span class="tech-tag">PowerShell</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="client-badge">Project 3</div>
+                <h3 class="project-title">Time & Attendance / Product Counts</h3>
+                <p class="project-desc">
+                    Designed and developed Staged Data Marts and deployed Dimensional Data Models into production. 
+                    Enforced strict data quality via Referential Integrity constraints between Fact and Dimension tables 
+                    for consistent reporting.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Dimensional Modeling</span>
+                    <span class="tech-tag">Star Schema</span>
+                    <span class="tech-tag">Data Quality</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="client-badge">Project 4 & 5</div>
+                <h3 class="project-title">Winning Tickets & DW Strategy</h3>
+                <p class="project-desc">
+                    Engineered an end-to-end pipeline for Winning/Validation tickets. Authored the strategic business case 
+                    justifying the move to a formal Data Warehouse architecture for high-performance reporting.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Pipeline Design</span>
+                    <span class="tech-tag">DW Strategy</span>
+                    <span class="tech-tag">Business Case</span>
+                </div>
+            </div>
+
+        </div>
+
+        <h2 class="category-title">Strategic Consulting Highlights</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="client-badge">Standard Bank</div>
+                <h3 class="project-title">Git Version Control Implementation</h3>
+                <p class="project-desc">
+                    Led the initiative to modernize the development environment by investigating and implementing 
+                    Git version control. Setup metadata layers for DEV/UAT/PROD on GitHub and documented the 
+                    compliance process for the group.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Git/GitHub</span>
+                    <span class="tech-tag">Compliance</span>
+                    <span class="tech-tag">Visual Studio</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="client-badge">Curro Schools</div>
+                <h3 class="project-title">Power BI Usage Intelligence</h3>
+                <p class="project-desc">
+                    Built a comprehensive system to track and analyze Power BI report usage across the organization. 
+                    Used PowerShell APIs to extract dataset activity and modeled it into a Power BI dashboard 
+                    to inform business strategy.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Power BI API</span>
+                    <span class="tech-tag">PowerShell</span>
+                    <span class="tech-tag">DAX</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="client-badge">Mr Price Group</div>
+                <h3 class="project-title">Retail Feed Architecture</h3>
+                <p class="project-desc">
+                    Managed critical product data feeds for Apparel, Home, and Sport divisions. 
+                    Worked with RabbitMQ for message queuing and processed complex XML output files 
+                    to ensure accurate stock and price data across platforms.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">RabbitMQ</span>
+                    <span class="tech-tag">Retail Feeds</span>
+                    <span class="tech-tag">XML</span>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="category-title">Cloud Migration & Legacy Systems</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="client-badge">House of Busby</div>
+                <h3 class="project-title">On-Prem to Azure Migration</h3>
+                <p class="project-desc">
+                    Executed a data migration from SQL Server 2000/2008 to Azure. Created reconciliation 
+                    tables to balance source vs. destination data and replicated stored procedures to ensure 
+                    business continuity in the cloud.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Azure SQL</span>
+                    <span class="tech-tag">Data Migration</span>
+                    <span class="tech-tag">Legacy Upgrade</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="client-badge">Cognition Holdings</div>
+                <h3 class="project-title">Multi-Brand Cube Development</h3>
+                <p class="project-desc">
+                    Designed and deployed SSAS multidimensional cubes and Power BI reports for high-profile 
+                    brands like Huawei and Defy. Created "Master Reports" to simplify navigation across 
+                    complex underlying data structures.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">SSAS Cubes</span>
+                    <span class="tech-tag">Master Reporting</span>
+                    <span class="tech-tag">Modeling</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-size: 0.8rem; border-top: 1px solid var(--glass-border);">
+            <p>&copy; 2025 Holistic Data Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
