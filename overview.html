@@ -46,7 +46,7 @@
             z-index: -1;
         }
 
-        /* --- NAVIGATION (SPLIT LAYOUT) --- */
+        /* --- NAVIGATION (STRICT WHITE LINKS) --- */
         nav {
             display: flex; 
             justify-content: space-between;
@@ -62,23 +62,70 @@
         .nav-left { display: flex; align-items: center; gap: 30px; }
         .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); white-space: nowrap; }
         
-        /* Dropdown */
+        /* 1. Top Level Menu Items - Force White */
+        .nav-links a, 
+        .nav-links a:visited, 
+        .nav-links a:active {
+            color: #ffffff !important; /* Force White */
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .nav-links > a:hover { opacity: 1; color: var(--brand-gold) !important; }
+
+        /* Dropdown Container */
         .dropdown { position: relative; display: inline-block; padding: 10px 0; }
-        .dropdown-content { display: none; position: absolute; background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%); min-width: 240px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); border: 1px solid var(--glass-border); border-top: 3px solid var(--brand-gold); z-index: 2000; top: 100%; left: 0; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%); }
-        .dropdown-content a { color: var(--text-white); padding: 16px 20px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); border-left: 3px solid transparent; transition: all 0.2s ease; }
-        .dropdown-content a:hover { background: linear-gradient(90deg, rgba(74, 222, 128, 0.1) 0%, transparent 100%); color: var(--brand-green); border-left: 3px solid var(--brand-green); padding-left: 28px; }
+        
+        .dropdown-content { 
+            display: none; 
+            position: absolute; 
+            background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%); 
+            min-width: 240px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6); 
+            border: 1px solid var(--glass-border); 
+            border-top: 3px solid var(--brand-gold); 
+            z-index: 2000; 
+            top: 100%; 
+            left: 0; 
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%); 
+        }
+
+        /* 2. Dropdown Items - Force White */
+        .dropdown-content a,
+        .dropdown-content a:visited,
+        .dropdown-content a:active { 
+            color: #ffffff !important; /* Force White */
+            padding: 16px 20px; 
+            text-decoration: none; 
+            display: block; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+            border-left: 3px solid transparent; 
+            transition: all 0.2s ease; 
+        }
+
+        .dropdown-content a:hover { 
+            background: linear-gradient(90deg, rgba(74, 222, 128, 0.1) 0%, transparent 100%); 
+            color: var(--brand-green) !important; 
+            border-left: 3px solid var(--brand-green); 
+            padding-left: 28px; 
+        }
+
         .dropdown:hover .dropdown-content { display: block; }
         
         .fa-caret-down { margin-left: 5px; font-size: 0.8em; color: var(--brand-green); transition: transform 0.3s ease; }
         .dropdown:hover .fa-caret-down { transform: rotate(180deg); }
 
-        /* RIGHT SIDE */
-        .nav-right { display: flex; align-items: center; gap: 30px; }
-        .nav-link-simple { color: var(--text-white); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.7; transition: all 0.3s ease; }
-        .nav-link-simple:hover { opacity: 1; color: var(--brand-gold); }
+        /* RIGHT SIDE BUTTONS */
+        .nav-buttons { display: flex; gap: 10px; align-items: center; }
         .nav-btn { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; white-space: nowrap; }
         .nav-btn-gold { background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold); }
         .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
+        .nav-btn-green { background-color: transparent; color: var(--brand-green); border: 2px solid var(--brand-green); }
+        .nav-btn-green:hover { background-color: rgba(74, 222, 128, 0.1); }
+
 
         /* --- HEADER & BIO --- */
         .page-header {
@@ -169,7 +216,7 @@
             
             nav { flex-direction: column; gap: 20px; padding-bottom: 20px; }
             .nav-left { flex-direction: column; gap: 10px; }
-            .nav-right { flex-direction: column; gap: 15px; }
+            .nav-buttons { width: 100%; justify-content: center; }
         }
 
     </style>
@@ -179,7 +226,7 @@
     <div class="page-bg"></div>
     <div class="bg-grid"></div>
 
-<nav>
+    <nav>
         <div class="nav-left">
             <a href="index.html" style="text-decoration: none;">
                 <div class="logo">HOLISTIC DATA PRO</div>
@@ -200,7 +247,6 @@
                 </div>
 
                 <a href="services.html">Services</a>
-                
                 <a href="construction.html">Solutions</a>
             </div>
         </div>
