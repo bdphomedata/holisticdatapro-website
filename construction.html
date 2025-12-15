@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coming Soon | Holistic Data Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        /* SAME BRAND VARIABLES */
+        /* --- 1. VARIABLES (Matches Index) --- */
         :root {
             --brand-blue-light: #0077c8;
             --brand-blue-dark: #001f3f;
@@ -23,17 +24,14 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            flex-direction: column; /* Stacks Nav on top of Content */
             background: #001f3f;
-            overflow: hidden;
-            text-align: center;
+            overflow-x: hidden; /* Prevent side scroll */
         }
 
-        /* VIDEO BACKGROUND */
+        /* --- 2. VIDEO BACKGROUND --- */
         .video-container {
             position: fixed;
             top: 0;
@@ -42,6 +40,7 @@
             height: 100%;
             z-index: -2;
             overflow: hidden;
+            background-color: #001f3f;
         }
 
         #bg-video {
@@ -66,7 +65,105 @@
             z-index: -1; 
         }
 
-        /* CONSTRUCTION CARD */
+        /* --- 3. NAVIGATION STYLES (Copied from Index) --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2%;
+            background: rgba(0, 31, 63, 0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .nav-left { display: flex; align-items: center; gap: 20px; }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-white);
+            letter-spacing: 1.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            white-space: nowrap;
+        }
+
+        .nav-links { display: flex; gap: 15px; align-items: center; height: 100%; }
+
+        .nav-links a {
+            color: var(--text-white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-links > a:hover { opacity: 1; color: var(--brand-gold); }
+
+        /* Dropdown Logic */
+        .dropdown { position: relative; display: inline-block; height: 100%; padding: 10px 0; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%);
+            min-width: 240px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            border: 1px solid var(--glass-border);
+            border-top: 3px solid var(--brand-gold);
+            z-index: 2000;
+            top: 100%;
+            left: 0;
+        }
+        .dropdown-content a {
+            color: var(--text-white);
+            padding: 16px 20px;
+            display: block;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            text-align: left;
+        }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown-content a:hover {
+            color: var(--brand-green);
+            background: rgba(74, 222, 128, 0.1);
+            border-left: 3px solid var(--brand-green);
+        }
+        .fa-caret-down { margin-left: 5px; font-size: 0.8em; color: var(--brand-green); }
+
+        .nav-buttons { display: flex; gap: 10px; align-items: center; }
+        .nav-btn {
+            text-decoration: none; padding: 10px 20px; border-radius: 50px;
+            font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; white-space: nowrap;
+        }
+        .nav-btn-gold {
+            background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold);
+        }
+        .nav-btn-green {
+            background-color: transparent; color: var(--brand-green); border: 2px solid var(--brand-green);
+        }
+        .nav-btn-gold:hover { background-color: #ffd65c; transform: translateY(-2px); }
+        .nav-btn-green:hover { background-color: rgba(74, 222, 128, 0.1); }
+
+        @media (max-width: 1200px) {
+            nav { flex-direction: column; gap: 15px; }
+            .nav-left, .nav-buttons { width: 100%; justify-content: center; }
+            .nav-links { flex-wrap: wrap; justify-content: center; }
+        }
+
+        /* --- 4. LAYOUT & CARD STYLES --- */
+        .content-wrapper {
+            flex: 1; /* Takes up all remaining space below header */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px;
+        }
+
         .construction-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
@@ -74,9 +171,10 @@
             border-radius: 20px;
             backdrop-filter: blur(15px);
             max-width: 600px;
-            width: 90%;
+            width: 100%;
             box-shadow: 0 15px 35px rgba(0,0,0,0.5);
             border-top: 3px solid var(--brand-green);
+            text-align: center;
         }
 
         .icon-container {
@@ -91,6 +189,7 @@
             margin-bottom: 10px;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-top: 0;
         }
 
         p {
@@ -100,7 +199,7 @@
             margin-bottom: 30px;
         }
 
-        .btn-home {
+        .btn-home-return {
             display: inline-block;
             padding: 12px 30px;
             background: transparent;
@@ -114,13 +213,12 @@
             letter-spacing: 1px;
         }
 
-        .btn-home:hover {
+        .btn-home-return:hover {
             background: var(--brand-green);
             color: #001f3f;
             box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
         }
 
-        /* ANIMATION */
         @keyframes pulse {
             0% { transform: scale(1); opacity: 1; }
             50% { transform: scale(1.1); opacity: 0.8; }
@@ -137,13 +235,44 @@
     </div>
     <div class="video-overlay"></div>
 
-    <div class="construction-card">
-        <div class="icon-container">
-            <i class="fas fa-cogs"></i>
+    <nav>
+        <div class="nav-left">
+            <a href="index.html" style="text-decoration: none;">
+                <div class="logo">HOLISTIC DATA PRO</div>
+            </a>
+            <div class="nav-links">
+                <div class="dropdown">
+                    <a href="index.html" style="cursor: pointer;">
+                        About Us <i class="fas fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="index.html">Home</a>
+                        <a href="overview.html">Professional Overview</a>
+                        <a href="journey.html">My Journey (1999-2025)</a>
+                        <a href="qualifications.html">Qualifications & Tech</a>
+                        <a href="projects.html">Project Highlights</a>
+                    </div>
+                </div>
+
+                <a href="services.html">Services</a>
+                <a href="construction.html">Solutions</a>
+            </div>
         </div>
-        <h1>System Building</h1>
-        <p>This data module is currently under construction. <br>Bartus is busy engineering the architecture for this section.</p>
-        <a href="index.html" class="btn-home">Return to Dashboard</a>
+        <div class="nav-buttons">
+            <a href="contact.html" class="nav-btn nav-btn-gold">CONNECT WITH ME</a>
+            <a href="Profile.pdf" class="nav-btn nav-btn-green" download>DOWNLOAD PROFILE</a>
+        </div>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="construction-card">
+            <div class="icon-container">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <h1>System Building</h1>
+            <p>This data module is currently under construction. <br>Bartus is busy engineering the architecture for this section.</p>
+            <a href="index.html" class="btn-home-return">Return to Dashboard</a>
+        </div>
     </div>
 
 </body>
