@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qualifications & Tech | Holistic Data Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- CORE VARIABLES & RESET --- */
+        :root {
+            --brand-blue-light: #0077c8;
+            --brand-blue-dark: #001f3f;
+            --brand-gold: #ffc629;
+            --brand-green: #4ade80;
+            --text-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-hover-bg: rgba(0, 31, 63, 0.9);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-white);
+            background-color: #000b1a;
+            min-height: 100vh;
+        }
+
+        /* --- BACKGROUND --- */
+        .page-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #001f3f 0%, #000b1a 100%);
+            z-index: -2;
+        }
+
+        .bg-grid {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 1.5rem 2%;
+            background: rgba(0, 31, 63, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky; top: 0; z-index: 1000;
+        }
+        .nav-left { display: flex; align-items: center; gap: 20px; }
+        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: var(--text-white); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.9; transition: all 0.3s ease; }
+        .nav-links a:hover { color: var(--brand-gold); opacity: 1; }
+        
+        .nav-buttons { display: flex; gap: 10px; }
+        .nav-btn { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; }
+        .nav-btn-gold { background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold); }
+        .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
+
+        /* Dropdown Styles */
+        .dropdown { position: relative; display: inline-block; padding: 10px 0; }
+        .dropdown-content { display: none; position: absolute; background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%); min-width: 240px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); border: 1px solid var(--glass-border); border-top: 3px solid var(--brand-gold); z-index: 2000; top: 100%; left: 0; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%); }
+        .dropdown-content a { color: var(--text-white); padding: 16px 20px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); border-left: 3px solid transparent; transition: all 0.2s ease; }
+        .dropdown-content a:hover { background: linear-gradient(90deg, rgba(74, 222, 128, 0.1) 0%, transparent 100%); color: var(--brand-green); border-left: 3px solid var(--brand-green); padding-left: 28px; }
+        .dropdown:hover .dropdown-content { display: block; }
+
+        /* --- HEADER --- */
+        .page-header {
+            text-align: center;
+            padding: 80px 20px 50px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .page-header h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; }
+        .page-header strong { color: var(--brand-green); font-weight: 700; }
+        .page-header p { color: #d1d5db; line-height: 1.6; font-size: 1.1rem; }
+
+        /* --- SECTION STYLES --- */
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--brand-gold);
+            margin-bottom: 30px;
+            border-left: 5px solid var(--brand-gold);
+            padding-left: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- CERTIFICATION GRID --- */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .cert-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card::top {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--brand-gold);
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            background: var(--card-hover-bg);
+            border-color: var(--brand-gold);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .cert-icon {
+            font-size: 2rem;
+            color: var(--brand-gold);
+            margin-bottom: 20px;
+        }
+
+        .cert-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; color: var(--text-white); }
+        .cert-issuer { font-size: 0.9rem; color: #a0aec0; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* --- TECH SKILLS MATRIX --- */
+        .tech-category { margin-bottom: 40px; }
+        .tech-category h3 { color: var(--brand-green); border-bottom: 1px solid rgba(74, 222, 128, 0.2); padding-bottom: 10px; margin-bottom: 20px; }
+        
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 15px; }
+        
+        .skill-tag {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+        
+        .skill-tag i { color: var(--brand-green); }
+
+        .skill-tag:hover {
+            background: rgba(74, 222, 128, 0.1);
+            border-color: var(--brand-green);
+            transform: scale(1.05);
+        }
+
+        /* --- EDUCATION LIST --- */
+        .edu-item {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .edu-item:last-child { border-bottom: none; }
+        .edu-year { color: var(--brand-gold); font-weight: 700; min-width: 100px; }
+        .edu-details h4 { margin: 0 0 5px 0; font-size: 1.1rem; }
+        .edu-details p { margin: 0; color: #a0aec0; font-size: 0.9rem; }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 2rem; }
+            .edu-item { flex-direction: column; gap: 5px; }
+            .nav-links { display: none; } /* Mobile Menu would go here */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-bg"></div>
+    <div class="bg-grid"></div>
+
+    <nav>
+        <div class="nav-left">
+            <div class="logo">HOLISTIC DATA PRO</div>
+            <div class="nav-links">
+                <div class="dropdown">
+                    <a href="#" style="color: var(--brand-gold);">
+                        About Us <i class="fas fa-caret-down"></i>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="index.html">Home</a>
+                        <a href="construction.html">Professional Overview</a>
+                        <a href="journey.html">My Journey (1999-2025)</a>
+                        <a href="qualifications.html">Qualifications & Tech</a>
+                        <a href="construction.html">Project Highlights</a>
+                    </div>
+                </div>
+                <a href="index.html#services">Services</a>
+            </div>
+        </div>
+        <div class="nav-buttons">
+            <a href="contact.html" class="nav-btn nav-btn-gold">CONNECT WITH ME</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Qualifications & <strong>Technical Arsenal</strong></h1>
+        <p>A comprehensive overview of my certified expertise and the technical stack I leverage to deliver enterprise-grade data solutions.</p>
+    </div>
+
+    <div class="section-container">
+        <h2 class="section-title">Certifications</h2>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <div class="cert-icon"><i class="fab fa-microsoft"></i></div>
+                <div class="cert-title">Azure Data Engineer Associate</div>
+                <div class="cert-issuer">Microsoft Certified</div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon"><i class="fas fa-database"></i></div>
+                <div class="cert-title">Azure Cosmos DB Developer</div>
+                <div class="cert-issuer">Microsoft Certified</div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon"><i class="fas fa-chart-bar"></i></div>
+                <div class="cert-title">Power BI Data Analyst</div>
+                <div class="cert-issuer">Microsoft Certified</div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon"><i class="fas fa-cloud"></i></div>
+                <div class="cert-title">Azure Fundamentals</div>
+                <div class="cert-issuer">Microsoft Certified</div>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon"><i class="fas fa-server"></i></div>
+                <div class="cert-title">BI Metadata Models & Warehouses</div>
+                <div class="cert-issuer">IBM Certified</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h2 class="section-title">Technical Skills Matrix</h2>
+        
+        <div class="tech-category">
+            <h3>Database & Backend Development</h3>
+            <div class="skill-tags">
+                <div class="skill-tag"><i class="fas fa-database"></i> Microsoft SQL Server (2000 - 2019)</div>
+                <div class="skill-tag"><i class="fas fa-code"></i> T-SQL (Advanced DDL/DML)</div>
+                <div class="skill-tag"><i class="fas fa-cogs"></i> Stored Procedures & Triggers</div>
+                <div class="skill-tag"><i class="fas fa-cloud"></i> Azure SQL Database</div>
+                <div class="skill-tag"><i class="fas fa-hdd"></i> Oracle (9i, 10g, 11g)</div>
+                <div class="skill-tag"><i class="fas fa-layer-group"></i> Sybase ASE</div>
+            </div>
+        </div>
+
+        <div class="tech-category">
+            <h3>ETL & Data Integration</h3>
+            <div class="skill-tags">
+                <div class="skill-tag"><i class="fas fa-random"></i> SSIS (Integration Services)</div>
+                <div class="skill-tag"><i class="fas fa-cubes"></i> SSAS (Analysis Services)</div>
+                <div class="skill-tag"><i class="fas fa-terminal"></i> PowerShell Automation</div>
+                <div class="skill-tag"><i class="fas fa-exchange-alt"></i> FTP/SFTP Integration</div>
+                <div class="skill-tag"><i class="fas fa-file-code"></i> XML & JSON Parsing</div>
+                <div class="skill-tag"><i class="fas fa-sync"></i> RabbitMQ</div>
+            </div>
+        </div>
+
+        <div class="tech-category">
+            <h3>Reporting & Visualization</h3>
+            <div class="skill-tags">
+                <div class="skill-tag"><i class="fas fa-chart-pie"></i> Power BI Desktop & Service</div>
+                <div class="skill-tag"><i class="fas fa-table"></i> SSRS (Reporting Services)</div>
+                <div class="skill-tag"><i class="fas fa-file-excel"></i> Excel Power Pivot</div>
+                <div class="skill-tag"><i class="fas fa-envelope-open-text"></i> HTML Email Reporting</div>
+                <div class="skill-tag"><i class="fas fa-gem"></i> Crystal Reports (Legacy Expert)</div>
+            </div>
+        </div>
+
+        <div class="tech-category">
+            <h3>Tools & Methodologies</h3>
+            <div class="skill-tags">
+                <div class="skill-tag"><i class="fab fa-git-alt"></i> Git & GitHub</div>
+                <div class="skill-tag"><i class="fas fa-code-branch"></i> TFS (Team Foundation Server)</div>
+                <div class="skill-tag"><i class="fab fa-jira"></i> Jira & Confluence</div>
+                <div class="skill-tag"><i class="fas fa-project-diagram"></i> Microsoft Visio</div>
+                <div class="skill-tag"><i class="fas fa-laptop-code"></i> Visual Studio 2017/2019/2022</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <h2 class="section-title">Education & Courses</h2>
+        <div style="background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px;">
+            <div class="edu-item">
+                <div class="edu-year">Courses</div>
+                <div class="edu-details">
+                    <h4>Sybase System & DBA Administration</h4>
+                    <p>Advanced Transact SQL & Databricks Lakehouse Fundamentals</p>
+                </div>
+            </div>
+            <div class="edu-item">
+                <div class="edu-year">Diploma</div>
+                <div class="edu-details">
+                    <h4>Advanced Information Technology</h4>
+                    <p>Specialized in Software Development & Database Systems</p>
+                </div>
+            </div>
+            <div class="edu-item">
+                <div class="edu-year">Matric</div>
+                <div class="edu-details">
+                    <h4>National Senior Certificate</h4>
+                    <p>Kempton Park High School</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-size: 0.8rem; border-top: 1px solid var(--glass-border);">
+            <p>&copy; 2025 Holistic Data Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
