@@ -6,7 +6,7 @@
     <title>My Journey | Holistic Data Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- REUSING CORE VARIABLES & RESET FROM INDEX.HTML --- */
+        /* --- REUSING CORE VARIABLES & RESET --- */
         :root {
             --brand-blue-light: #0077c8;
             --brand-blue-dark: #001f3f;
@@ -24,11 +24,11 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
-            background-color: #000b1a; /* Fallback */
+            background-color: #000b1a;
             min-height: 100vh;
         }
 
-        /* --- BACKGROUND (STATIC FOR INTERNAL PAGES OR REUSE VIDEO) --- */
+        /* --- BACKGROUND --- */
         .page-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -45,24 +45,26 @@
             z-index: -1;
         }
 
-        /* --- NAVIGATION (SAME AS INDEX) --- */
+        /* --- NAVIGATION (SPLIT LAYOUT) --- */
         nav {
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; 
+            justify-content: space-between; /* Pushes Left and Right apart */
+            align-items: center;
             padding: 1.5rem 2%;
             background: rgba(0, 31, 63, 0.8);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
             position: sticky; top: 0; z-index: 1000;
         }
-        .nav-left { display: flex; align-items: center; gap: 20px; }
-        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); }
-        .nav-links { display: flex; gap: 15px; }
-        .nav-links a { color: var(--text-white); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.9; transition: all 0.3s ease; }
-        .nav-links a:hover { color: var(--brand-gold); opacity: 1; }
-        .nav-buttons { display: flex; gap: 10px; }
-        .nav-btn { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; }
-        .nav-btn-gold { background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold); }
-        .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
+
+        /* LEFT SIDE: Logo + Context Dropdown */
+        .nav-left { 
+            display: flex; 
+            align-items: center; 
+            gap: 30px; /* Space between Logo and "My Journey" */
+        }
+
+        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); white-space: nowrap; }
         
         /* Dropdown Styles */
         .dropdown { position: relative; display: inline-block; padding: 10px 0; }
@@ -70,15 +72,33 @@
         .dropdown-content a { color: var(--text-white); padding: 16px 20px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); border-left: 3px solid transparent; transition: all 0.2s ease; }
         .dropdown-content a:hover { background: linear-gradient(90deg, rgba(74, 222, 128, 0.1) 0%, transparent 100%); color: var(--brand-green); border-left: 3px solid var(--brand-green); padding-left: 28px; }
         .dropdown:hover .dropdown-content { display: block; }
+        
+        /* Arrow Icon */
+        .fa-caret-down { margin-left: 5px; font-size: 0.8em; color: var(--brand-green); transition: transform 0.3s ease; }
+        .dropdown:hover .fa-caret-down { transform: rotate(180deg); }
+
+        /* RIGHT SIDE: Services + Button */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 30px; /* Space between Services and Button */
+        }
+
+        .nav-link-simple {
+            color: var(--text-white); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.7; transition: all 0.3s ease;
+        }
+        .nav-link-simple:hover { opacity: 1; color: var(--brand-gold); }
+
+        .nav-btn { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; white-space: nowrap; }
+        .nav-btn-gold { background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold); }
+        .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
 
         /* --- PAGE HEADER --- */
         .page-header {
             text-align: center;
             padding: 80px 20px 40px;
         }
-        .page-header h1 {
-            font-size: 3rem; margin-bottom: 10px; font-weight: 300;
-        }
+        .page-header h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; }
         .page-header strong { color: var(--brand-green); font-weight: 700; }
         .page-header p { color: #d1d5db; max-width: 600px; margin: 0 auto; line-height: 1.6; }
 
@@ -90,115 +110,41 @@
             padding: 40px 20px 100px;
         }
 
-        /* The Center Line */
         .timeline-section::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: rgba(255,255,255,0.1);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            z-index: 0;
-            box-shadow: 0 0 15px rgba(74, 222, 128, 0.1);
+            content: ''; position: absolute; width: 4px; background-color: rgba(255,255,255,0.1); top: 0; bottom: 0; left: 50%; margin-left: -2px; z-index: 0; box-shadow: 0 0 15px rgba(74, 222, 128, 0.1);
         }
 
-        /* Container for each event */
         .timeline-item {
-            padding: 10px 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-            box-sizing: border-box;
-            opacity: 0; /* Animation start state */
-            transform: translateY(20px);
-            animation: fadeUp 0.6s forwards;
+            padding: 10px 40px; position: relative; background-color: inherit; width: 50%; box-sizing: border-box; opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s forwards;
         }
 
-        @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Left and Right positioning */
         .left { left: 0; text-align: right; }
         .right { left: 50%; text-align: left; }
 
-        /* The Dots on the line */
         .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px; height: 20px;
-            right: -10px;
-            background-color: var(--brand-blue-dark);
-            border: 3px solid var(--brand-green);
-            top: 25px;
-            border-radius: 50%;
-            z-index: 1;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px var(--brand-green);
+            content: ''; position: absolute; width: 20px; height: 20px; right: -10px; background-color: var(--brand-blue-dark); border: 3px solid var(--brand-green); top: 25px; border-radius: 50%; z-index: 1; transition: all 0.3s ease; box-shadow: 0 0 10px var(--brand-green);
         }
-
-        /* Fix dot position for right side */
         .right::after { left: -10px; }
+        .timeline-item:hover::after { background-color: var(--brand-green); transform: scale(1.3); }
 
-        .timeline-item:hover::after {
-            background-color: var(--brand-green);
-            transform: scale(1.3);
-        }
-
-        /* Content Box */
         .content {
-            padding: 30px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            position: relative;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
+            padding: 30px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 10px; position: relative; backdrop-filter: blur(5px); transition: all 0.3s ease;
         }
+        .content:hover { background: var(--card-hover-bg); border-color: var(--brand-gold); transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
 
-        .content:hover {
-            background: var(--card-hover-bg);
-            border-color: var(--brand-gold);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
+        .left .content::before { content: " "; position: absolute; top: 25px; right: -10px; border-width: 10px 0 10px 10px; border-style: solid; border-color: transparent transparent transparent var(--glass-border); }
+        .right .content::before { content: " "; position: absolute; top: 25px; left: -10px; border-width: 10px 10px 10px 0; border-style: solid; border-color: transparent var(--glass-border) transparent transparent; }
 
-        /* Arrow pointing to line */
-        .left .content::before {
-            content: " "; position: absolute; top: 25px; right: -10px;
-            border-width: 10px 0 10px 10px; border-style: solid; border-color: transparent transparent transparent var(--glass-border);
-        }
-        .right .content::before {
-            content: " "; position: absolute; top: 25px; left: -10px;
-            border-width: 10px 10px 10px 0; border-style: solid; border-color: transparent var(--glass-border) transparent transparent;
-        }
-
-        /* Typography */
-        .date-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            background: rgba(74, 222, 128, 0.1);
-            color: var(--brand-green);
-            border: 1px solid var(--brand-green);
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
+        .date-badge { display: inline-block; padding: 5px 12px; background: rgba(74, 222, 128, 0.1); color: var(--brand-green); border: 1px solid var(--brand-green); border-radius: 20px; font-size: 0.8rem; font-weight: 700; margin-bottom: 10px; }
         .role-title { font-size: 1.4rem; font-weight: 700; margin: 5px 0; color: var(--text-white); }
         .company-name { font-size: 1.1rem; color: var(--brand-gold); margin-bottom: 15px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
         .role-desc { font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 15px; }
-        
-        /* Tech Stack Badges in Timeline */
         .timeline-tech { display: flex; flex-wrap: wrap; gap: 5px; justify-content: flex-end; }
         .right .timeline-tech { justify-content: flex-start; }
-        
         .t-tag { font-size: 0.7rem; background: rgba(255,255,255,0.1); padding: 3px 8px; border-radius: 4px; color: #a0aec0; }
 
-        /* --- MOBILE MEDIA QUERIES --- */
         @media screen and (max-width: 900px) {
             .timeline-section::after { left: 31px; }
             .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
@@ -206,17 +152,13 @@
             .left::after, .right::after { left: 21px; }
             .left, .right { text-align: left; }
             .left .timeline-tech { justify-content: flex-start; }
-            
-            /* Reset Arrows */
             .left .content::before { border: none; }
             .right .content::before { border: none; }
-            
             .page-header h1 { font-size: 2rem; }
             
-            /* Nav Mobile (Simple override for now) */
-            nav { flex-direction: column; gap: 15px; }
-            .nav-left { flex-direction: column; }
-            .nav-links { flex-wrap: wrap; justify-content: center; }
+            nav { flex-direction: column; gap: 20px; padding-bottom: 20px; }
+            .nav-left { flex-direction: column; gap: 10px; }
+            .nav-right { flex-direction: column; gap: 15px; }
         }
 
     </style>
@@ -229,21 +171,23 @@
     <nav>
         <div class="nav-left">
             <div class="logo">HOLISTIC DATA PRO</div>
-            <div class="nav-links">
-                <div class="dropdown">
-                    <a href="#" style="color: var(--brand-gold);">My Journey <i class="fas fa-caret-down"></i></a>
-                    <div class="dropdown-content">
-                        <a href="index.html">Home</a>
-                        <a href="construction.html">Professional Overview</a>
-                        <a href="construction.html">Qualifications & Tech</a>
-                        <a href="construction.html">Project Highlights</a>
-                    </div>
+            
+            <div class="dropdown">
+                <a href="#" style="color: var(--brand-gold); font-weight: 600; text-decoration: none;">
+                    My Journey <i class="fas fa-caret-down"></i>
+                </a>
+                <div class="dropdown-content">
+                    <a href="index.html">Home</a>
+                    <a href="construction.html">Professional Overview</a>
+                    <a href="journey.html">My Journey (1999-2025)</a>
+                    <a href="qualifications.html">Qualifications & Tech</a>
+                    <a href="construction.html">Project Highlights</a>
                 </div>
-                <a href="index.html#services">Services</a>
-                <a href="#">Solutions</a>
             </div>
         </div>
-        <div class="nav-buttons">
+
+        <div class="nav-right">
+            <a href="index.html#services" class="nav-link-simple">Services</a>
             <a href="contact.html" class="nav-btn nav-btn-gold">CONNECT WITH ME</a>
         </div>
     </nav>
