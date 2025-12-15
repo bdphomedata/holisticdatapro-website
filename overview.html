@@ -8,16 +8,18 @@
     <style>
         /* --- CORE VARIABLES & RESET --- */
         :root {
-            --brand-blue-deep: #002b45;
-            --brand-blue-dark: #000f1a;
-            --brand-gold: #ffcc00; /* Vibrant Gold for Button */
-            --brand-cyan: #00ffcc; /* The "Tech Green" from your image */
+            /* SAMPLED COLORS FROM YOUR IMAGE */
+            --brand-blue-top: #005582;    /* The lighter blue seen at the top */
+            --brand-blue-bottom: #001a2d; /* The darker blue seen at the bottom */
+            --brand-gold: #ffc107;        /* The exact yellow/gold from the button */
+            --brand-green: #4ade80;       /* The bright mint/green text accent */
             --text-white: #ffffff;
-            --text-gray: #b0c4de;
+            --text-gray: #e0f2fe;         /* Very light blue-white for body text */
             
-            --glass-bg: rgba(0, 43, 69, 0.6); /* Blueish glass */
-            --glass-border: rgba(0, 255, 204, 0.2); /* Cyan hint on border */
-            --card-hover-bg: rgba(0, 60, 90, 0.8);
+            /* Glass effects adjusted to match the lighter blue theme */
+            --glass-bg: rgba(0, 50, 80, 0.4); 
+            --glass-border: rgba(74, 222, 128, 0.2); 
+            --card-hover-bg: rgba(0, 85, 130, 0.6);
         }
 
         * { box-sizing: border-box; }
@@ -26,7 +28,7 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
-            background-color: var(--brand-blue-dark);
+            background-color: var(--brand-blue-bottom);
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -40,17 +42,22 @@
             min-height: 100%;
             z-index: -2; 
             object-fit: cover;
-            filter: brightness(0.6); /* Dims the raw video slightly */
+            /* We don't dim the video as much now to let the blue shine through */
+            filter: brightness(0.8); 
         }
 
-        /* Deep Blue Gradient Overlay to match your screenshot */
+        /* --- THE CRITICAL FIX: GRADIENT OVERLAY --- */
+        /* This mimics the lighting in your reference image */
         .video-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(0, 43, 69, 0.85) 0%, rgba(0, 10, 20, 0.95) 100%);
+            background: linear-gradient(180deg, 
+                rgba(0, 85, 130, 0.85) 0%,   /* Lighter Blue Top */
+                rgba(0, 35, 55, 0.92) 100%   /* Darker Blue Bottom */
+            );
             z-index: -1; 
         }
 
@@ -60,33 +67,34 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2%;
-            background: rgba(0, 15, 26, 0.8);
+            /* Semi-transparent version of the top blue */
+            background: rgba(0, 60, 95, 0.8); 
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             position: sticky; top: 0; z-index: 1000;
         }
 
         .nav-left { display: flex; align-items: center; gap: 30px; }
-        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); text-transform: uppercase; }
+        .logo { font-size: 1.4rem; font-weight: 900; letter-spacing: 1px; color: var(--text-white); text-transform: uppercase; }
         
         .nav-links a, .nav-links a:visited {
             color: #ffffff !important; 
             text-decoration: none;
             font-size: 0.95rem;
             font-weight: 600;
-            opacity: 0.9;
+            opacity: 0.95;
             transition: all 0.3s ease;
         }
-        .nav-links > a:hover { color: var(--brand-cyan) !important; opacity: 1; }
+        .nav-links > a:hover { color: var(--brand-green) !important; opacity: 1; }
 
         /* Dropdown */
         .dropdown { position: relative; display: inline-block; padding: 10px 0; }
         .dropdown-content { 
             display: none; 
             position: absolute; 
-            background: #001a29; 
+            background: #002d45; /* Dark blue menu */
             min-width: 240px; 
-            border: 1px solid var(--brand-cyan); 
+            border: 1px solid var(--brand-green); 
             z-index: 2000; 
             top: 100%; left: 0; 
         }
@@ -97,19 +105,19 @@
             border-bottom: 1px solid rgba(255,255,255,0.05); 
         }
         .dropdown-content a:hover { 
-            background: rgba(0, 255, 204, 0.1); 
-            color: var(--brand-cyan) !important; 
+            background: rgba(74, 222, 128, 0.1); 
+            color: var(--brand-green) !important; 
         }
         .dropdown:hover .dropdown-content { display: block; }
-        .fa-caret-down { margin-left: 5px; color: var(--brand-cyan); }
+        .fa-caret-down { margin-left: 5px; color: var(--brand-green); }
 
         /* Buttons */
         .nav-buttons { display: flex; gap: 15px; align-items: center; }
         
-        /* The Gold "Connect" Button */
+        /* Gold Button */
         .nav-btn-gold { 
             background-color: var(--brand-gold); 
-            color: #002d58; 
+            color: #002337; /* Dark text on gold */
             padding: 12px 24px; 
             border-radius: 50px; 
             font-weight: 800; 
@@ -117,14 +125,15 @@
             text-decoration: none;
             transition: transform 0.2s;
             border: none;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
         }
-        .nav-btn-gold:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(255, 204, 0, 0.4); }
+        .nav-btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5); }
 
-        /* The Outline "Download" Button */
+        /* Outline Button */
         .nav-btn-outline { 
             background: transparent; 
-            color: var(--brand-cyan); 
-            border: 1px solid var(--brand-cyan);
+            color: var(--brand-green); 
+            border: 2px solid var(--brand-green);
             padding: 10px 22px; 
             border-radius: 50px; 
             font-weight: 700; 
@@ -132,7 +141,7 @@
             text-decoration: none;
             transition: background 0.3s;
         }
-        .nav-btn-outline:hover { background: rgba(0, 255, 204, 0.1); }
+        .nav-btn-outline:hover { background: rgba(74, 222, 128, 0.15); }
 
         /* --- HEADER --- */
         .page-header {
@@ -144,35 +153,41 @@
         .page-header h1 { 
             font-size: 3.5rem; 
             margin-bottom: 20px; 
-            font-weight: 400; 
+            font-weight: 300; /* Thinner font like the image */
         }
-        /* Make the word 'Approach' pop with that Green/Cyan */
-        .page-header strong { color: var(--brand-cyan); font-weight: 700; }
-        .page-header p { font-size: 1.2rem; color: var(--text-gray); }
+        .page-header strong { color: var(--brand-green); font-weight: 700; }
+        .page-header p { font-size: 1.2rem; color: var(--text-gray); letter-spacing: 0.5px; }
 
-        /* --- BIO SECTION (The darker glass box) --- */
+        /* --- BIO SECTION --- */
         .bio-quote-container {
             max-width: 900px;
             margin: 0 auto 80px;
             padding: 50px;
-            /* Darker blue glass background */
-            background: linear-gradient(135deg, rgba(0, 43, 69, 0.4) 0%, rgba(0, 20, 40, 0.6) 100%);
+            /* Lighter Glass blue */
+            background: linear-gradient(135deg, rgba(0, 60, 95, 0.4) 0%, rgba(0, 30, 50, 0.5) 100%);
             border: 1px solid var(--glass-border);
-            border-left: 4px solid var(--brand-gold); /* Gold accent line */
+            border-left: 4px solid var(--brand-gold);
             border-radius: 8px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
         }
 
         .bio-text {
             font-size: 1.3rem;
             line-height: 1.7;
             color: #dbe4eb;
+            font-style: italic; /* Matches the "quote" style in image */
         }
 
-        /* Highlighting keywords in the Bio with the Tech Green */
+        /* Highlighting keywords */
         .bio-text span { 
-            color: var(--brand-cyan); 
+            color: var(--text-white); /* Make text white */
             font-weight: 700; 
+            font-style: normal;
+        }
+        /* Specific green highlights */
+        .bio-text .highlight-green {
+            color: var(--brand-green);
         }
 
         /* --- PILLARS GRID --- */
@@ -186,48 +201,57 @@
         }
 
         .pillar-card {
-            /* Blue Gradient Card */
-            background: linear-gradient(160deg, rgba(0, 60, 90, 0.3) 0%, rgba(0, 30, 50, 0.3) 100%);
+            background: linear-gradient(160deg, rgba(0, 85, 130, 0.3) 0%, rgba(0, 35, 55, 0.3) 100%);
             border: 1px solid rgba(255,255,255,0.05);
             padding: 40px 30px;
             border-radius: 12px;
             text-align: center;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* Glowing hover effect */
         .pillar-card:hover {
             transform: translateY(-10px);
-            background: linear-gradient(160deg, rgba(0, 80, 120, 0.4) 0%, rgba(0, 40, 60, 0.4) 100%);
-            border-color: var(--brand-cyan);
-            box-shadow: 0 0 25px rgba(0, 255, 204, 0.15);
+            background: linear-gradient(160deg, rgba(0, 95, 140, 0.5) 0%, rgba(0, 45, 65, 0.5) 100%);
+            border-color: var(--brand-green);
+            box-shadow: 0 0 25px rgba(74, 222, 128, 0.15);
         }
 
         .pillar-icon {
             font-size: 2.5rem;
-            color: var(--brand-cyan);
+            color: var(--brand-green);
             margin-bottom: 25px;
         }
 
         .pillar-title { font-size: 1.5rem; color: var(--text-white); margin-bottom: 15px; font-weight: 700; }
         .pillar-desc { font-size: 0.95rem; color: var(--text-gray); line-height: 1.6; }
 
-        /* --- FOOTER --- */
-        .callout-expert {
-            background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0, 43, 69, 0.8) 50%, rgba(0,0,0,0) 100%);
-            padding: 40px;
-            text-align: center;
-            margin-top: 50px;
+        /* --- BOTTOM BANNER (Like in image) --- */
+        .bottom-banner {
+            background: rgba(0, 15, 25, 0.95);
             border-top: 1px solid var(--glass-border);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
         }
-        .callout-expert h2 { color: var(--brand-gold); margin-bottom: 10px; }
+        
+        .banner-item {
+            color: var(--text-white);
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+        }
+        .banner-item i { color: var(--brand-green); }
 
         @media (max-width: 900px) {
             .page-header h1 { font-size: 2.2rem; }
             nav { flex-direction: column; gap: 20px; }
             .nav-left { flex-direction: column; }
+            .bottom-banner { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
@@ -277,11 +301,11 @@
 
     <div class="bio-quote-container">
         <div class="bio-text">
-            "Holistic Data Pro is led by Bartus de Paiva, a Senior BI Developer with 
-            <span>Data Warehousing</span> and <span>SQL Development</span> expertise. 
-            We specialize in reverse engineering legacy systems and automating data files. 
-            From robust <span>ETL pipelines</span> to advanced reporting using <span>Power BI</span>, 
-            we engineer end-to-end intelligence solutions with a <span>better, faster way</span> mindset."
+            "I bring an extremely solid background in <span class="highlight-green">Data Warehousing</span> and <span class="highlight-green">SQL Development</span> to the table. 
+            My strength lies not just in my technical command of the stack—SSMS, SSIS, SSRS, and Power BI—but in my ability to form 
+            <span>productive working relationships</span>. I understand what it takes to deliver a successful project, whether working 
+            as part of a team or autonomously. I am a perfectionist who constantly strives to find a <span class="highlight-green">better, faster way</span> to 
+            deliver end-to-end data solutions."
         </div>
     </div>
 
@@ -316,9 +340,11 @@
 
     </div>
 
-    <div class="callout-expert">
-        <h2>Callout of the Expert</h2>
-        <p>Holistic Data Pro is ready to deliver end-to-end intelligence solutions for your business.</p>
+    <div class="bottom-banner">
+        <div class="banner-item"><i class="fas fa-server"></i> FTP Data Automation</div>
+        <div class="banner-item"><i class="fas fa-network-wired"></i> ETL & Integration</div>
+        <div class="banner-item"><i class="fas fa-chart-line"></i> Advanced Reporting</div>
+        <div class="banner-item"><i class="fas fa-code"></i> Legacy Reverse Engineering</div>
     </div>
 
     <footer>
