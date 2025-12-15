@@ -24,26 +24,33 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
-            background-color: #000b1a;
+            /* Fallback color if video doesn't load */
+            background-color: #000b1a; 
             min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        /* --- BACKGROUND --- */
-        .page-bg {
+        /* --- VIDEO BACKGROUND SETUP --- */
+        #bg-video {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #001f3f 0%, #000b1a 100%);
-            z-index: -2;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -2; /* Sits behind everything */
+            object-fit: cover; /* Ensures video covers screen without stretching */
         }
 
-        .bg-grid {
-            position: absolute;
-            width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
+        /* Overlay to darken video so text is readable */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Adjust the 0.8 value to make it darker or lighter */
+            background: rgba(0, 11, 26, 0.85); 
+            z-index: -1; /* Sits on top of video, behind text */
         }
 
         /* --- NAVIGATION (STRICT WHITE LINKS) --- */
@@ -52,7 +59,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2%;
-            background: rgba(0, 31, 63, 0.8);
+            background: rgba(0, 31, 63, 0.7); /* Slightly more transparent now */
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
             position: sticky; top: 0; z-index: 1000;
@@ -66,7 +73,7 @@
         .nav-links a, 
         .nav-links a:visited, 
         .nav-links a:active {
-            color: #ffffff !important; /* Force White */
+            color: #ffffff !important; 
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 600;
@@ -97,7 +104,7 @@
         .dropdown-content a,
         .dropdown-content a:visited,
         .dropdown-content a:active { 
-            color: #ffffff !important; /* Force White */
+            color: #ffffff !important; 
             padding: 16px 20px; 
             text-decoration: none; 
             display: block; 
@@ -130,51 +137,26 @@
         /* --- HEADER & BIO --- */
         .page-header {
             text-align: center;
-            padding: 80px 20px 40px;
+            padding: 120px 20px 60px; /* Increased top padding slightly */
             max-width: 900px;
             margin: 0 auto;
+            position: relative;
         }
-        .page-header h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; }
+        .page-header h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         .page-header strong { color: var(--brand-green); font-weight: 700; }
         
-        /* --- NEW VIDEO SECTION STYLES --- */
-        .video-container {
-            max-width: 1000px;
-            margin: 0 auto 60px;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .video-wrapper {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            border: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.3);
-        }
-        
-        /* Optional: Add a subtle gold glow to the video border */
-        .video-wrapper:hover {
-            border-color: rgba(255, 198, 41, 0.3);
-            transition: border-color 0.3s ease;
-        }
-
-        video {
-            width: 100%;
-            display: block;
-        }
-
-        /* --- BIO SECTION --- */
         .bio-quote-container {
             max-width: 1000px;
             margin: 0 auto 60px;
             padding: 40px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            /* Make the glass effect stronger so text is readable over video */
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+            backdrop-filter: blur(5px);
             border: 1px solid var(--glass-border);
             border-left: 5px solid var(--brand-gold);
             border-radius: 0 12px 12px 0;
             position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .bio-text {
@@ -197,7 +179,8 @@
         }
 
         .pillar-card {
-            background: var(--glass-bg);
+            background: rgba(0, 31, 63, 0.4); /* More transparent to see hints of video */
+            backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
             padding: 40px 30px;
             border-radius: 12px;
@@ -227,7 +210,8 @@
 
         /* --- CALLOUT SECTION --- */
         .callout-section {
-            background: rgba(0, 31, 63, 0.6);
+            background: rgba(0, 31, 63, 0.8);
+            backdrop-filter: blur(10px);
             border-top: 1px solid var(--glass-border);
             border-bottom: 1px solid var(--glass-border);
             padding: 60px 20px;
@@ -252,9 +236,12 @@
 </head>
 <body>
 
-    <div class="page-bg"></div>
-    <div class="bg-grid"></div>
-
+    <video autoplay muted loop id="bg-video">
+        <source src="assets/video/WebsiteVideo.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+    
+    <div class="video-overlay"></div>
     <nav>
         <div class="nav-left">
             <a href="index.html" style="text-decoration: none;">
@@ -291,14 +278,6 @@
         <p>Beyond the code: A mindset driven by precision, efficiency, and relationship building.</p>
     </div>
 
-    <div class="video-container">
-        <div class="video-wrapper">
-            <video controls>
-                <source src="assets/video/WebsiteVideo.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </div>
     <div class="bio-quote-container">
         <div class="bio-text">
             "I bring an extremely solid background in <span>Data Warehousing</span> and <span>SQL Development</span> to the table. 
