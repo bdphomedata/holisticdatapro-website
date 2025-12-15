@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Overview | Holistic Data Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- CORE VARIABLES & RESET --- */
+        :root {
+            --brand-blue-light: #0077c8;
+            --brand-blue-dark: #001f3f;
+            --brand-gold: #ffc629;
+            --brand-green: #4ade80;
+            --text-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --card-hover-bg: rgba(0, 31, 63, 0.9);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-white);
+            background-color: #000b1a;
+            min-height: 100vh;
+        }
+
+        /* --- BACKGROUND --- */
+        .page-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #001f3f 0%, #000b1a 100%);
+            z-index: -2;
+        }
+
+        .bg-grid {
+            position: absolute;
+            width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* --- NAVIGATION (SPLIT LAYOUT) --- */
+        nav {
+            display: flex; 
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2%;
+            background: rgba(0, 31, 63, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        /* LEFT SIDE */
+        .nav-left { display: flex; align-items: center; gap: 30px; }
+        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); white-space: nowrap; }
+        
+        /* Dropdown */
+        .dropdown { position: relative; display: inline-block; padding: 10px 0; }
+        .dropdown-content { display: none; position: absolute; background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%); min-width: 240px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); border: 1px solid var(--glass-border); border-top: 3px solid var(--brand-gold); z-index: 2000; top: 100%; left: 0; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%); }
+        .dropdown-content a { color: var(--text-white); padding: 16px 20px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); border-left: 3px solid transparent; transition: all 0.2s ease; }
+        .dropdown-content a:hover { background: linear-gradient(90deg, rgba(74, 222, 128, 0.1) 0%, transparent 100%); color: var(--brand-green); border-left: 3px solid var(--brand-green); padding-left: 28px; }
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        .fa-caret-down { margin-left: 5px; font-size: 0.8em; color: var(--brand-green); transition: transform 0.3s ease; }
+        .dropdown:hover .fa-caret-down { transform: rotate(180deg); }
+
+        /* RIGHT SIDE */
+        .nav-right { display: flex; align-items: center; gap: 30px; }
+        .nav-link-simple { color: var(--text-white); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.7; transition: all 0.3s ease; }
+        .nav-link-simple:hover { opacity: 1; color: var(--brand-gold); }
+        .nav-btn { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; white-space: nowrap; }
+        .nav-btn-gold { background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold); }
+        .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
+
+        /* --- HEADER & BIO --- */
+        .page-header {
+            text-align: center;
+            padding: 80px 20px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .page-header h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; }
+        .page-header strong { color: var(--brand-green); font-weight: 700; }
+        
+        .bio-quote-container {
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--glass-border);
+            border-left: 5px solid var(--brand-gold);
+            border-radius: 0 12px 12px 0;
+            position: relative;
+        }
+
+        .bio-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #d1d5db;
+            font-style: italic;
+        }
+
+        .bio-text span { color: var(--text-white); font-weight: 600; font-style: normal; }
+
+        /* --- VALUE PILLARS GRID --- */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .pillar-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            background: var(--card-hover-bg);
+            border-color: var(--brand-green);
+        }
+
+        .pillar-icon {
+            font-size: 2.5rem;
+            color: var(--brand-green);
+            margin-bottom: 25px;
+            background: rgba(74, 222, 128, 0.1);
+            width: 80px; height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin-left: auto; margin-right: auto;
+        }
+
+        .pillar-title { font-size: 1.4rem; color: var(--text-white); margin-bottom: 15px; font-weight: 700; }
+        .pillar-desc { font-size: 0.95rem; color: #a0aec0; line-height: 1.6; }
+
+        /* --- CALLOUT SECTION --- */
+        .callout-section {
+            background: rgba(0, 31, 63, 0.6);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .callout-content { max-width: 800px; margin: 0 auto; }
+        .callout-title { font-size: 2rem; color: var(--brand-gold); margin-bottom: 20px; }
+        .callout-text { font-size: 1.1rem; line-height: 1.6; color: var(--text-white); }
+
+        @media (max-width: 900px) {
+            .page-header h1 { font-size: 2rem; }
+            .bio-text { font-size: 1rem; }
+            
+            nav { flex-direction: column; gap: 20px; padding-bottom: 20px; }
+            .nav-left { flex-direction: column; gap: 10px; }
+            .nav-right { flex-direction: column; gap: 15px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="page-bg"></div>
+    <div class="bg-grid"></div>
+
+    <nav>
+        <div class="nav-left">
+            <div class="logo">HOLISTIC DATA PRO</div>
+            
+            <div class="dropdown">
+                <a href="#" style="color: var(--brand-gold); font-weight: 600; text-decoration: none;">
+                    Professional Overview <i class="fas fa-caret-down"></i>
+                </a>
+                <div class="dropdown-content">
+                    <a href="index.html">Home</a>
+                    <a href="overview.html">Professional Overview</a>
+                    <a href="journey.html">My Journey (1999-2025)</a>
+                    <a href="qualifications.html">Qualifications & Tech</a>
+                    <a href="construction.html">Project Highlights</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-right">
+            <a href="index.html#services" class="nav-link-simple">Services</a>
+            <a href="contact.html" class="nav-btn nav-btn-gold">CONNECT WITH ME</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>The Strategic <strong>Approach</strong></h1>
+        <p>Beyond the code: A mindset driven by precision, efficiency, and relationship building.</p>
+    </div>
+
+    <div class="bio-quote-container">
+        <div class="bio-text">
+            "I bring an extremely solid background in <span>Data Warehousing</span> and <span>SQL Development</span> to the table. 
+            My strength lies not just in my technical command of the stack—SSMS, SSIS, SSRS, and Power BI—but in my 
+            ability to form <span>productive working relationships</span>. I understand what it takes to deliver a successful project, 
+            whether working as part of a team or autonomously. I am a perfectionist who constantly strives to find a 
+            <span>better, faster way</span> to deliver end-to-end data solutions."
+        </div>
+    </div>
+
+    <div class="pillars-grid">
+        
+        <div class="pillar-card">
+            <div class="pillar-icon"><i class="fas fa-stopwatch"></i></div>
+            <h3 class="pillar-title">Efficiency & Optimization</h3>
+            <p class="pillar-desc">
+                "Finding a better and faster way." I don't just build pipelines; I optimize them. 
+                Whether it's shaving seconds off a stored procedure or automating manual file transfers, 
+                my goal is always peak system performance.
+            </p>
+        </div>
+
+        <div class="pillar-card">
+            <div class="pillar-icon"><i class="fas fa-handshake"></i></div>
+            <h3 class="pillar-title">Collaborative Leadership</h3>
+            <p class="pillar-desc">
+                Technical skills build systems; soft skills build trust. I pride myself on being well-spoken 
+                and capable of forming productive relationships with stakeholders, ensuring business requirements 
+                are met with precision.
+            </p>
+        </div>
+
+        <div class="pillar-card">
+            <div class="pillar-icon"><i class="fas fa-layer-group"></i></div>
+            <h3 class="pillar-title">Full-Stack BI Mastery</h3>
+            <p class="pillar-desc">
+                From the raw SQL back-end to the polished Power BI front-end. My expertise spans the entire 
+                Microsoft BI stack (SSIS, SSAS, SSRS), allowing me to own the data lifecycle from ingestion to insight.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="callout-section">
+        <div class="callout-content">
+            <h2 class="callout-title">Ready to Deliver Value</h2>
+            <p class="callout-text">
+                With over 12+ years of senior-level experience in Gauteng and beyond, I am available for 
+                remote international opportunities or local leadership roles.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <div style="text-align: center; padding: 40px; color: rgba(255,255,255,0.5); font-size: 0.8rem; border-top: 1px solid var(--glass-border);">
+            <p>&copy; 2025 Holistic Data Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
