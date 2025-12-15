@@ -46,32 +46,53 @@
             z-index: -1;
         }
 
-        /* --- NAVIGATION --- */
+        /* --- NAVIGATION (SPLIT LAYOUT) --- */
         nav {
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; 
+            justify-content: space-between; /* Pushes Left and Right apart */
+            align-items: center;
             padding: 1.5rem 2%;
             background: rgba(0, 31, 63, 0.8);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--glass-border);
             position: sticky; top: 0; z-index: 1000;
         }
-        .nav-left { display: flex; align-items: center; gap: 20px; }
-        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: var(--text-white); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.9; transition: all 0.3s ease; }
-        .nav-links a:hover { color: var(--brand-gold); opacity: 1; }
-        
-        .nav-buttons { display: flex; gap: 10px; }
-        .nav-btn { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; }
-        .nav-btn-gold { background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold); }
-        .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
 
+        /* LEFT SIDE: Logo + Context Dropdown */
+        .nav-left { 
+            display: flex; 
+            align-items: center; 
+            gap: 30px; 
+        }
+
+        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); white-space: nowrap; }
+        
         /* Dropdown Styles */
         .dropdown { position: relative; display: inline-block; padding: 10px 0; }
         .dropdown-content { display: none; position: absolute; background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%); min-width: 240px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); border: 1px solid var(--glass-border); border-top: 3px solid var(--brand-gold); z-index: 2000; top: 100%; left: 0; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%); }
         .dropdown-content a { color: var(--text-white); padding: 16px 20px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); border-left: 3px solid transparent; transition: all 0.2s ease; }
         .dropdown-content a:hover { background: linear-gradient(90deg, rgba(74, 222, 128, 0.1) 0%, transparent 100%); color: var(--brand-green); border-left: 3px solid var(--brand-green); padding-left: 28px; }
         .dropdown:hover .dropdown-content { display: block; }
+        
+        /* Arrow Icon */
+        .fa-caret-down { margin-left: 5px; font-size: 0.8em; color: var(--brand-green); transition: transform 0.3s ease; }
+        .dropdown:hover .fa-caret-down { transform: rotate(180deg); }
+
+        /* RIGHT SIDE: Services + Button */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 30px; 
+        }
+
+        .nav-link-simple {
+            color: var(--text-white); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.7; transition: all 0.3s ease;
+        }
+        .nav-link-simple:hover { opacity: 1; color: var(--brand-gold); }
+
+        .nav-btn { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; white-space: nowrap; }
+        .nav-btn-gold { background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold); }
+        .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
 
         /* --- HEADER --- */
         .page-header {
@@ -176,10 +197,13 @@
         .edu-details h4 { margin: 0 0 5px 0; font-size: 1.1rem; }
         .edu-details p { margin: 0; color: #a0aec0; font-size: 0.9rem; }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .page-header h1 { font-size: 2rem; }
             .edu-item { flex-direction: column; gap: 5px; }
-            .nav-links { display: none; } /* Mobile Menu would go here */
+            
+            nav { flex-direction: column; gap: 20px; padding-bottom: 20px; }
+            .nav-left { flex-direction: column; gap: 10px; }
+            .nav-right { flex-direction: column; gap: 15px; }
         }
 
     </style>
@@ -192,23 +216,23 @@
     <nav>
         <div class="nav-left">
             <div class="logo">HOLISTIC DATA PRO</div>
-            <div class="nav-links">
-                <div class="dropdown">
-                    <a href="#" style="color: var(--brand-gold);">
-                        About Us <i class="fas fa-caret-down"></i>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="index.html">Home</a>
-                        <a href="construction.html">Professional Overview</a>
-                        <a href="journey.html">My Journey (1999-2025)</a>
-                        <a href="qualifications.html">Qualifications & Tech</a>
-                        <a href="construction.html">Project Highlights</a>
-                    </div>
+            
+            <div class="dropdown">
+                <a href="#" style="color: var(--brand-gold); font-weight: 600; text-decoration: none;">
+                    Qualifications & Tech <i class="fas fa-caret-down"></i>
+                </a>
+                <div class="dropdown-content">
+                    <a href="index.html">Home</a>
+                    <a href="construction.html">Professional Overview</a>
+                    <a href="journey.html">My Journey (1999-2025)</a>
+                    <a href="qualifications.html">Qualifications & Tech</a>
+                    <a href="construction.html">Project Highlights</a>
                 </div>
-                <a href="index.html#services">Services</a>
             </div>
         </div>
-        <div class="nav-buttons">
+
+        <div class="nav-right">
+            <a href="index.html#services" class="nav-link-simple">Services</a>
             <a href="contact.html" class="nav-btn nav-btn-gold">CONNECT WITH ME</a>
         </div>
     </nav>
