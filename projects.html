@@ -6,16 +6,19 @@
     <title>Project Highlights | Holistic Data Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* --- CORE VARIABLES & RESET --- */
+        /* --- CORE VARIABLES (MATCHING OTHER PAGES) --- */
         :root {
-            --brand-blue-light: #0077c8;
-            --brand-blue-dark: #001f3f;
-            --brand-gold: #ffc629;
-            --brand-green: #4ade80;
+            --brand-blue-top: #005582;    /* Lighter blue top */
+            --brand-blue-bottom: #001a2d; /* Darker blue bottom */
+            --brand-gold: #ffc107;        /* Vibrant Gold */
+            --brand-green: #4ade80;       /* Tech Green/Cyan */
             --text-white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --card-hover-bg: rgba(0, 31, 63, 0.9);
+            --text-gray: #e0f2fe;
+            
+            /* Blue Glass Effects */
+            --glass-bg: rgba(0, 60, 95, 0.4); 
+            --glass-border: rgba(74, 222, 128, 0.2); 
+            --card-hover-bg: rgba(0, 85, 130, 0.6);
         }
 
         * { box-sizing: border-box; }
@@ -24,72 +27,126 @@
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
-            background-color: #000b1a;
+            background-color: var(--brand-blue-bottom);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* --- BACKGROUND --- */
-        .page-bg {
+        /* --- VIDEO BACKGROUND SETUP --- */
+        #bg-video {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #001f3f 0%, #000b1a 100%);
-            z-index: -2;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -2; 
+            object-fit: cover;
+            filter: brightness(0.8); 
         }
 
-        .bg-grid {
-            position: absolute;
-            width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: -1;
+        /* --- GRADIENT OVERLAY --- */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, 
+                rgba(0, 85, 130, 0.85) 0%,   
+                rgba(0, 35, 55, 0.92) 100%   
+            );
+            z-index: -1; 
         }
 
-        /* --- NAVIGATION (SPLIT LAYOUT) --- */
+        /* --- NAVIGATION --- */
         nav {
             display: flex; 
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 2%;
-            background: rgba(0, 31, 63, 0.8);
+            background: rgba(0, 60, 95, 0.8); 
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             position: sticky; top: 0; z-index: 1000;
         }
 
-        /* LEFT SIDE */
         .nav-left { display: flex; align-items: center; gap: 30px; }
-        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; color: var(--text-white); white-space: nowrap; }
+        .logo { font-size: 1.4rem; font-weight: 900; letter-spacing: 1px; color: var(--text-white); text-transform: uppercase; }
         
+        .nav-links a, .nav-links a:visited {
+            color: #ffffff !important; 
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            opacity: 0.95;
+            transition: all 0.3s ease;
+        }
+        .nav-links > a:hover { color: var(--brand-green) !important; opacity: 1; }
+
         /* Dropdown */
         .dropdown { position: relative; display: inline-block; padding: 10px 0; }
-        .dropdown-content { display: none; position: absolute; background: linear-gradient(165deg, rgba(0, 31, 63, 0.98) 0%, rgba(0, 15, 30, 0.98) 100%); min-width: 240px; box-shadow: 0 10px 25px rgba(0,0,0,0.6); border: 1px solid var(--glass-border); border-top: 3px solid var(--brand-gold); z-index: 2000; top: 100%; left: 0; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%); }
-        .dropdown-content a { color: var(--text-white); padding: 16px 20px; text-decoration: none; display: block; border-bottom: 1px solid rgba(255,255,255,0.05); border-left: 3px solid transparent; transition: all 0.2s ease; }
-        .dropdown-content a:hover { background: linear-gradient(90deg, rgba(74, 222, 128, 0.1) 0%, transparent 100%); color: var(--brand-green); border-left: 3px solid var(--brand-green); padding-left: 28px; }
+        .dropdown-content { 
+            display: none; 
+            position: absolute; 
+            background: #002d45; 
+            min-width: 240px; 
+            border: 1px solid var(--brand-green); 
+            z-index: 2000; 
+            top: 100%; left: 0; 
+        }
+        .dropdown-content a { 
+            color: #ffffff !important; 
+            padding: 16px 20px; 
+            display: block; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+        }
+        .dropdown-content a:hover { 
+            background: rgba(74, 222, 128, 0.1); 
+            color: var(--brand-green) !important; 
+        }
         .dropdown:hover .dropdown-content { display: block; }
-        
-        .fa-caret-down { margin-left: 5px; font-size: 0.8em; color: var(--brand-green); transition: transform 0.3s ease; }
-        .dropdown:hover .fa-caret-down { transform: rotate(180deg); }
+        .fa-caret-down { margin-left: 5px; color: var(--brand-green); }
 
-        /* RIGHT SIDE */
-        .nav-right { display: flex; align-items: center; gap: 30px; }
-        .nav-link-simple { color: var(--text-white); text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.7; transition: all 0.3s ease; }
-        .nav-link-simple:hover { opacity: 1; color: var(--brand-gold); }
-        .nav-btn { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease; white-space: nowrap; }
-        .nav-btn-gold { background-color: var(--brand-gold); color: #002d58; border: 2px solid var(--brand-gold); }
-        .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
+        /* Buttons */
+        .nav-buttons { display: flex; gap: 15px; align-items: center; }
+        
+        .nav-btn-gold { 
+            background-color: var(--brand-gold); 
+            color: #002337; 
+            padding: 12px 24px; 
+            border-radius: 50px; 
+            font-weight: 800; 
+            font-size: 0.85rem; 
+            text-decoration: none;
+            transition: transform 0.2s;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+        .nav-btn-gold:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 193, 7, 0.5); }
+
+        .nav-btn-outline { 
+            background: transparent; 
+            color: var(--brand-green); 
+            border: 2px solid var(--brand-green);
+            padding: 10px 22px; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .nav-btn-outline:hover { background: rgba(74, 222, 128, 0.15); }
 
         /* --- HEADER --- */
         .page-header {
             text-align: center;
-            padding: 80px 20px 40px;
+            padding: 100px 20px 50px;
             max-width: 900px;
             margin: 0 auto;
         }
         .page-header h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 300; }
         .page-header strong { color: var(--brand-green); font-weight: 700; }
-        .page-header p { color: #d1d5db; line-height: 1.6; font-size: 1.1rem; }
+        .page-header p { color: var(--text-gray); line-height: 1.6; font-size: 1.1rem; }
 
         /* --- PROJECT GRID --- */
         .projects-section {
@@ -103,9 +160,10 @@
             color: var(--brand-gold);
             margin-bottom: 25px;
             padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 198, 41, 0.2);
+            border-bottom: 1px solid rgba(255, 198, 41, 0.3);
             text-transform: uppercase;
             letter-spacing: 1px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
         }
 
         .projects-grid {
@@ -116,19 +174,21 @@
         }
 
         .project-card {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
+            /* Blue Glass Card */
+            background: linear-gradient(160deg, rgba(0, 85, 130, 0.3) 0%, rgba(0, 35, 55, 0.3) 100%);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             padding: 30px;
             transition: all 0.3s ease;
             position: relative;
             display: flex;
             flex-direction: column;
+            backdrop-filter: blur(5px);
         }
 
         .project-card:hover {
             transform: translateY(-5px);
-            background: var(--card-hover-bg);
+            background: linear-gradient(160deg, rgba(0, 95, 140, 0.5) 0%, rgba(0, 45, 65, 0.5) 100%);
             border-color: var(--brand-green);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
@@ -138,26 +198,39 @@
             top: 20px; right: 20px;
             font-size: 0.75rem;
             font-weight: 700;
-            background: rgba(255,255,255,0.1);
-            padding: 5px 10px;
-            border-radius: 4px;
+            background: rgba(0, 30, 50, 0.6);
+            padding: 5px 12px;
+            border-radius: 20px;
             color: #a0aec0;
             text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .project-title { font-size: 1.3rem; font-weight: 700; color: var(--text-white); margin-top: 10px; margin-bottom: 15px; padding-right: 60px; }
+        .project-title { 
+            font-size: 1.3rem; 
+            font-weight: 700; 
+            color: var(--text-white); 
+            margin-top: 10px; 
+            margin-bottom: 15px; 
+            padding-right: 60px; 
+        }
         
-        .project-desc { font-size: 0.95rem; color: #d1d5db; line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
+        .project-desc { font-size: 0.95rem; color: var(--text-gray); line-height: 1.6; margin-bottom: 20px; flex-grow: 1; }
 
         .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; }
         
         .tech-tag {
             font-size: 0.75rem;
-            padding: 4px 10px;
-            background: rgba(0, 119, 200, 0.2);
-            color: #4ade80;
+            padding: 6px 12px;
+            background: rgba(0, 40, 70, 0.6);
+            color: var(--brand-green);
             border-radius: 20px;
             border: 1px solid rgba(74, 222, 128, 0.3);
+            transition: all 0.2s;
+        }
+        .tech-tag:hover {
+            background: rgba(74, 222, 128, 0.15);
+            border-color: var(--brand-green);
         }
 
         @media (max-width: 900px) {
@@ -166,17 +239,20 @@
             
             nav { flex-direction: column; gap: 20px; padding-bottom: 20px; }
             .nav-left { flex-direction: column; gap: 10px; }
-            .nav-right { flex-direction: column; gap: 15px; }
+            .nav-buttons { width: 100%; justify-content: center; }
         }
 
     </style>
 </head>
 <body>
 
-    <div class="page-bg"></div>
-    <div class="bg-grid"></div>
+    <video autoplay muted loop id="bg-video">
+        <source src="assets/video/WebsiteVideo.mp4" type="video/mp4">
+    </video>
+    
+    <div class="video-overlay"></div>
 
-<nav>
+    <nav>
         <div class="nav-left">
             <a href="index.html" style="text-decoration: none;">
                 <div class="logo">HOLISTIC DATA PRO</div>
@@ -203,8 +279,8 @@
         </div>
         
         <div class="nav-buttons">
-            <a href="contact.html" class="nav-btn nav-btn-gold">CONNECT WITH ME</a>
-            <a href="Profile.pdf" class="nav-btn nav-btn-green" download>DOWNLOAD PROFILE</a>
+            <a href="contact.html" class="nav-btn-gold">CONNECT WITH ME</a>
+            <a href="Profile.pdf" class="nav-btn-outline" download>DOWNLOAD PROFILE</a>
         </div>
     </nav>
 
@@ -215,7 +291,7 @@
 
     <div class="projects-section">
         
-        [cite_start]<h2 class="category-title">Ithuba Lottery (Current) [cite: 52-54]</h2>
+        <h2 class="category-title">Ithuba Lottery (Current)</h2>
         <div class="projects-grid">
             
             <div class="project-card">
@@ -234,7 +310,7 @@
             </div>
 
             <div class="project-card" style="border-left: 4px solid var(--brand-green);">
-                <div class="client-badge" style="color: var(--brand-green);">Project 2</div>
+                <div class="client-badge" style="color: var(--brand-green); border-color: var(--brand-green);">Project 2</div>
                 <h3 class="project-title">B2B Automation (PLS Winners and Reconciliation)</h3>
                 <p class="project-desc">
                     Automated the daily file exchange checks ("Reconciliation") with major partners (ABSA, FNB, etc.). 
