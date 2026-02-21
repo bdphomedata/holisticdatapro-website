@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe | Holistic Data Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Segoe UI', sans-serif; 
+            background: #001f3f; 
+            height: 100vh; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Glass Card */
+        .subscribe-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        h2 { color: #4ade80; margin-bottom: 10px; font-weight: 300; }
+        p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 30px; }
+
+        .input-group { margin-bottom: 20px; text-align: left; }
+        label { display: block; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 5px; color: #ffc629; }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 31, 63, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        input:focus { border-color: #4ade80; }
+
+        .sub-btn {
+            width: 100%;
+            padding: 15px;
+            background: #4ade80;
+            color: #001f3f;
+            border: none;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .sub-btn:hover { background: #38b368; transform: translateY(-2px); }
+
+        .back-link { display: block; margin-top: 20px; color: white; text-decoration: none; font-size: 0.8rem; opacity: 0.6; }
+        .back-link:hover { opacity: 1; color: #ffc629; }
+    </style>
+</head>
+<body>
+
+    <div class="subscribe-card">
+        <i class="fas fa-envelope-open-text" style="font-size: 3rem; color: #ffc629; margin-bottom: 20px;"></i>
+        <h2>Join the Network</h2>
+        <p>Get automated BI reports and legacy system insights delivered to your inbox.</p>
+
+        <form action="subscribe_process.php" method="POST">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" name="name" placeholder="Bartus de Paiva" required>
+            </div>
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="data@holisticpro.com" required>
+            </div>
+            <div class="input-group">
+                <label>Insight Level</label>
+                <select name="plan">
+                    <option value="0">Standard (Free)</option>
+                    <option value="1">Premium (Full BI Access)</option>
+                </select>
+            </div>
+            <button type="submit" class="sub-btn">ACTIVATE SUBSCRIPTION</button>
+        </form>
+
+        <a href="index.html" class="back-link">← Return to Main Portal</a>
+    </div>
+
+</body>
+</html>
