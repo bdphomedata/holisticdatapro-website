@@ -1,36 +1,44 @@
 <?php
-// 1. Connection Details (Get these from your Azure Connection String)
-$serverName = "your-server.database.windows.net"; 
+$serverName = "your_server.database.windows.net";
 $connectionOptions = array(
-    "Database" => "BDPD", // Based on your screenshot
-    "Uid" => "your_admin_username",
-    "PWD" => "your_password"
+"Database" => "your_database",
+"Uid" => "your_username",
+"PWD" => "your_password"
 );
 
-// 2. Connect to Azure SQL
+// Connect to Azure SQL
 $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if ($conn === false) {
-    die(print_r(sqlsrv_errors(), true));
+die(print_r(sqlsrv_errors(), true));
 }
 
-// 3. Capture data from your Subscribe form
-$name = $_POST['name'];
-$email = $_POST['email'];
-$plan = $_POST['plan'];
+// Capture data from your HTML form
+$first_name   = $_POST['first_name'];
+$surname      = $_POST['surname'];
+$email        = $_POST['email']; // Make sure your HTML has <input name="email">
+$gender       = $_POST['gender'];
+$ethnic_group = $_POST['ethnic_group'];
+$country      = $_POST['country'];
 
-// 4. Insert into the Database
-$sql = "INSERT INTO Users (Username, Email, IsSubscribed, HasLoggedInBefore) 
-        VALUES (?, ?, ?, 0)";
-$params = array($name, $email, $plan);
+// SQL Query to insert the new member
+$tsql = "INSERT INTO Subscribers (FirstName, Surname, Email, Gender, EthnicGroup, Country)
+VALUES (?, ?, ?, ?, ?, ?)";
 
-$stmt = sqlsrv_query($conn, $sql, $params);
+$params = array($first_name, $surname, $email, $gender, $ethnic_group, $country);
+$stmt = sqlsrv_query($conn, $tsql, $params);
 
-if ($stmt) {
-    // Redirect to a "Success" or Welcome page
-    header("Location: welcome.html");
+if ($stmt === false) {
+$errors = sqlsrv_errors();
+if ($errors[0]['code'] == 2627) {
+echo "Error: This email is already subscribed!";
 } else {
-    echo "Error saving data.";
-    die(print_r(sqlsrv_errors(), true));
+die(print_r($errors, true));
 }
+} else {
+echo "Success! Welcome to the Network.";
+}
+
+sqlsrv_free_stmt($stmt);
+sqlsrv_close($conn);
 ?>
