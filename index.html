@@ -218,14 +218,26 @@
     transform: translateY(-2px);
 }
 
-        @media (max-width: 1200px) {
-            nav { flex-direction: column; gap: 15px; padding: 15px; }
-            .nav-left { flex-direction: column; gap: 15px; width: 100%; }
-            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; }
-            .nav-buttons { width: 100%; justify-content: center; margin-top: 10px; }
-            .dropdown-content { position: static; min-width: 100%; border: none; background: rgba(0,0,0,0.2); clip-path: none; }
-            .dropdown:hover .dropdown-content { display: block; }
-        }
+@media (max-width: 1200px) {
+    nav { flex-direction: column; gap: 20px; padding: 20px 5%; }
+    .nav-left { flex-direction: column; gap: 15px; width: 100%; }
+    .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; }
+    
+    /* This is the magic part for the 2x2 grid */
+    .nav-buttons { 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 12px; 
+        width: 100%; 
+        max-width: 450px; 
+        margin: 10px auto 0; 
+    }
+
+    .nav-btn { padding: 12px 10px; font-size: 0.75rem; text-align: center; }
+
+    .dropdown-content { position: static; min-width: 100%; border: none; background: rgba(0,0,0,0.2); clip-path: none; }
+    .dropdown:hover .dropdown-content { display: block; }
+}
 
         /* --- HERO SPLIT LAYOUT --- */
         .hero {
