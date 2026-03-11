@@ -59,7 +59,7 @@ if ($stmt === false) {
     mail($to, $subject, $message, $headers);
 
     // 5. Redirect to your GitHub success page
-    header("Location: https://bartus777.github.io/holisticdatapro/success.html");
+    header("Location: https://holisticdatapro.com/success.html");
     exit();
 }
 
