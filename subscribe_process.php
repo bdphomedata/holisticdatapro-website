@@ -5,7 +5,7 @@ $serverName = "bdphdwebsite.database.windows.net";
 $connectionOptions = array(
     "Database" => "BDPHD",
     // Try adding the @server-name part here
-    "Uid" => "BDPHD@bdphdwebsite", 
+    "Uid" => "WebSubscriber", 
     "PWD" => "HDLinkMaster2026", 
     "Encrypt" => true,
     "TrustServerCertificate" => true,
