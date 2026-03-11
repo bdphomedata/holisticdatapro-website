@@ -5,7 +5,7 @@ $serverName = "bdphdwebsite.database.windows.net";
 $connectionOptions = array(
 "Database" => "BDPHD",
 "Uid" => "BDPHD",
-"PWD" => "HDLinkMaster001!"
+"PWD" => "HDLinkMaster2026"
 );
 
 $conn = sqlsrv_connect($serverName, $connectionOptions);
