@@ -204,12 +204,19 @@
         }
         .nav-btn-gold:hover { transform: translateY(-2px); background-color: #ffd65c; }
 
-        .nav-btn-green {
-            background-color: transparent;
-            color: var(--brand-green);
-            border: 2px solid var(--brand-green);
-        }
-        .nav-btn-green:hover { background-color: rgba(74, 222, 128, 0.1); }
+.nav-btn-green {
+    background-color: transparent;
+    color: var(--brand-green); /* This gives the text the green look */
+    border: 2px solid var(--brand-green);
+    transition: all 0.3s ease;
+}
+
+.nav-btn-green:hover {
+    background-color: rgba(74, 222, 128, 0.1); /* Subtle green tint on hover */
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.4); /* Glowing effect */
+    color: var(--brand-green); /* Ensures text stays green on hover */
+    transform: translateY(-2px);
+}
 
         @media (max-width: 1200px) {
             nav { flex-direction: column; gap: 15px; padding: 15px; }
