@@ -1,9 +1,9 @@
 <?php
-$serverName = "your_server.database.windows.net";
+$serverName = "bdphdwebsite.database.windows.net";
 $connectionOptions = array(
-"Database" => "your_database",
-"Uid" => "your_username",
-"PWD" => "your_password"
+"Database" => "BDPHD",
+"Uid" => "BDPHD",
+"PWD" => "HDLinkMaster001!"
 );
 
 // Connect to Azure SQL
