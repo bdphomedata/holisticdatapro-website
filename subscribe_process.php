@@ -17,8 +17,8 @@ if ($conn === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-// 1. Capture Form Data
-$first_name   = $_POST['name']; // Adjusting to match your screenshot 'name' attribute
+// 1. Capture Form Data - Updated to match your HTML 'name' attributes exactly
+$first_name   = $_POST['first_name']; 
 $surname      = $_POST['surname'];
 $email        = $_POST['email'];
 $gender       = $_POST['gender'];
@@ -26,10 +26,11 @@ $ethnic_group = $_POST['ethnic_group'];
 $country      = $_POST['country'];
 
 // 2. Generate and Hash Temporary Password
-$tempPassword = bin2hex(random_bytes(4)); // Creates an 8-character string
+$tempPassword = bin2hex(random_bytes(4)); // Creates 8 random characters
 $hashedPassword = password_hash($tempPassword, PASSWORD_DEFAULT);
 
-// 3. Updated SQL to include the Password column
+// 3. Insert into Azure SQL
+// Make sure you ran: ALTER TABLE Subscribers ADD Password NVARCHAR(255);
 $tsql = "INSERT INTO Subscribers (FirstName, Surname, Email, Gender, EthnicGroup, Country, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 $params = array($first_name, $surname, $email, $gender, $ethnic_group, $country, $hashedPassword);
@@ -57,7 +58,7 @@ if ($stmt === false) {
 
     mail($to, $subject, $message, $headers);
 
-    // 5. Redirect to your new professional success page
+    // 5. Redirect to your GitHub success page
     header("Location: https://bartus777.github.io/holisticdatapro/success.html");
     exit();
 }
