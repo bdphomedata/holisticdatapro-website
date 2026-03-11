@@ -3,9 +3,13 @@
 $serverName = "bdphdwebsite.database.windows.net";
 
 $connectionOptions = array(
-"Database" => "BDPHD",
-"Uid" => "BDPHD",
-"PWD" => "HDLinkMaster2026"
+    "Database" => "BDPHD",
+    // Try adding the @server-name part here
+    "Uid" => "BDPHD@bdphdwebsite", 
+    "PWD" => "HDLinkMaster2026", 
+    "Encrypt" => true,
+    "TrustServerCertificate" => true,
+    "CharacterSet" => "UTF-8"
 );
 
 $conn = sqlsrv_connect($serverName, $connectionOptions);
