@@ -4,7 +4,6 @@ $serverName = "bdphdwebsite.database.windows.net";
 
 $connectionOptions = array(
     "Database" => "BDPHD",
-    // Try adding the @server-name part here
     "Uid" => "WebSubscriber", 
     "PWD" => "HDLinkMaster2026", 
     "Encrypt" => true,
@@ -15,35 +14,55 @@ $connectionOptions = array(
 $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if ($conn === false) {
-die(print_r(sqlsrv_errors(), true));
+    die(print_r(sqlsrv_errors(), true));
 }
 
-$first_name   = $_POST['first_name'];
+// 1. Capture Form Data
+$first_name   = $_POST['name']; // Adjusting to match your screenshot 'name' attribute
 $surname      = $_POST['surname'];
 $email        = $_POST['email'];
 $gender       = $_POST['gender'];
 $ethnic_group = $_POST['ethnic_group'];
 $country      = $_POST['country'];
 
-$tsql = "INSERT INTO Subscribers (FirstName, Surname, Email, Gender, EthnicGroup, Country) VALUES (?, ?, ?, ?, ?, ?)";
+// 2. Generate and Hash Temporary Password
+$tempPassword = bin2hex(random_bytes(4)); // Creates an 8-character string
+$hashedPassword = password_hash($tempPassword, PASSWORD_DEFAULT);
 
-$params = array($first_name, $surname, $email, $gender, $ethnic_group, $country);
+// 3. Updated SQL to include the Password column
+$tsql = "INSERT INTO Subscribers (FirstName, Surname, Email, Gender, EthnicGroup, Country, Password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+$params = array($first_name, $surname, $email, $gender, $ethnic_group, $country, $hashedPassword);
 
 $stmt = sqlsrv_query($conn, $tsql, $params);
 
 if ($stmt === false) {
-$errors = sqlsrv_errors();
-if ($errors[0]['code'] == 2627) {
-echo "Error: This email is already subscribed!";
+    $errors = sqlsrv_errors();
+    if ($errors[0]['code'] == 2627) {
+        echo "Error: This email is already subscribed!";
+    } else {
+        die(print_r($errors, true));
+    }
 } else {
-die(print_r($errors, true));
-}
-} else {
-echo "Success! Welcome to the Network.";
+    // 4. Send the Email
+    $to = $email;
+    $subject = "Welcome to the Network - Your Access Credentials";
+    $headers = "From: no-reply@holisticdatapro.com\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
+    $message = "Hello " . $first_name . ",\n\n";
+    $message .= "Your registration is successful. Please use the temporary password below for your first login attempt:\n\n";
+    $message .= "Password: " . $tempPassword . "\n\n";
+    $message .= "Regards,\nHolistic Data Pro Team";
+
+    mail($to, $subject, $message, $headers);
+
+    // 5. Redirect to your new professional success page
+    header("Location: https://bartus777.github.io/holisticdatapro/success.html");
+    exit();
 }
 
 sqlsrv_free_stmt($stmt);
-
 sqlsrv_close($conn);
 
 ?>
