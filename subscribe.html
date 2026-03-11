@@ -1,3 +1,8 @@
+I see it now! You are right—the code you just pasted is missing the Email Address field entirely, even though it has the Name, Surname, Gender, etc.
+
+I have modified your specific code to insert the Email field right after the Surname row. This is vital so the database can identify the user.
+
+Modified Code for subscribe.html
 <!DOCTYPE html>
 
 <html lang="en">
@@ -5,7 +10,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Subscribe | Holistic Data Pro</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="">
 <style>
 body { margin: 0; padding: 20px; font-family: 'Segoe UI', sans-serif; background: #001f3f; min-height: 100vh; display: flex; justify-content: center; align-items: center; color: white; }
 .subscribe-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 20px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
@@ -28,7 +33,7 @@ select option { background: #001f3f; color: white; }
 <i class="fas fa-envelope-open-text" style="font-size: 2.5rem; color: #ffc629; margin-bottom: 15px;"></i>
 <h2>Join the Network</h2>
 <p>Complete your profile to receive tailored BI insights.</p>
-<form action="https://websitesubscription-e7ehe3evgme8h8e7.westeurope-01.azurewebsites.net/subscribe_process.php" method="POST">
+<form action="" method="POST">
 <div class="flex-row">
 <div class="input-group" style="flex: 1;">
 <label>Name</label>
@@ -39,6 +44,12 @@ select option { background: #001f3f; color: white; }
 <input type="text" name="surname" placeholder="Surname" required>
 </div>
 </div>
+
+<div class="input-group">
+<label>Email Address</label>
+<input type="email" name="email" placeholder="example@holisticpro.com" required>
+</div>
+
 <div class="input-group">
 <label>Gender</label>
 <select name="gender" required>
