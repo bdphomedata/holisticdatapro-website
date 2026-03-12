@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 3. THE SQL QUERY
     // This checks your BDPHD database for a match in the Users table
-    $tsql = "SELECT UserID, first_name FROM Users WHERE email = ? AND password = ?";
+    $tsql = "SELECT UserID, FirstName FROM Users WHERE email = ? AND Password = ?";
     $params = array($email, $password);
 
     $getResults = sqlsrv_query($conn, $tsql, $params);
