@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* CSS variables and Reset same as index.html */
+        /* MODERN RESET & VARIABLES */
         :root {
             --brand-blue-light: #0077c8;
             --brand-blue-dark: #001f3f;
@@ -30,17 +30,21 @@
             background: #001f3f;
         }
 
-        /* --- BACKGROUND --- */
+        /* --- VIDEO BACKGROUND --- */
         .video-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2; overflow: hidden;
+            background-color: #001f3f;
         }
+
         #bg-video {
             min-width: 100%; min-height: 100%;
+            width: auto; height: auto;
             position: absolute; top: 50%; left: 50%;
             transform: translate(-50%, -50%); object-fit: cover;
         }
+
         .video-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -48,33 +52,39 @@
             z-index: -1; 
         }
 
-        /* --- NAVIGATION (Exactly same as index.html) --- */
+        /* --- NAVIGATION --- */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 1.5rem 2%; background: rgba(0, 31, 63, 0.3);
             backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border);
             position: sticky; top: 0; z-index: 1000;
         }
+
         .nav-left { display: flex; align-items: center; gap: 20px; }
-        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; }
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--text-white); letter-spacing: 1.5px; }
+
         .nav-links { display: flex; gap: 15px; align-items: center; }
         .nav-links a { color: #ffffff !important; text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.9; }
-        
+        .nav-links a:hover { color: var(--brand-gold) !important; opacity: 1; }
+
         .nav-buttons { display: flex; gap: 10px; align-items: center; }
         .nav-btn {
             text-decoration: none; padding: 10px 20px; border-radius: 50px;
             font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease;
         }
+
         .nav-btn-green {
-            background-color: transparent; border: 2px solid var(--brand-green); color: white !important;
+            background-color: transparent; color: var(--brand-green);
+            border: 2px solid var(--brand-green);
         }
+
         .nav-btn-green:hover {
             background-color: rgba(74, 222, 128, 0.1);
             box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
             transform: translateY(-2px);
         }
 
-        /* --- MOBILE 2x2 GRID LOGIC --- */
+        /* --- MOBILE GRID (The Magic Part) --- */
         @media (max-width: 1200px) {
             nav { flex-direction: column; gap: 20px; padding: 20px 5%; }
             .nav-buttons { 
@@ -84,39 +94,54 @@
             .nav-btn { padding: 12px 10px; font-size: 0.75rem; text-align: center; }
         }
 
-        /* --- FORM STYLES --- */
-        .form-container {
+        /* --- FORM CONTAINER --- */
+        .main-content {
             flex: 1; display: flex; justify-content: center; align-items: center;
             padding: 40px 5%;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            padding: 40px; border-radius: 15px;
-            width: 100%; max-width: 500px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
-        h2 { color: var(--brand-green); margin-top: 0; }
-        .input-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-size: 0.9rem; }
-        input {
-            width: 100%; padding: 12px; border-radius: 8px;
-            border: 1px solid var(--glass-border);
-            background: rgba(0, 31, 63, 0.5); color: white;
-            font-size: 1rem;
-        }
-        input:focus { outline: 2px solid var(--brand-green); background: rgba(0, 31, 63, 0.8); }
-        
-        .submit-btn {
-            width: 100%; padding: 15px; border-radius: 8px;
-            background: var(--brand-green); color: #001f3f;
-            border: none; font-weight: 800; cursor: pointer;
-            text-transform: uppercase; transition: 0.3s;
-        }
-        .submit-btn:hover { background: #3cc672; transform: scale(1.02); }
 
-        footer { padding: 30px 5%; background: #000b1a; text-align: center; font-size: 0.85rem; }
+        .subscribe-card { 
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(15px); 
+            border: 1px solid var(--glass-border); 
+            padding: 40px; border-radius: 20px; 
+            width: 100%; max-width: 500px; 
+            text-align: center; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); 
+        }
+
+        h2 { color: var(--brand-green); margin-bottom: 5px; font-weight: 300; }
+        p { font-size: 0.85rem; opacity: 0.8; margin-bottom: 25px; }
+
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .flex-row { display: flex; gap: 15px; }
+        
+        label { 
+            display: block; font-size: 0.7rem; text-transform: uppercase; 
+            margin-bottom: 5px; color: var(--brand-gold); letter-spacing: 1px; 
+        }
+
+        input, select { 
+            width: 100%; padding: 12px; background: rgba(0, 31, 63, 0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 8px; 
+            color: white; font-size: 0.95rem; outline: none; 
+        }
+
+        input:focus, select:focus { border-color: var(--brand-green); }
+        select option { background: #001f3f; color: white; }
+
+        .sub-btn { 
+            width: 100%; padding: 15px; background: var(--brand-green); 
+            color: #001f3f; border: none; border-radius: 50px; 
+            font-weight: 800; cursor: pointer; transition: 0.3s; margin-top: 15px; 
+        }
+
+        .sub-btn:hover { background: #38b368; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(74, 222, 128, 0.3); }
+
+        footer { 
+            padding: 30px 5%; background: #000b1a; text-align: center; 
+            font-size: 0.85rem; color: rgba(255,255,255,0.6); border-top: 1px solid rgba(255,255,255,0.05);
+        }
     </style>
 </head>
 <body>
@@ -137,27 +162,57 @@
             </div>
         </div>
         <div class="nav-buttons">
-            <a href="subscribe.html" class="nav-btn nav-btn-green">SUBSCRIBE</a>
-            <a href="login.html"     class="nav-btn nav-btn-green">LOGIN</a>
-            <a href="contact.html"   class="nav-btn nav-btn-green">CONNECT WITH ME</a>
-            <a href="Profile.pdf"    class="nav-btn nav-btn-green" download>DOWNLOAD PROFILE</a>
+            <a href="subscribe.html" class="nav-btn nav-btn-green" style="color: white !important;">SUBSCRIBE</a>
+            <a href="login.html"     class="nav-btn nav-btn-green" style="color: white !important;">LOGIN</a>
+            <a href="contact.html"   class="nav-btn nav-btn-green" style="color: white !important;">CONNECT WITH ME</a>
+            <a href="Profile.pdf"    class="nav-btn nav-btn-green" style="color: white !important;" download>DOWNLOAD PROFILE</a>
         </div>
     </nav>
 
-    <div class="form-container">
-        <div class="glass-card">
-            <h2>Subscribe to Intelligence</h2>
-            <p>Get curated insights on BI automation and legacy reverse engineering.</p>
-            <form action="api/subscribe_process.php" method="POST">
-                <div class="input-group">
-                    <label>Full Name</label>
-                    <input type="text" name="fullname" required placeholder="Bartus de Paiva">
+    <div class="main-content">
+        <div class="subscribe-card">
+            <i class="fas fa-envelope-open-text" style="font-size: 2.5rem; color: var(--brand-gold); margin-bottom: 15px;"></i>
+            <h2>Join the Network</h2>
+            <p>Complete your profile to receive tailored BI insights.</p>
+
+            <form action="https://websitesubscription-e7ehe3evgme8h8e7.westeurope-01.azurewebsites.net/subscribe_process.php" method="POST">
+                <div class="flex-row">
+                    <div class="input-group" style="flex: 1;">
+                        <label>Name</label>
+                        <input type="text" name="first_name" placeholder="First Name" required>
+                    </div>
+                    <div class="input-group" style="flex: 1;">
+                        <label>Surname</label>
+                        <input type="text" name="surname" placeholder="Surname" required>
+                    </div>
                 </div>
+
                 <div class="input-group">
                     <label>Email Address</label>
-                    <input type="email" name="email" required placeholder="name@company.com">
+                    <input type="email" name="email" placeholder="example@holisticpro.com" required>
                 </div>
-                <button type="submit" class="submit-btn">Join the Network</button>
+
+                <div class="input-group">
+                    <label>Gender</label>
+                    <select name="gender" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Ethnic Group</label>
+                    <input type="text" name="ethnic_group" placeholder="e.g. Caucasian, African, etc." required>
+                </div>
+
+                <div class="input-group">
+                    <label>Country</label>
+                    <input type="text" name="country" placeholder="e.g. South Africa" required>
+                </div>
+
+                <button type="submit" class="sub-btn">ACTIVATE SUBSCRIPTION</button>
             </form>
         </div>
     </div>
