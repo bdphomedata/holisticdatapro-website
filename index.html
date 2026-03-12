@@ -103,7 +103,7 @@
             color: #ffffff !important;
             text-decoration: none;
             font-size: 0.9rem;
-            font-weight: 500;
+            font-weight: 600;
             opacity: 0.9;
             transition: all 0.3s ease;
         }
@@ -129,23 +129,23 @@
             display: block;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
+        .dropdown-content a:hover { color: var(--brand-green) !important; padding-left: 28px; }
 
         /* --- BUTTONS: GHOST (LOAD) TO SOLID (HOVER) --- */
         .nav-buttons { display: flex; gap: 10px; align-items: center; }
 
         .nav-btn {
             text-decoration: none;
-            padding: 10px 22px;
+            padding: 10px 20px;
             border-radius: 50px;
-            font-weight: 500; /* Clean, non-bold weight */
-            font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            font-weight: 500;  /* UPDATED: Clean, non-bold weight */
+            font-size: 0.8rem;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
             white-space: nowrap;
             text-transform: uppercase;
             display: inline-block;
             
-            /* Load State: Green Outline, Navy Background, White Text */
             background-color: var(--brand-blue-dark) !important;
             color: #ffffff !important;
             border: 2px solid var(--brand-green) !important;
@@ -153,7 +153,6 @@
         }
 
         .nav-btn:hover {
-            /* Hover State: Solid White Background, Navy Text */
             background-color: #ffffff !important;
             color: var(--brand-blue-dark) !important;
             border-color: #ffffff !important;
@@ -162,28 +161,32 @@
         }
 
         /* --- MOBILE RESPONSIVE (2x2 Grid) --- */
-        @media (max-width: 1200px) {
+        @media (max-width: 1024px) {
             nav { flex-direction: column; gap: 20px; padding: 20px 5%; }
             .nav-left { flex-direction: column; gap: 15px; width: 100%; }
-            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; }
+            .nav-links { flex-wrap: wrap; justify-content: center; width: 100%; }
             
             .nav-buttons { 
                 display: grid; 
-                grid-template-columns: 1fr 1fr; /* The 2x2 Grid */
+                grid-template-columns: 1fr 1fr; /* 2x2 Grid Implementation */
                 gap: 12px; 
                 width: 100%; 
                 max-width: 500px; 
                 margin: 10px auto 0; 
             }
-            .nav-btn { padding: 12px 10px; font-size: 0.75rem; text-align: center; }
+            .nav-btn { 
+                padding: 12px 10px; 
+                font-size: 0.75rem; 
+                text-align: center; 
+            }
         }
 
-        /* --- HERO & CONTENT --- */
+        /* --- HERO --- */
         .hero {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 80px 5% 120px 5%; 
+            padding: 80px 5%; 
             max-width: 1400px;
             margin: 0 auto;
             min-height: 85vh; 
@@ -192,7 +195,7 @@
         }
 
         .hero-content-left { flex: 1; max-width: 650px; }
-        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; font-weight: 400; }
+        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; }
         .description { font-size: 1.1rem; line-height: 1.6; color: #f0f4f8; }
         .description strong { color: var(--brand-green); }
 
