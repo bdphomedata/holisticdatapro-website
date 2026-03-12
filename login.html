@@ -16,6 +16,7 @@
             --text-white: #ffffff;
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
+            --error-red: #ff4b2b;
         }
 
         * { box-sizing: border-box; }
@@ -120,6 +121,14 @@
 
         h2 { color: var(--brand-green); font-size: 1.8rem; margin-bottom: 25px; font-weight: 400; letter-spacing: 1px; }
 
+        /* Error Message Styling */
+        #error-msg {
+            color: var(--error-red);
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: none; /* Hidden by default */
+        }
+
         input {
             width: 100%; padding: 14px; margin: 12px 0; border-radius: 8px;
             border: 1px solid var(--glass-border); background: rgba(0, 31, 63, 0.5);
@@ -131,7 +140,6 @@
             background: rgba(0, 31, 63, 0.8); box-shadow: 0 0 10px rgba(255, 198, 41, 0.2);
         }
 
-        /* --- NEW: SHOW PASSWORD STYLING --- */
         .show-password-container {
             display: flex;
             align-items: center;
@@ -204,10 +212,13 @@
     <div class="main-content">
         <div class="login-card">
             <h2>CLIENT ACCESS</h2>
-            <form action="dashboard.php" method="POST">
-                <input type="email" name="email" placeholder="Email Address" required>
+
+            <div id="error-msg">Invalid email or password. Please try again.</div>
+
+            <form action="login_process.php" method="POST">
+                <input type="email" name="user_email" placeholder="Email Address" required>
                 
-                <input type="password" name="password" id="loginPassword" placeholder="Password" required>
+                <input type="password" name="user_password" id="loginPassword" placeholder="Password" required>
                 
                 <div class="show-password-container">
                     <input type="checkbox" id="togglePassword">
@@ -231,6 +242,12 @@
         toggleCheckbox.addEventListener('change', function() {
             passwordInput.type = this.checked ? 'text' : 'password';
         });
+
+        // Logic to show error if the URL contains ?error=1
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('error')) {
+            document.getElementById('error-msg').style.display = 'block';
+        }
     </script>
 
 </body>
