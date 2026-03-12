@@ -171,7 +171,7 @@
         .dropdown:hover .dropdown-content { display: block; }
         .fa-caret-down { margin-left: 5px; font-size: 0.8em; color: var(--brand-green); }
 
-        /* --- UPDATED BUTTON STYLES (PICTURE 1) --- */
+        /* --- UPDATED YLES (PICTURE 1) --- */
         .nav-buttons { display: flex; gap: 10px; align-items: center; }
 
         .nav-btn {
@@ -188,19 +188,21 @@
             display: inline-block;
         }
 
+/* --- BUTTON STATES: SOLID GREEN TO SOLID WHITE --- */
         .nav-btn-green {
-            background-color: var(--brand-green);
-            color: #002d58 !important; /* Dark navy text as seen in 'Unlock Dashboard' */
+            background-color: var(--brand-green); /* Matches Picture 1 */
+            color: #002d58 !important;            /* Navy text for contrast */
             border: 1px solid var(--brand-green);
-            box-shadow: 0 10px 20px rgba(0, 31, 63, 0.4); 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Subtle depth */
+            text-transform: uppercase;
         }
 
         .nav-btn-green:hover {
-            transform: translateY(-3px);
-            background-color: #ffffff;
-            color: #002d58 !important;
-            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+            background-color: #ffffff !important; /* Matches Picture 2 */
+            color: #002d58 !important;            /* Keeps Navy text readable */
             border-color: #ffffff;
+            transform: translateY(-2px);           /* Slight lift effect */
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2); /* Soft glow */
         }
 
         @media (max-width: 1200px) {
