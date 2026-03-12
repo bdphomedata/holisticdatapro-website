@@ -103,15 +103,12 @@
             color: #ffffff !important;
             text-decoration: none;
             font-size: 0.9rem;
-            font-weight: 600;
+            font-weight: 500;
             opacity: 0.9;
             transition: all 0.3s ease;
         }
 
-        .nav-links a:hover { 
-            opacity: 1; 
-            color: var(--brand-gold) !important; 
-        }
+        .nav-links a:hover { opacity: 1; color: var(--brand-gold) !important; }
 
         /* --- DROPDOWN --- */
         .dropdown { position: relative; display: inline-block; padding: 10px 0; }
@@ -132,17 +129,15 @@
             display: block;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .dropdown-content a:hover { color: var(--brand-green) !important; padding-left: 28px; }
 
         /* --- BUTTONS: GHOST (LOAD) TO SOLID (HOVER) --- */
         .nav-buttons { display: flex; gap: 10px; align-items: center; }
 
-/* --- NAVIGATION BUTTONS: UPDATED FONT WEIGHT --- */
         .nav-btn {
             text-decoration: none;
             padding: 10px 22px;
             border-radius: 50px;
-            font-weight: 500;       /* Changed from 800 to 500 for a cleaner look */
+            font-weight: 500; /* Clean, non-bold weight */
             font-size: 0.85rem;
             letter-spacing: 0.5px;
             transition: all 0.3s ease;
@@ -164,15 +159,31 @@
             border-color: #ffffff !important;
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
-            font-weight: 600;      /* Keeps it crisp against the white background */
         }
 
-        /* --- HERO --- */
+        /* --- MOBILE RESPONSIVE (2x2 Grid) --- */
+        @media (max-width: 1200px) {
+            nav { flex-direction: column; gap: 20px; padding: 20px 5%; }
+            .nav-left { flex-direction: column; gap: 15px; width: 100%; }
+            .nav-links { flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; }
+            
+            .nav-buttons { 
+                display: grid; 
+                grid-template-columns: 1fr 1fr; /* The 2x2 Grid */
+                gap: 12px; 
+                width: 100%; 
+                max-width: 500px; 
+                margin: 10px auto 0; 
+            }
+            .nav-btn { padding: 12px 10px; font-size: 0.75rem; text-align: center; }
+        }
+
+        /* --- HERO & CONTENT --- */
         .hero {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 80px 5%; 
+            padding: 80px 5% 120px 5%; 
             max-width: 1400px;
             margin: 0 auto;
             min-height: 85vh; 
@@ -181,7 +192,7 @@
         }
 
         .hero-content-left { flex: 1; max-width: 650px; }
-        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; }
+        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; font-weight: 400; }
         .description { font-size: 1.1rem; line-height: 1.6; color: #f0f4f8; }
         .description strong { color: var(--brand-green); }
 
