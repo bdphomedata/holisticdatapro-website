@@ -5,23 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Successful | Holistic Data Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        body { margin: 0; padding: 20px; font-family: 'Segoe UI', sans-serif; background: #001f3f; min-height: 100vh; display: flex; justify-content: center; align-items: center; color: white; }
-        .success-card { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 20px; width: 100%; max-width: 450px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        h2 { color: #4ade80; margin-bottom: 15px; font-weight: 300; }
-        p { font-size: 0.95rem; opacity: 0.8; line-height: 1.6; margin-bottom: 25px; }
-        .icon { font-size: 3rem; color: #ffc629; margin-bottom: 20px; }
-        .login-btn { display: inline-block; width: 100%; padding: 15px; background: #4ade80; color: #001f3f; border: none; border-radius: 50px; font-weight: 800; text-decoration: none; transition: 0.3s; }
-        .login-btn:hover { background: #38b368; transform: translateY(-2px); }
+        :root {
+            --brand-blue-light: #0077c8;
+            --brand-blue-dark: #001f3f;
+            --brand-gold: #ffc629;
+            --brand-green: #4ade80;
+            --text-white: #ffffff;
+            --glass-bg: rgba(0, 31, 63, 0.7); /* Slightly darker for readability */
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Prevents scrollbars */
+        }
+
+        /* --- THE VIDEO ENGINE (From your Index) --- */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background-color: #001f3f;
+        }
+
+        #bg-video {
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 119, 200, 0.6) 0%, rgba(0, 31, 63, 0.8) 100%);
+            z-index: -1; 
+        }
+
+        /* --- THE SUCCESS CARD --- */
+        .success-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px); /* Frosty glass effect */
+            -webkit-backdrop-filter: blur(15px);
+            padding: 50px 40px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s ease-out;
+            z-index: 10;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            color: var(--brand-gold);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: var(--brand-green);
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        p {
+            color: var(--text-white);
+            line-height: 1.6;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-proceed {
+            display: inline-block;
+            text-decoration: none;
+            background: var(--brand-green);
+            color: #002d58;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(74, 222, 128, 0.2);
+        }
+
+        .btn-proceed:hover {
+            transform: translateY(-3px);
+            background: #ffffff;
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
+        }
     </style>
 </head>
 <body>
-<div class="success-card">
-    <div class="icon"><i class="fas fa-check-circle"></i></div>
-    <h2>Registration Successful!</h2>
-    <p>Welcome to the Network. We have sent an email to your registered address containing your <strong>temporary password</strong>.</p>
-    <p>Please check your inbox (and spam folder) to proceed.</p>
-    <a href="login.html" class="login-btn">PROCEED TO LOGIN</a>
-</div>
+
+    <div class="video-container">
+        <video id="bg-video" autoplay loop muted playsinline>
+            <source src="assets/video/WebsiteVideo.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
+    <div class="success-card">
+        <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <h2>Registration Successful!</h2>
+        <p>
+            Welcome to the Network. We have sent an email to your registered address containing your <strong>temporary password</strong>.<br><br>
+            Please check your inbox (and spam folder) to proceed.
+        </p>
+        <a href="login.html" class="btn-proceed">Proceed to Login</a>
+    </div>
+
 </body>
 </html>
