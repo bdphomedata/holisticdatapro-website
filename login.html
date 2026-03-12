@@ -7,110 +7,78 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* MODERN RESET & VARIABLES */
         :root {
             --brand-blue-light: #0077c8;
             --brand-blue-dark: #001f3f;
             --brand-gold: #ffc629;
             --brand-green: #4ade80;
             --text-white: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-bg: rgba(0, 31, 63, 0.7);
             --glass-border: rgba(255, 255, 255, 0.1);
         }
 
-        * { box-sizing: border-box; }
-
-        body {
+        body, html {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--text-white);
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background: #001f3f;
-            overflow-x: hidden;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: var(--text-white);
         }
 
-        /* --- VIDEO BACKGROUND --- */
+        /* --- THE VIDEO ENGINE (From your Index) --- */
         .video-container {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2; overflow: hidden;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
             background-color: #001f3f;
         }
 
         #bg-video {
-            min-width: 100%; min-height: 100%;
-            width: auto; height: auto;
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%); object-fit: cover;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
         }
 
         .video-overlay {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0, 119, 200, 0.7) 0%, rgba(0, 31, 63, 0.9) 100%);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Gradient matching your index.html exactly */
+            background: linear-gradient(135deg, rgba(0, 119, 200, 0.6) 0%, rgba(0, 31, 63, 0.8) 100%);
             z-index: -1; 
         }
 
-        /* --- NAVIGATION --- */
-        nav {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 1.5rem 2%; background: rgba(0, 31, 63, 0.3);
-            backdrop-filter: blur(10px); border-bottom: 1px solid var(--glass-border);
-            position: sticky; top: 0; z-index: 1000;
-        }
-
-        .nav-left { display: flex; align-items: center; gap: 20px; }
-        .logo { font-size: 1.4rem; font-weight: 800; color: var(--text-white); letter-spacing: 1.5px; }
-
-        .nav-links { display: flex; gap: 15px; align-items: center; }
-        .nav-links a { color: #ffffff !important; text-decoration: none; font-size: 0.9rem; font-weight: 600; opacity: 0.9; }
-        .nav-links a:hover { color: var(--brand-gold) !important; opacity: 1; }
-
-        .nav-buttons { display: flex; gap: 10px; align-items: center; }
-        .nav-btn {
-            text-decoration: none; padding: 10px 20px; border-radius: 50px;
-            font-weight: 700; font-size: 0.8rem; transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .nav-btn-green {
-            background-color: transparent; color: var(--brand-green);
-            border: 2px solid var(--brand-green);
-        }
-
-        .nav-btn-green:hover {
-            background-color: rgba(74, 222, 128, 0.1);
-            box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
-            transform: translateY(-2px);
-        }
-
-        /* --- MOBILE GRID --- */
-        @media (max-width: 1200px) {
-            nav { flex-direction: column; gap: 20px; padding: 20px 5%; }
-            .nav-buttons { 
-                display: grid; grid-template-columns: 1fr 1fr; 
-                gap: 12px; width: 100%; max-width: 450px; margin: 10px auto 0; 
-            }
-            .nav-btn { padding: 12px 10px; font-size: 0.75rem; }
-        }
-
-        /* --- LOGIN CARD --- */
-        .main-content {
-            flex: 1; display: flex; justify-content: center; align-items: center;
-            padding: 40px 5%;
-        }
-
+        /* --- THE LOGIN CARD --- */
         .login-card {
-            background: rgba(0, 31, 63, 0.7);
+            background: var(--glass-bg);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            padding: 40px; border-radius: 20px;
+            padding: 40px;
+            border-radius: 20px;
             border: 1px solid var(--glass-border);
-            text-align: center; width: 380px; max-width: 100%;
+            text-align: center;
+            width: 380px;
+            max-width: 90%;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             animation: fadeIn 0.8s ease-out;
+            z-index: 10;
         }
 
         @keyframes fadeIn {
@@ -118,42 +86,129 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        h2 { color: var(--brand-green); font-size: 1.8rem; margin-bottom: 25px; font-weight: 400; letter-spacing: 1px; }
-
-        input {
-            width: 100%; padding: 14px; margin: 12px 0; border-radius: 8px;
-            border: 1px solid var(--glass-border); background: rgba(0, 31, 63, 0.5);
-            color: white; font-size: 1rem; transition: all 0.3s ease;
+        h2 {
+            color: var(--brand-green);
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-weight: 400;
+            letter-spacing: 1px;
         }
 
-        input:focus {
-            outline: none; border-color: var(--brand-gold);
-            background: rgba(0, 31, 63, 0.8); box-shadow: 0 0 10px rgba(255, 198, 41, 0.2);
+        .input-group {
+            margin: 12px 0;
+            text-align: left; /* Essential for aligning labels if added later */
         }
 
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 31, 63, 0.5);
+            color: white;
+            box-sizing: border-box;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--brand-gold);
+            background: rgba(0, 31, 63, 0.8);
+            box-shadow: 0 0 10px rgba(255, 198, 41, 0.2);
+        }
+
+        /* --- SHOW PASSWORD FUNCTIONALITY --- */
+        .show-password-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Aligns checkbox/label to the left */
+            padding: 0 5px; /* Subtle inset */
+            margin-top: -5px; /* Nudges it closer to the text box */
+        }
+
+        #showPasswordCheckbox {
+            appearance: none; /* Hide default checkbox */
+            width: 18px;
+            height: 18px;
+            border: 1px solid var(--brand-green);
+            border-radius: 4px;
+            background: rgba(0, 31, 63, 0.7);
+            cursor: pointer;
+            position: relative;
+            margin-right: 10px; /* Space between box and text */
+            transition: 0.3s;
+        }
+
+        #showPasswordCheckbox:checked {
+            background-color: var(--brand-green);
+        }
+
+        #showPasswordCheckbox:checked::after {
+            content: "\f00c"; /* FontAwesome Checkmark icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: #001f3f; /* Deep Navy text color when checked */
+            font-size: 12px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .show-password-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            cursor: pointer; /* Allows clicking text to trigger checkbox */
+            user-select: none; /* Prevents text selection on rapid clicks */
+            font-weight: 400;
+        }
+
+        .show-password-label:hover {
+            color: var(--text-white);
+        }
+
+        /* --- BUTTONS & LINKS --- */
         .btn-login {
-            width: 100%; padding: 15px; margin-top: 20px; border: none;
-            border-radius: 50px; background: var(--brand-green); color: #002d58;
-            font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
-            cursor: pointer; transition: all 0.3s ease;
+            width: 100%;
+            padding: 15px;
+            margin-top: 25px; /* Increased margin for better spacing */
+            border: none;
+            border-radius: 50px;
+            background: var(--brand-green);
+            color: #002d58;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
             box-shadow: 0 10px 20px rgba(74, 222, 128, 0.2);
         }
 
         .btn-login:hover {
-            transform: translateY(-3px); background: #ffffff;
+            transform: translateY(-3px);
+            background: #ffffff;
             box-shadow: 0 15px 30px rgba(255, 255, 255, 0.2);
         }
 
         .back-link {
-            display: inline-block; margin-top: 25px; color: var(--brand-gold);
-            text-decoration: none; font-size: 0.9rem; transition: 0.3s;
+            display: inline-block;
+            margin-top: 25px;
+            color: var(--brand-gold);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: 0.3s;
         }
 
-        .back-link:hover { color: #ffffff; text-decoration: underline; }
+        .back-link:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
 
-        footer { 
-            padding: 30px 5%; background: #000b1a; text-align: center; 
-            font-size: 0.85rem; color: rgba(255,255,255,0.6); border-top: 1px solid rgba(255,255,255,0.05);
+        .back-link i {
+            margin-right: 8px;
         }
     </style>
 </head>
@@ -166,37 +221,47 @@
     </div>
     <div class="video-overlay"></div>
 
-    <nav>
-        <div class="nav-left">
-            <div class="logo">HOLISTIC DATA PRO</div>
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="services.html">Services</a>
-            </div>
-        </div>
-        <div class="nav-buttons">
-            <a href="subscribe.html" class="nav-btn nav-btn-green" style="color: white !important;">SUBSCRIBE</a>
-            <a href="login.html"     class="nav-btn nav-btn-green" style="color: white !important;">LOGIN</a>
-            <a href="contact.html"   class="nav-btn nav-btn-green" style="color: white !important;">CONNECT WITH ME</a>
-            <a href="Profile.pdf"    class="nav-btn nav-btn-green" style="color: white !important;" download>DOWNLOAD PROFILE</a>
-        </div>
-    </nav>
-
-    <div class="main-content">
-        <div class="login-card">
-            <h2>CLIENT ACCESS</h2>
-            <form action="dashboard.php" method="POST">
+    <div class="login-card">
+        <h2>CLIENT ACCESS</h2>
+        
+        <form id="loginForm" action="dashboard.php" method="POST">
+            
+            <div class="input-group">
                 <input type="email" name="email" placeholder="Email Address" required>
-                <input type="password" name="password" placeholder="Password" required>
-                <button type="submit" class="btn-login">Unlock Dashboard</button>
-            </form>
-            <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
-        </div>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="passwordField" name="password" placeholder="Password" required>
+            </div>
+
+            <div class="input-group show-password-wrapper">
+                <input type="checkbox" id="showPasswordCheckbox">
+                <label for="showPasswordCheckbox" class="show-password-label">Show Password</label>
+            </div>
+
+            <button type="submit" class="btn-login">Unlock Dashboard</button>
+        </form>
+
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
     </div>
 
-    <footer>
-        <p>&copy; 2026 Holistic Data Pro. All rights reserved.</p>
-    </footer>
+    <script>
+        // Select the relevant DOM elements
+        const passwordField = document.getElementById('passwordField');
+        const showPasswordCheckbox = document.getElementById('showPasswordCheckbox');
+
+        // Listen for the checkbox state change
+        showPasswordCheckbox.addEventListener('change', function() {
+            // Toggle the type attribute based on checkbox status
+            if (this.checked) {
+                // If checked, reveal the text
+                passwordField.type = 'text';
+            } else {
+                // If unchecked, mask the password
+                passwordField.type = 'password';
+            }
+        });
+    <///script>
 
 </body>
 </html>
