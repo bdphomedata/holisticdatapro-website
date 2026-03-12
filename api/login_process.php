@@ -12,7 +12,6 @@ $connectionOptions = array(
     "CharacterSet" => "UTF-8"
 );
 
-// Establishes the connection
 $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if ($conn === false) {
@@ -22,14 +21,13 @@ if ($conn === false) {
 // 2. CHECK IF FORM WAS SUBMITTED
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // Catching the 'user_email' and 'user_password' from the login.html form
     $email = filter_var($_POST['user_email'], FILTER_SANITIZE_EMAIL);
-    $password = $_POST['user_password'];
+    $user_input_password = $_POST['user_password'];
 
     // 3. THE SQL QUERY
-    // This checks your BDPHD database for a match in the Users table
-    $tsql = "SELECT SubscriberID, FirstName FROM Subscribers WHERE Email = ? AND Password = ?";
-    $params = array($email, $password);
+    // We only search by Email. We fetch the Password (the hash) to check it in PHP.
+    $tsql = "SELECT SubscriberID, FirstName, Password FROM Subscribers WHERE Email = ?";
+    $params = array($email);
 
     $getResults = sqlsrv_query($conn, $tsql, $params);
 
@@ -39,22 +37,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 4. VALIDATION LOGIC
     if ($row = sqlsrv_fetch_array($getResults, SQLSRV_FETCH_ASSOC)) {
-        // SUCCESS: Credentials match!
-        $_SESSION['loggedin'] = true;
-        $_SESSION['user_id'] = $row['UserID'];
-        $_SESSION['user_name'] = $row['first_name'];
+        
+        $hashedPasswordFromDB = $row['Password'];
 
-        // Redirect up to your dashboard
-        header("Location: ../dashboard.php");
-        exit();
+        // Use password_verify to check if the typed password matches the scrambled hash
+        if (password_verify($user_input_password, $hashedPasswordFromDB)) {
+            // SUCCESS: Credentials match!
+            $_SESSION['loggedin'] = true;
+            $_SESSION['user_id'] = $row['SubscriberID']; // Match the column in your schema
+            $_SESSION['user_name'] = $row['FirstName'];   // Match the capital letters in your schema
+
+            header("Location: ../dashboard.php");
+            exit();
+        } else {
+            // PASSWORD WRONG
+            header("Location: ../login.html?error=1");
+            exit();
+        }
     } else {
-        // FAILURE: Send back to login with the error flag we built into the HTML
+        // EMAIL NOT FOUND
         header("Location: ../login.html?error=1");
         exit();
     }
 }
 
-// Error formatting for easier troubleshooting
 function formatErrors($errors) {
     $output = "Connection Error Details: <br/>";
     foreach ($errors as $error) {
