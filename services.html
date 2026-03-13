@@ -3,295 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holistic Data | Services</title>
+    <title>Services | Holistic Data Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
-        /* --- General Typography --- */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        :root {
+            --brand-blue-light: #0077c8;
+            --brand-blue-dark: #001f3f;
+            --brand-gold: #ffc629;
+            --brand-green: #4ade80;
+            --text-white: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
-        /* --- Navigation Bar Styling --- */
-        nav {
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-white);
+            background: var(--brand-blue-dark);
+            min-height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 3rem;
-            background-color: #ffffff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            position: sticky;
-            top: 0;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* --- BACKGROUND (Matches Home) --- */
+        .video-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0, 119, 200, 0.4) 0%, rgba(0, 31, 63, 0.95) 100%);
+            z-index: -1; 
+        }
+
+        /* --- NAVIGATION (Synchronized with Home) --- */
+        nav {
+            width: 100%; padding: 0.8rem 3%;
+            background: rgba(0, 31, 63, 0.6);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
             z-index: 1000;
         }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
+        .nav-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo-static { 
+            font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
+            background: linear-gradient(to bottom, #fff 0%, #e0e0e0 45%, var(--brand-green) 50%, #fff 55%, #b0b0b0 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 3px 5px rgba(0,0,0,0.8));
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #03182e; /* Dark Blue */
-            letter-spacing: -0.5px;
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; opacity: 0.8; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--brand-gold); }
+
+        /* --- SERVICES HEADER --- */
+        .page-header {
+            text-align: center;
+            padding: 60px 5% 40px;
         }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #556b8d;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #008060;
-        }
-
-        /* Dropdown Styling */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #ffffff;
-            min-width: 220px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-            z-index: 1;
-            border-radius: 6px;
-            top: 100%;
-            left: 0;
-            padding: 10px 0;
-            border: 1px solid #eee;
-        }
-
-        .dropdown-content a {
-            color: #333;
-            padding: 10px 20px;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f8f9fa;
-            color: #008060;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        /* Navigation Buttons */
-        .nav-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .nav-btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.85rem;
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--brand-green);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
         }
 
-        .nav-btn-gold {
-            background-color: transparent;
-            color: #bfa15f;
-            border: 2px solid #bfa15f;
-        }
-        
-        .nav-btn-gold:hover {
-            background-color: #bfa15f;
-            color: #fff;
+        .page-header p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
         }
 
-        .nav-btn-green {
-            background-color: #008060;
-            color: white;
-            border: 2px solid #008060;
+        /* --- SERVICE CARDS GRID --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto 60px auto;
+            padding: 0 5%;
         }
 
-        .nav-btn-green:hover {
-            background-color: #006048;
-            border-color: #006048;
+        .service-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
 
-        /* --- Card Styling Improvements --- */
-        .card {
-            transition: transform 0.3s ease, border-color 0.3s ease;
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--brand-green);
+            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.1);
         }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: #2ecc71 !important;
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--brand-green);
+            margin-bottom: 20px;
         }
-        
-        .badge {
-            font-weight: 500;
-            padding: 6px 10px;
-            background-color: rgba(255, 255, 255, 0.1) !important; /* Semi-transparent background for tags */
-            border: 1px solid rgba(255, 255, 255, 0.2);
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #d1d9e0;
+            margin-bottom: 20px;
+        }
+
+        .service-list {
+            list-style: none;
+            margin-top: auto;
+        }
+
+        .service-list li {
+            font-size: 0.8rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--brand-green);
+        }
+
+        .service-list li i {
+            margin-right: 10px;
+            font-size: 0.6rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.5);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 15px; }
+            .page-header h1 { font-size: 1.8rem; }
+            .services-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body>
+
+    <div class="video-overlay"></div>
 
     <nav>
-        <div class="nav-left">
-            <a href="index.html" style="text-decoration: none;">
-                <div class="logo">HOLISTIC DATA PRO</div>
-            </a>
-            
-            <div class="nav-links d-none d-lg-flex"> <div class="dropdown">
-                    <a href="index.html" style="cursor: pointer;">
-                        About Us <i class="fas fa-caret-down ms-1"></i>
-                    </a>
-                    <div class="dropdown-content">
-                        <a href="index.html">Home</a> 
-                        <a href="overview.html">Professional Overview</a>
-                        <a href="journey.html">My Journey (1999-2025)</a>
-                        <a href="qualifications.html">Qualifications & Tech</a>
-                        <a href="projects.html">Project Highlights</a>
-                    </div>
-                </div>
-
-                <a href="services.html" style="color: #03182e; font-weight: bold;">Services</a>
-                
-                <a href="construction.html">Solutions</a>
+        <div class="nav-container">
+            <span class="logo-static">HOLISTIC DATA PRO</span>
+            <div class="nav-links">
+                <a href="index.html">HOME</a>
+                <a href="overview.html">OVERVIEW</a>
+                <a href="services.html" style="color: var(--brand-gold); opacity: 1;">SERVICES</a>
+                <a href="construction.html">SOLUTIONS</a>
+                <a href="contact.html">CONNECT</a>
             </div>
         </div>
-        
-        <div class="nav-buttons d-none d-md-flex">
-            <a href="contact.html" class="nav-btn nav-btn-gold">Connect With Me</a>
-            <a href="Profile.pdf" class="nav-btn nav-btn-green" download>Download Profile</a>
-        </div>
-
-        <button class="btn btn-outline-dark d-lg-none" type="button">
-            <i class="bi bi-list"></i>
-        </button>
     </nav>
 
-    <section id="core-expertise" class="py-5 flex-grow-1" style="background-color: #03182e; color: white;">
-        <div class="container py-4">
-            
-            <div class="mb-5">
-                <span class="d-inline-block py-1 px-3 mb-3 fw-bold rounded-1" 
-                      style="background-color: #008060; color: #fff; letter-spacing: 1px; font-size: 0.75rem;">
-                    OUR CAPABILITIES
-                </span>
-                <h2 class="display-5 fw-bold text-white mb-3">Core Expertise</h2>
-                <p class="lead" style="color: #aebecd; max-width: 700px; font-size: 1.1rem;">
-                    Delivering high-performance data infrastructure and business intelligence solutions tailored to your operational needs.
-                </p>
-            </div>
+    <div class="page-header">
+        <h1>Our Expertise</h1>
+        <p>Strategic data engineering and business intelligence solutions designed for precision and scale.</p>
+    </div>
 
-            <div class="row g-4">
-                
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-4 border" style="background-color: rgba(255,255,255,0.03); border-color: #1f3a52 !important; border-radius: 8px;">
-                        <div class="card-body p-0">
-                            <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-code-slash fs-1"></i>
-                            </div>
-                            <h4 class="card-title text-white h5 fw-bold mb-3">Legacy Reverse Engineering</h4>
-                            <p class="card-text text-light opacity-75 mb-4" style="font-size: 0.9rem; line-height: 1.6;">
-                                Unlocking value from older systems. We dissect, document, and migrate legacy logic into modern, scalable data architectures without losing business context.
-                            </p>
-                            <div class="pt-3 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
-                                <span class="badge me-1 mb-1">SQL Server</span>
-                                <span class="badge me-1 mb-1">T-SQL</span>
-                                <span class="badge mb-1">Auditing</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-4 border" style="background-color: rgba(255,255,255,0.03); border-color: #1f3a52 !important; border-radius: 8px;">
-                        <div class="card-body p-0">
-                            <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-hdd-network fs-1"></i>
-                            </div>
-                            <h4 class="card-title text-white h5 fw-bold mb-3">FTP Data Automation</h4>
-                            <p class="card-text text-light opacity-75 mb-4" style="font-size: 0.9rem; line-height: 1.6;">
-                                Seamlessly retrieve, validate, and process external data files from FTP/SFTP sources. We build robust listeners and schedulers to ensure data arrives on time.
-                            </p>
-                            <div class="pt-3 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
-                                <span class="badge me-1 mb-1">WinSCP</span>
-                                <span class="badge me-1 mb-1">PowerShell</span>
-                                <span class="badge mb-1">Batch Scripting</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-4 border" style="background-color: rgba(255,255,255,0.03); border-color: #1f3a52 !important; border-radius: 8px;">
-                        <div class="card-body p-0">
-                            <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-diagram-3 fs-1"></i>
-                            </div>
-                            <h4 class="card-title text-white h5 fw-bold mb-3">ETL & Integration</h4>
-                            <p class="card-text text-light opacity-75 mb-4" style="font-size: 0.9rem; line-height: 1.6;">
-                                High-speed data transformation pipelines using SSIS. We clean, aggregate, and warehouse your data to prepare it for high-level analysis.
-                            </p>
-                            <div class="pt-3 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
-                                <span class="badge me-1 mb-1">SSIS</span>
-                                <span class="badge me-1 mb-1">Data Warehousing</span>
-                                <span class="badge mb-1">Pipelines</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-3">
-                    <div class="card h-100 p-4 border" style="background-color: rgba(255,255,255,0.03); border-color: #1f3a52 !important; border-radius: 8px;">
-                        <div class="card-body p-0">
-                            <div class="mb-4" style="color: #2ecc71;">
-                                <i class="bi bi-graph-up-arrow fs-1"></i>
-                            </div>
-                            <h4 class="card-title text-white h5 fw-bold mb-3">Advanced Reporting</h4>
-                            <p class="card-text text-light opacity-75 mb-4" style="font-size: 0.9rem; line-height: 1.6;">
-                                Turning raw numbers into visual insights. From Power BI dashboards to complex Excel Power Pivot models and embedded HTML email reports.
-                            </p>
-                            <div class="pt-3 border-top" style="border-color: rgba(255,255,255,0.1) !important;">
-                                <span class="badge me-1 mb-1">Power BI</span>
-                                <span class="badge me-1 mb-1">Power Pivot</span>
-                                <span class="badge mb-1">Email Reporting</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+    <main class="services-grid">
+        <div class="service-card">
+            <div class="service-icon"><i class="fas fa-database"></i></div>
+            <h3>End-to-End Warehousing</h3>
+            <p>We architect robust, scalable environments from the ground up. We don't just move data; we build the foundations for institutional memory.</p>
+            <ul class="service-list">
+                <li><i class="fas fa-check"></i> Azure SQL Integration</li>
+                <li><i class="fas fa-check"></i> Dimensional Modeling</li>
+                <li><i class="fas fa-check"></i> Data Architecture</li>
+            </ul>
         </div>
-    </section>
-    
-    <footer class="py-4 text-center text-white" style="background-color: #021222; border-top: 1px solid #1f3a52;">
-        <div class="container">
-            <small>&copy; 2025 Holistic Data. All Rights Reserved.</small>
+
+        <div class="service-card">
+            <div class="service-icon"><i class="fas fa-code-branch"></i></div>
+            <h3>Legacy Reverse Engineering</h3>
+            <p>Unlocking value trapped in aging systems. We specialize in deciphering complex legacy code and migrating it into modern, high-performance T-SQL.</p>
+            <ul class="service-list">
+                <li><i class="fas fa-check"></i> Code Auditing</li>
+                <li><i class="fas fa-check"></i> Migration Strategy</li>
+                <li><i class="fas fa-check"></i> Performance Tuning</li>
+            </ul>
         </div>
+
+        <div class="service-card">
+            <div class="service-icon"><i class="fas fa-chart-line"></i></div>
+            <h3>Business Intelligence</h3>
+            <p>Engineering the bridge between raw data and executive insight. We deliver dashboards that don't just show numbers, but tell the story of your business.</p>
+            <ul class="service-list">
+                <li><i class="fas fa-check"></i> Strategic Analytics</li>
+                <li><i class="fas fa-check"></i> Data Visualization</li>
+                <li><i class="fas fa-check"></i> Automated Reporting</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Holistic Data Pro. All rights reserved.</p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
