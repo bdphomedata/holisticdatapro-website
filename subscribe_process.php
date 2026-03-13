@@ -83,7 +83,7 @@ if ($stmt === false) {
     }
 
     // 7. REDIRECT TO SUCCESS PAGE
-    header("Location: https://holisticdatapro.com/success.html");
+    header("Location: https://www.holisticdatapro.com/success.html");
     exit();
 }
 
