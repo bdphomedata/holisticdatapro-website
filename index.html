@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holistic Data Pro | Expert Data Solutions for Home & Office</title>
+    <title>Holistic Data Pro | Expert Data Solutions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -31,7 +31,7 @@
             overflow-x: hidden;
         }
 
-        /* --- BACKGROUND --- */
+        /* --- VIDEO BACKGROUND --- */
         .video-container {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -85,7 +85,7 @@
             text-transform: uppercase;
             cursor: default;
             user-select: none;
-            background: linear-gradient(to bottom, #fff 0%, #e0e0e0 45%, var(--brand-green) 50%, #fff 55%, #b0b0b0 100%);
+            background: linear-gradient(to bottom, #ffffff 0%, #e0e0e0 45%, var(--brand-green) 50%, #ffffff 55%, #b0b0b0 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 4px 6px rgba(0,0,0,0.8)) drop-shadow(0px 0px 15px rgba(74, 222, 128, 0.4));
@@ -97,96 +97,108 @@
         .nav-links a:hover { color: var(--brand-gold) !important; }
 
         .dropdown { position: relative; }
-        .dropdown-content { display: none; position: absolute; background: rgba(0, 31, 63, 0.98); min-width: 220px; border-top: 3px solid var(--brand-gold); top: 100%; left: 0; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: rgba(0, 31, 63, 0.98);
+            min-width: 220px;
+            border-top: 3px solid var(--brand-gold);
+            top: 100%; left: 0;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
         .dropdown:hover .dropdown-content { display: block; }
         .dropdown-content a { display: block; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
+        /* --- BUTTONS --- */
         .nav-buttons { display: flex; gap: 12px; align-items: center; }
-        .nav-btn-green { text-decoration: none; padding: 8px 18px; border-radius: 50px; border: 2px solid var(--brand-green); color: white !important; font-weight: 700; font-size: 0.75rem; transition: all 0.3s ease; white-space: nowrap; text-transform: uppercase; }
+        .nav-btn-green {
+            text-decoration: none; padding: 8px 18px; border-radius: 50px; border: 2px solid var(--brand-green);
+            color: white !important; font-weight: 700; font-size: 0.75rem; transition: all 0.3s ease; white-space: nowrap; text-transform: uppercase;
+        }
         .nav-btn-green:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 15px rgba(74, 222, 128, 0.4); transform: translateY(-2px); }
 
-        /* --- HERO --- */
-        .hero { display: flex; align-items: center; justify-content: space-between; padding: 60px 5% 40px 5%; max-width: 1400px; margin: 0 auto; flex: 1; gap: 40px; }
-        .hero-content-left { flex: 1.2; max-width: 650px; }
-        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .description { font-size: 1.1rem; line-height: 1.6; color: #f0f4f8; }
-        .description strong { color: var(--brand-green); }
-
-        /* --- NETWORK GRID (ENTERPRISE) --- */
-        .hero-visual-right { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
-        .network-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; position: relative; padding: 20px; }
-        .network-background-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,20 L50,50 L80,20' stroke='rgba(74, 222, 128, 0.2)' stroke-width='1' fill='none'/%3E%3Cpath d='M20,50 L50,50 L80,50' stroke='rgba(74, 222, 128, 0.2)' stroke-width='1' fill='none'/%3E%3Cpath d='M20,80 L50,50 L80,80' stroke='rgba(74, 222, 128, 0.2)' stroke-width='1' fill='none'/%3E%3Cpath d='M50,20 L50,80' stroke='rgba(74, 222, 128, 0.2)' stroke-width='1' fill='none'/%3E%3C/svg%3E"); background-size: cover; pointer-events: none; }
-        .stat-circle { width: 100px; height: 100px; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 5px; background: var(--glass-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(5px); transition: 0.3s; z-index: 1; }
-        .stat-circle:hover { transform: scale(1.1); border-color: var(--brand-green); box-shadow: 0 0 20px rgba(74, 222, 128, 0.4); }
-        .network-grid > :nth-child(2), .network-grid > :nth-child(5), .network-grid > :nth-child(8) { transform: translateY(30px); }
-        .stat-number { font-size: 0.85rem; font-weight: 800; color: var(--brand-green); line-height: 1.1; }
-        .stat-label { font-size: 0.5rem; text-transform: uppercase; opacity: 0.9; }
-
-        /* --- NEW: HOME USER "DIGITAL CALM" SECTION --- */
-        .home-section {
-            padding: 80px 5%;
-            background: linear-gradient(135deg, rgba(0, 31, 63, 0.6) 0%, rgba(0, 0, 0, 0.5) 100%);
-            border-top: 1px solid var(--glass-border);
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 40px 5%;
+            max-width: 1600px;
+            margin: 0 auto;
             text-align: center;
         }
+        h1 { font-size: 2.5rem; margin-bottom: 1rem; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .description { font-size: 1.1rem; max-width: 900px; margin: 0 auto 40px auto; line-height: 1.6; color: #f0f4f8; }
 
-        .section-header { margin-bottom: 60px; max-width: 800px; margin-left: auto; margin-right: auto; }
-        .section-title { font-size: 2.8rem; font-weight: 800; text-shadow: 0 3px 6px rgba(0,0,0,0.3); }
-        .section-subtitle { font-size: 1.1rem; color: #ced4da; margin-top: 10px; }
-
-        .personal-bi-grid {
+        /* --- DUAL CONTROL CENTER LAYOUT --- */
+        .dual-control-container {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            max-width: 1200px;
-            margin: 0 auto;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
         }
 
-        .personal-card {
+        .control-panel {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 12px;
+            border-radius: 20px;
             padding: 30px;
-            text-align: left;
             backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .personal-card:hover {
-            transform: scale(1.05) translateY(-5px);
-            border-color: var(--brand-green);
-            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.3);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        /* Applying the Metallic embossed look to the Card Titles */
-        .card-title {
+        .panel-header {
             font-size: 1.4rem;
-            font-weight: 900;
+            font-weight: 800;
+            color: var(--brand-green);
             text-transform: uppercase;
             letter-spacing: 2px;
-            background: linear-gradient(to bottom, #ffffff 0%, #f0f0f0 45%, var(--brand-green) 50%, #ffffff 55%, #b0b0b0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 4px rgba(0,0,0,0.8)) drop-shadow(0px 0px 10px rgba(74, 222, 128, 0.2));
-            margin-bottom: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+            width: 100%;
+            padding-bottom: 10px;
         }
 
-        .card-subtitle { font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: var(--brand-gold); letter-spacing: 1px; margin-bottom: 15px; }
-        .card-description { font-size: 0.95rem; line-height: 1.6; color: #ced4da; }
-        .card-icon { font-size: 2.5rem; color: var(--brand-green); margin-bottom: 20px; opacity: 0.8; }
+        /* --- REPLICATED NETWORK CIRCLE --- */
+        .network-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            position: relative;
+            padding: 20px;
+        }
+
+        .stat-circle {
+            width: 110px; height: 110px; border-radius: 50%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 10px; background: var(--glass-bg);
+            border: 1px solid var(--glass-border); backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .stat-circle:hover { transform: scale(1.1); border-color: var(--brand-green); box-shadow: 0 0 20px rgba(74, 222, 128, 0.4); }
+
+        .network-grid > :nth-child(2), .network-grid > :nth-child(5), .network-grid > :nth-child(8) { transform: translateY(25px); }
+        
+        .stat-number { font-size: 0.75rem; font-weight: 800; color: var(--brand-green); line-height: 1.1; margin-bottom: 3px; text-transform: uppercase; }
+        .stat-label { font-size: 0.5rem; text-transform: uppercase; opacity: 0.9; line-height: 1.2; }
 
         /* --- TICKER --- */
-        .ticker-wrapper { width: 100vw; height: 70px; background: rgba(0, 31, 63, 0.85); border-top: 1px solid rgba(74, 222, 128, 0.3); overflow: hidden; display: flex; align-items: center; z-index: 10; }
+        .ticker-wrapper {
+            width: 100vw; height: 70px; background: rgba(0, 31, 63, 0.85);
+            border-top: 1px solid rgba(74, 222, 128, 0.3); overflow: hidden;
+            display: flex; align-items: center; z-index: 10;
+        }
         .ticker-track { display: flex; animation: scrollText 40s linear infinite; width: max-content; }
         .ticker-item { display: flex; align-items: center; padding: 0 50px; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
         .ticker-item i { color: var(--brand-green); margin-right: 15px; }
+
         @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         footer { padding: 30px; background: #000b1a; text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+
+        @media (max-width: 1024px) {
+            .dual-control-container { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -226,76 +238,43 @@
     </nav>
 
     <div class="hero">
-        <div class="hero-content-left">
-            <h1>Expert Data-Driven Business Intelligence</h1>
-            <p class="description">
-                Holistic Data Pro is led by Bartus de Paiva, a Senior BI Developer with <strong>over 25 years of specialized experience</strong>. We specialize in <strong>reverse engineering legacy systems</strong> and building <strong>scalable integration pipelines</strong>—engineering end-to-end intelligence solutions from raw data to executive insights.
-            </p>
-        </div>
-        <div class="hero-visual-right">
-            <div class="network-grid">
-                <div class="network-background-lines"></div>
-                <div class="stat-circle"><div class="stat-number">Data Engineering</div><div class="stat-label">End-to-End Pipelines</div></div>
-                <div class="stat-circle"><div class="stat-number">Data Architecture</div><div class="stat-label">Dimensional Modeling</div></div>
-                <div class="stat-circle"><div class="stat-number">Strategic Analytics</div><div class="stat-label">Business Intelligence</div></div>
-                <div class="stat-circle"><div class="stat-number">Multi-Dimensional</div><div class="stat-label">Tabular & Cubes</div></div>
-                <div class="stat-circle"><div class="stat-number">Legacy Modernization</div><div class="stat-label">Reverse Engineering</div></div>
-                <div class="stat-circle"><div class="stat-number">Data Governance</div><div class="stat-label">Integrity & Control</div></div>
-                <div class="stat-circle"><div class="stat-number">Scalable Integration</div><div class="stat-label">High-Volume Data</div></div>
-                <div class="stat-circle"><div class="stat-number">Warehouse Design</div><div class="stat-label">Staging & Marts</div></div>
-                <div class="stat-circle"><div class="stat-number">Strategic Insights</div><div class="stat-label">Consultant Expert</div></div>
-            </div>
-        </div>
-    </div>
+        <h1>Expert Data-Driven Business Intelligence</h1>
+        <p class="description">
+            Holistic Data Pro specializes in bridging the gap between high-level enterprise architecture and the digital organization of the modern home. From legacy reverse engineering to private home network mastery, we provide <strong>Digital Calm</strong> through data integrity.
+        </p>
 
-    <div class="home-section">
-        <div class="section-header">
-            <h2 class="section-title">Bridging the Gap: Enterprise BI for Home</h2>
-            <p class="section-subtitle">Bringing Digital Calm to your Household or Home Office through Enterprise-grade Data Architecture, Performance Optimization, and Security Governance.</p>
-        </div>
-
-        <div class="personal-bi-grid">
-            <div class="personal-card">
-                <i class="fas fa-sitemap card-icon"></i>
-                <div class="card-title">Home Data<br>Architecture</div>
-                <div class="card-subtitle">Personal Data Organization</div>
-                <p class="card-description">Structuring fragmented family digital assets, memory storage, and cloud drives into one accessible architecture. Ensure nothing is ever lost.</p>
+        <div class="dual-control-container">
+            
+            <div class="control-panel">
+                <div class="panel-header">Header for Home Users</div>
+                <div class="network-grid">
+                    <div class="stat-circle"><div class="stat-number">Home Data</div><div class="stat-label">Architecture</div></div>
+                    <div class="stat-circle"><div class="stat-number">Personal Finance</div><div class="stat-label">Dashboards</div></div>
+                    <div class="stat-circle"><div class="stat-number">Network</div><div class="stat-label">Performance</div></div>
+                    <div class="stat-circle"><div class="stat-number">Legacy Media</div><div class="stat-label">Modernization</div></div>
+                    <div class="stat-circle" style="border-color: var(--brand-green);"><div class="stat-number">Digital Calm</div><div class="stat-label">Home Integration</div></div>
+                    <div class="stat-circle"><div class="stat-number">Smart Home</div><div class="stat-label">Governance</div></div>
+                    <div class="stat-circle"><div class="stat-number">Strategic</div><div class="stat-label">Household Insights</div></div>
+                    <div class="stat-circle"><div class="stat-number">Private</div><div class="stat-label">Cloud Storage</div></div>
+                    <div class="stat-circle"><div class="stat-number">Family</div><div class="stat-label">Data Security</div></div>
+                </div>
             </div>
 
-            <div class="personal-card">
-                <i class="fas fa-chart-line card-icon"></i>
-                <div class="card-title">Personal Finances<br>Dashboard</div>
-                <div class="card-subtitle">Household Business Intelligence</div>
-                <p class="card-description">Transform raw financial data into a stunning, interactive view of household income, expense tracking, and investment performance.</p>
+            <div class="control-panel">
+                <div class="panel-header">Header for SME and Corporate</div>
+                <div class="network-grid">
+                    <div class="stat-circle"><div class="stat-number">Data Eng.</div><div class="stat-label">Pipelines</div></div>
+                    <div class="stat-circle"><div class="stat-number">Architecture</div><div class="stat-label">Dimensional</div></div>
+                    <div class="stat-circle"><div class="stat-number">Strategic</div><div class="stat-label">Analytics</div></div>
+                    <div class="stat-circle"><div class="stat-number">Multi-Dim</div><div class="stat-label">Tabular & Cubes</div></div>
+                    <div class="stat-circle" style="border-color: var(--brand-green);"><div class="stat-number">Legacy Mod</div><div class="stat-label">Reverse Eng.</div></div>
+                    <div class="stat-circle"><div class="stat-number">Governance</div><div class="stat-label">Integrity</div></div>
+                    <div class="stat-circle"><div class="stat-number">Scalable</div><div class="stat-label">Integration</div></div>
+                    <div class="stat-circle"><div class="stat-number">Warehouse</div><div class="stat-label">Design</div></div>
+                    <div class="stat-circle"><div class="stat-number">Strategic</div><div class="stat-label">Consultant Expert</div></div>
+                </div>
             </div>
 
-            <div class="personal-card">
-                <i class="fas fa-network-wired card-icon"></i>
-                <div class="card-title">Home Network<br>Performance</div>
-                <div class="card-subtitle">Secure Private Network Setup</div>
-                <p class="card-description">Optimization of your secure, high-speed private network. Traffic monitoring, speed integrity, and perimeter security visualization.</p>
-            </div>
-
-            <div class="personal-card">
-                <i class="fas fa-history card-icon"></i>
-                <div class="card-title">Legacy Family<br>Modernization</div>
-                <div class="card-subtitle">Digital Media Preservation</div>
-                <p class="card-description">Archiving and modernizing legacy family media (VHS, DVD, CD) into secure, high-volume digital repositories on your private network.</p>
-            </div>
-
-            <div class="personal-card">
-                <i class="fas fa-microchip card-icon"></i>
-                <div class="card-title">Smart Home (IoT)<br>Governance</div>
-                <div class="card-subtitle">Privacy & Control</div>
-                <p class="card-description">Centralizing control of your smart home sensors, cameras, and thermostats while managing data integrity and access control.</p>
-            </div>
-
-            <div class="personal-card">
-                <i class="fas fa-lightbulb card-icon"></i>
-                <div class="card-title">Household Strategic<br>Insights</div>
-                <div class="card-subtitle">Data-Driven Consulting</div>
-                <p class="card-description">Utilizing Enterprise tools to visualize progress toward household goals, family planning, and academic analytic monitoring.</p>
-            </div>
         </div>
     </div>
 
