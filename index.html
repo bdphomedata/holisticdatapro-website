@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* MODERN RESET & VARIABLES (REVERTED TO YOUR ORIGINAL PALETTE) */
+        /* MODERN RESET & VARIABLES */
         :root {
             --brand-blue-light: #0077c8;
             --brand-blue-dark: #001f3f;
@@ -39,7 +39,6 @@
         }
         .video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* REVERTED TO YOUR PREFERRED GRADIENT */
             background: linear-gradient(135deg, rgba(0, 119, 200, 0.7) 0%, rgba(0, 31, 63, 0.9) 100%);
             z-index: -1; 
         }
@@ -130,6 +129,8 @@
             background: rgba(74, 222, 128, 0.1); border: 2px solid var(--brand-green);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; z-index: 10; box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
+            /* PULSE ANIMATION ADDED */
+            animation: pulse-green 3s infinite;
         }
 
         .node {
@@ -165,6 +166,13 @@
         @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         footer { padding: 10px; background: #000b1a; text-align: center; font-size: 0.6rem; color: rgba(255,255,255,0.4); }
+
+        /* --- PULSE ANIMATION KEYFRAMES --- */
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(74, 222, 128, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+        }
     </style>
 </head>
 <body>
