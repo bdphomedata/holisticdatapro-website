@@ -337,18 +337,37 @@
             pointer-events: none;
         }
 
-        .stat-circle {
-            width: 100px; height: 100px;
-            border-radius: 50%;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 5px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
-            z-index: 1;
-        }
+.stat-circle {
+    width: 120px; /* Increased from 100px to fit longer category names */
+    height: 120px; /* Increased from 100px */
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px; /* Increased padding to keep text away from edges */
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    z-index: 1;
+}
+
+/* Add these to control the text precisely */
+.stat-number {
+    font-size: 0.85rem !important; /* Slightly smaller to fit "Multi-Dimensional" */
+    line-height: 1.2;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 0.6rem !important;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
 
         .stat-circle:hover {
             transform: scale(1.1);
