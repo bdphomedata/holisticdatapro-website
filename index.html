@@ -34,18 +34,10 @@
         /* --- VIDEO BACKGROUND --- */
         .video-container, .video-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
+            top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
         }
 
-        #bg-video {
-            min-width: 100%;
-            min-height: 100%;
-            object-fit: cover;
-        }
+        #bg-video { min-width: 100%; min-height: 100%; object-fit: cover; }
 
         .video-overlay {
             background: linear-gradient(135deg, rgba(0, 119, 200, 0.7) 0%, rgba(0, 31, 63, 0.9) 100%);
@@ -68,11 +60,10 @@
 
         .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; }
 
-        .nav-links { display: flex; gap: 15px; align-items: center; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
         .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--brand-gold) !important; }
 
-        /* --- DROPDOWN --- */
         .dropdown { position: relative; padding: 10px 0; }
         .dropdown-content {
             display: none;
@@ -81,6 +72,7 @@
             min-width: 240px;
             border-top: 3px solid var(--brand-gold);
             top: 100%;
+            backdrop-filter: blur(10px);
         }
         .dropdown:hover .dropdown-content { display: block; }
         .dropdown-content a { display: block; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -106,93 +98,89 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 80px 5% 150px 5%;
+            padding: 60px 5% 150px 5%;
             max-width: 1400px;
             margin: 0 auto;
-            min-height: 100vh;
-            gap: 40px;
+            min-height: 85vh;
+            gap: 60px;
             position: relative;
         }
 
-        .hero-content-left { flex: 1; max-width: 600px; }
-        h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem; }
+        .hero-content-left { flex: 1.2; max-width: 650px; }
+        h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .description { font-size: 1.1rem; line-height: 1.6; color: #f0f4f8; }
         .description strong { color: var(--brand-green); }
 
-        /* --- EXPERTISE GRID --- */
-        .hero-visual-right { flex: 1; display: flex; justify-content: center; }
+        /* --- THE COOL GRID (RESTORING PICTURE 1) --- */
+        .hero-visual-right { flex: 1; display: flex; justify-content: center; align-items: center; }
+        
         .network-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            gap: 20px;
             position: relative;
+            padding: 20px;
         }
 
         .stat-circle {
-            width: 130px;
-            height: 130px;
+            width: 115px;
+            height: 115px;
             border-radius: 50%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 10px;
+            padding: 12px;
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
             transition: all 0.3s ease;
+            z-index: 1;
         }
+
         .stat-circle:hover {
             transform: scale(1.1);
             border-color: var(--brand-green);
             box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
         }
 
-        /* Vertical offset for staggered look */
-        .network-grid > :nth-child(2), .network-grid > :nth-child(5), .network-grid > :nth-child(8) { transform: translateY(30px); }
+        /* RESTORING STAGGERED DIP */
+        .network-grid > :nth-child(2), 
+        .network-grid > :nth-child(5), 
+        .network-grid > :nth-child(8) { 
+            transform: translateY(35px); 
+        }
 
-        .stat-number { font-size: 0.85rem; font-weight: 800; color: var(--brand-green); line-height: 1.2; margin-bottom: 4px; }
-        .stat-label { font-size: 0.6rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 0.5px; }
+        /* Special Hover fix for staggered circles */
+        .network-grid > :nth-child(2):hover, 
+        .network-grid > :nth-child(5):hover, 
+        .network-grid > :nth-child(8):hover { 
+            transform: translateY(35px) scale(1.1); 
+        }
+
+        .stat-number { font-size: 0.8rem; font-weight: 800; color: var(--brand-green); line-height: 1.1; margin-bottom: 4px; }
+        .stat-label { font-size: 0.55rem; text-transform: uppercase; opacity: 0.8; letter-spacing: 0.5px; }
 
         /* --- TICKER --- */
         .ticker-wrapper {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 70px;
-            background: rgba(0, 11, 26, 0.85);
-            border-top: 2px solid var(--brand-green);
+            bottom: 0; left: 0; width: 100%; height: 70px;
+            background: rgba(0, 31, 63, 0.8);
+            border-top: 1px solid rgba(74, 222, 128, 0.3);
+            display: flex;
+            align-items: center;
             overflow: hidden;
-            display: flex;
-            align-items: center;
+            backdrop-filter: blur(5px);
         }
 
-        .ticker-track {
-            display: flex;
-            animation: scrollText 40s linear infinite;
-            white-space: nowrap;
-        }
+        .ticker-track { display: flex; animation: scrollText 40s linear infinite; }
+        .ticker-item { display: flex; align-items: center; padding: 0 40px; white-space: nowrap; font-size: 0.9rem; font-weight: 600; }
+        .ticker-item i { color: var(--brand-green); margin-right: 12px; }
 
-        .ticker-item {
-            display: flex;
-            align-items: center;
-            padding: 0 40px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
+        @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        .ticker-item i { color: var(--brand-green); margin-right: 12px; font-size: 1.1rem; }
-
-        @keyframes scrollText {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        footer { padding: 30px; background: #000b1a; text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.5); }
+        footer { padding: 30px; background: #000b1a; text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.4); border-top: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
@@ -212,7 +200,7 @@
                 <div class="dropdown-content">
                     <a href="index.html">Home</a>
                     <a href="overview.html">Professional Overview</a>
-                    <a href="journey.html">My Journey (1999-2025)</a>
+                    <a href="journey.html">My Journey</a>
                     <a href="qualifications.html">Qualifications</a>
                 </div>
             </div>
@@ -238,9 +226,11 @@
                 <div class="stat-circle"><div class="stat-number">Data Engineering</div><div class="stat-label">End-to-End Pipelines</div></div>
                 <div class="stat-circle"><div class="stat-number">Data Architecture</div><div class="stat-label">Dimensional Modeling</div></div>
                 <div class="stat-circle"><div class="stat-number">Strategic Analytics</div><div class="stat-label">Business Intelligence</div></div>
+                
                 <div class="stat-circle"><div class="stat-number">Multi-Dimensional</div><div class="stat-label">Tabular & Cubes</div></div>
                 <div class="stat-circle"><div class="stat-number">Legacy Modernization</div><div class="stat-label">Reverse Engineering</div></div>
                 <div class="stat-circle"><div class="stat-number">Data Governance</div><div class="stat-label">Integrity & Control</div></div>
+                
                 <div class="stat-circle"><div class="stat-number">Scalable Integration</div><div class="stat-label">High-Volume Data</div></div>
                 <div class="stat-circle"><div class="stat-number">Warehouse Design</div><div class="stat-label">Staging & Marts</div></div>
                 <div class="stat-circle"><div class="stat-number">Strategic Insights</div><div class="stat-label">Consultant Expert</div></div>
