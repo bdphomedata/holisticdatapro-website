@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        /* REUSING YOUR BRAND VARIABLES */
         :root {
             --brand-blue-light: #0077c8;
             --brand-blue-dark: #001f3f;
@@ -23,91 +24,61 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
             background: var(--brand-blue-dark);
-            height: 100vh; /* LOCK TO VIEWPORT HEIGHT */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow: hidden; /* ELIMINATES SCROLLBAR */
+            overflow-x: hidden;
         }
 
-        /* --- BACKGROUND --- */
+        /* --- VIDEO BACKGROUND --- */
         .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
         #bg-video { min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; }
         .video-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 119, 200, 0.7) 0%, rgba(0, 31, 63, 0.9) 100%); z-index: -1; }
 
-        /* --- NAVIGATION --- */
-        nav { width: 100%; padding: 0.6rem 3%; background: rgba(0, 31, 63, 0.4); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border); z-index: 1000; }
+        /* --- NAVIGATION (UPDATED TO MATCH IMAGE) --- */
+        nav { width: 100%; padding: 0.8rem 3%; background: rgba(0, 31, 63, 0.4); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border); z-index: 1000; }
         .nav-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .nav-left-group { display: flex; align-items: center; gap: 30px; }
+        .nav-left-group { display: flex; align-items: center; gap: 40px; }
         
         .logo-static { 
-            font-size: 1.6rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; 
+            font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; 
             background: linear-gradient(to bottom, #fff 0%, #e0e0e0 45%, var(--brand-green) 50%, #fff 55%, #b0b0b0 100%); 
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-            filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 5px rgba(0,0,0,0.8));
+            filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 5px rgba(0,0,0,0.8)) drop-shadow(0px 0px 12px rgba(74, 222, 128, 0.4)); 
+            display: inline-block; 
         }
         
-        .nav-links { display: flex; gap: 15px; align-items: center; }
-        .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.75rem; text-transform: uppercase; opacity: 0.9; }
-        
-        .dropdown { position: relative; }
-        .dropdown-content { display: none; position: absolute; background: rgba(0, 31, 63, 0.95); min-width: 200px; border-top: 3px solid var(--brand-gold); top: 100%; left: 0; backdrop-filter: blur(20px); padding: 5px 0; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; opacity: 0.9; }
+        .nav-links a:hover { color: var(--brand-gold) !important; opacity: 1; }
+
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content { display: none; position: absolute; background: rgba(0, 31, 63, 0.95); min-width: 240px; border-top: 3px solid var(--brand-gold); top: 100%; left: 0; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 10px 0; z-index: 1001; }
         .dropdown:hover .dropdown-content { display: block; }
-        .dropdown-content a { display: block; padding: 10px 15px; font-size: 0.7rem !important; }
+        .dropdown-content a { display: block; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem !important; }
+        .dropdown-header { padding: 10px 20px 5px 20px; font-size: 0.6rem; color: var(--brand-green); letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; }
 
-        .nav-buttons { display: flex; gap: 8px; }
-        .nav-btn-green { text-decoration: none; padding: 5px 12px; border-radius: 50px; border: 2px solid var(--brand-green); color: white !important; font-weight: 700; font-size: 0.6rem; text-transform: uppercase; transition: 0.3s; }
-        .nav-btn-green:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 10px rgba(74, 222, 128, 0.4); }
+        .nav-buttons { display: flex; gap: 10px; align-items: center; }
+        .nav-btn-green { text-decoration: none; padding: 6px 14px; border-radius: 50px; border: 2px solid var(--brand-green); color: white !important; font-weight: 700; font-size: 0.65rem; transition: all 0.3s ease; text-transform: uppercase; }
+        .nav-btn-green:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 10px rgba(74, 222, 128, 0.4); transform: translateY(-1px); }
 
-        /* --- SOLUTIONS CONTENT (TIGHTENED) --- */
-        .solutions-hero { padding: 3vh 5% 2vh 5%; text-align: center; }
-        .solutions-hero h1 { font-size: 2.2rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; }
-        .solutions-hero p { color: var(--brand-green); font-weight: 700; letter-spacing: 2px; font-size: 0.9rem; }
-
-        .solutions-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 20px; 
-            padding: 0 5% 3vh 5%; 
-            max-width: 1500px; 
-            margin: 0 auto;
-            flex: 1; /* ALLOWS GRID TO TAKE UP REMAINING SPACE */
-            align-items: stretch;
-        }
-
-        .solution-card { 
-            background: var(--glass-bg); 
-            border: 1px solid var(--glass-border); 
-            border-radius: 15px; 
-            padding: 20px; 
-            backdrop-filter: blur(10px); 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; /* KEEPS WHATSAPP BAR AT BOTTOM */
-            transition: 0.3s;
-        }
-        .solution-card:hover { border-color: var(--brand-green); transform: translateY(-5px); background: rgba(255, 255, 255, 0.08); }
-
-        .card-icon { font-size: 2.2rem; color: var(--brand-green); margin-bottom: 10px; }
-        .tag { font-size: 0.6rem; font-weight: 900; background: rgba(74, 222, 128, 0.2); color: var(--brand-green); padding: 4px 10px; border-radius: 50px; width: fit-content; text-transform: uppercase; margin-bottom: 10px; }
-        .solution-card h3 { font-size: 1.3rem; color: var(--brand-gold); margin-bottom: 8px; }
-        .solution-card p { font-size: 0.8rem; line-height: 1.4; color: #d1d9e0; margin-bottom: 10px; }
-
-        .feature-list { list-style: none; margin-bottom: 15px; }
-        .feature-list li { font-size: 0.75rem; margin-bottom: 5px; display: flex; align-items: center; gap: 8px; color: var(--brand-green); font-weight: 600; }
-
-        .automation-bar { 
-            background: rgba(37, 211, 102, 0.1); 
-            border: 1px solid rgba(37, 211, 102, 0.2); 
-            border-radius: 10px; 
-            padding: 12px; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-        }
-        .automation-bar i { color: #25D366; font-size: 1.2rem; }
-        .automation-text { font-size: 0.65rem; font-weight: 700; color: #fff; text-transform: uppercase; }
-
-        footer { padding: 10px; background: #000b1a; text-align: center; font-size: 0.55rem; color: rgba(255,255,255,0.4); }
+        /* --- SOLUTIONS CONTENT (EXISTING CODE PRESERVED) --- */
+        .solutions-hero { padding: 80px 5% 40px 5%; text-align: center; max-width: 1200px; margin: 0 auto; }
+        .solutions-hero h1 { font-size: 3rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 3px; }
+        .solutions-hero p { color: var(--brand-green); font-weight: 700; letter-spacing: 2px; font-size: 1.1rem; }
+        .solutions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; padding: 20px 5% 100px 5%; max-width: 1600px; margin: 0 auto; }
+        .solution-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 40px; backdrop-filter: blur(15px); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; gap: 20px; position: relative; overflow: hidden; }
+        .solution-card:hover { border-color: var(--brand-green); transform: translateY(-10px); background: rgba(255, 255, 255, 0.08); box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); }
+        .card-icon { font-size: 3rem; color: var(--brand-green); text-shadow: 0 0 15px rgba(74, 222, 128, 0.3); }
+        .tag { font-size: 0.7rem; font-weight: 900; background: rgba(74, 222, 128, 0.2); color: var(--brand-green); padding: 5px 12px; border-radius: 50px; width: fit-content; text-transform: uppercase; }
+        .solution-card h3 { font-size: 1.6rem; color: var(--brand-gold); letter-spacing: 1px; }
+        .solution-card p { font-size: 0.95rem; line-height: 1.6; color: #d1d9e0; }
+        .feature-list { list-style: none; margin-top: 10px; }
+        .feature-list li { font-size: 0.85rem; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; color: var(--brand-green); font-weight: 600; }
+        .automation-bar { background: rgba(37, 211, 102, 0.1); border: 1px solid rgba(37, 211, 102, 0.3); border-radius: 15px; padding: 20px; margin-top: auto; display: flex; align-items: center; gap: 15px; }
+        .automation-bar i { color: #25D366; font-size: 1.5rem; }
+        .automation-text { font-size: 0.75rem; font-weight: 700; color: #fff; text-transform: uppercase; }
+        footer { padding: 20px; background: #000b1a; text-align: center; font-size: 0.6rem; color: rgba(255,255,255,0.4); }
     </style>
 </head>
 <body>
@@ -127,6 +98,7 @@
                     <div class="dropdown">
                         <a href="services.html">SERVICES <i class="fas fa-caret-down"></i></a>
                         <div class="dropdown-content">
+                            <div class="dropdown-header">Tailored for:</div>
                             <a href="services-home.html"><i class="fas fa-home"></i> HOME USERS</a>
                             <a href="services-corporate.html"><i class="fas fa-building"></i> SME & CORPORATE</a>
                         </div>
@@ -138,8 +110,8 @@
                 <a href="index.html" class="nav-btn-green">HOME</a>
                 <a href="subscribe.html" class="nav-btn-green">SUBSCRIBE</a>
                 <a href="login.html" class="nav-btn-green">LOGIN</a>
-                <a href="contact.html" class="nav-btn-green">CONNECT</a>
-                <a href="Bartus-de-Paiva-CV.docx" class="nav-btn-green" download>PROFILE</a>
+                <a href="contact.html" class="nav-btn-green">CONNECT WITH ME</a>
+                <a href="Bartus-de-Paiva-CV.docx" class="nav-btn-green" download>DOWNLOAD PROFILE</a>
             </div>
         </div>
     </nav>
@@ -150,59 +122,55 @@
     </header>
 
     <main class="solutions-grid">
+        
         <div class="solution-card">
-            <div>
-                <div class="tag">Flagship Ecosystem</div>
-                <i class="fas fa-hubspot card-icon"></i>
-                <h3>Holistic Data Core</h3>
-                <p>Unified command center replacing fragmented tools. Integrated CRM, Deal Tracking, and Project Management.</p>
-                <ul class="feature-list">
-                    <li><i class="fas fa-check"></i> 360° Lead Management</li>
-                    <li><i class="fas fa-check"></i> Visual Kanban Pipelines</li>
-                    <li><i class="fas fa-check"></i> Real-time DB Syncing</li>
-                </ul>
-            </div>
+            <div class="tag">Flagship Ecosystem</div>
+            <i class="fas fa-hubspot card-icon"></i>
+            <h3>Holistic Data Core</h3>
+            <p>A unified command center replacing fragmented tools. Integrated CRM, Deal Tracking, and Project Management built on Azure SQL.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check"></i> 360° Lead Management</li>
+                <li><i class="fas fa-check"></i> Visual Kanban Pipelines</li>
+                <li><i class="fas fa-check"></i> Real-time DB Syncing</li>
+            </ul>
             <div class="automation-bar">
                 <i class="fab fa-whatsapp"></i>
-                <div class="automation-text">WhatsApp Lead Notifications</div>
+                <div class="automation-text">WhatsApp Instant Lead Notification Integrated</div>
             </div>
         </div>
 
         <div class="solution-card">
-            <div>
-                <div class="tag">Governance & Audit</div>
-                <i class="fas fa-clipboard-check card-icon"></i>
-                <h3>Protocol Pro</h3>
-                <p>Digitalize SOPs. A live environment for version-controlled documentation and technical auditing.</p>
-                <ul class="feature-list">
-                    <li><i class="fas fa-check"></i> Version 1.0 Tracking</li>
-                    <li><i class="fas fa-check"></i> Automated Audit Trails</li>
-                    <li><i class="fas fa-check"></i> Digital SOP Sign-off</li>
-                </ul>
-            </div>
+            <div class="tag">Governance & Audit</div>
+            <i class="fas fa-clipboard-check card-icon"></i>
+            <h3>Protocol Pro</h3>
+            <p>Digitalize your Standard Operating Procedures. A live environment for version-controlled documentation and technical compliance auditing.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check"></i> Version 1.0 Release Tracking</li>
+                <li><i class="fas fa-check"></i> Automated Audit Trails</li>
+                <li><i class="fas fa-check"></i> Digital SOP Sign-off</li>
+            </ul>
             <div class="automation-bar">
                 <i class="fab fa-whatsapp"></i>
-                <div class="automation-text">WhatsApp Compliance Alerts</div>
+                <div class="automation-text">WhatsApp Compliance Alerts Integrated</div>
             </div>
         </div>
 
         <div class="solution-card">
-            <div>
-                <div class="tag">Education Tech</div>
-                <i class="fas fa-user-graduate card-icon"></i>
-                <h3>Learner Matrix</h3>
-                <p>High-capacity management. Engineered for 5,000+ registrations with specialized portals.</p>
-                <ul class="feature-list">
-                    <li><i class="fas fa-check"></i> 5K+ Scalable Architecture</li>
-                    <li><i class="fas fa-check"></i> Automated Enrollment</li>
-                    <li><i class="fas fa-check"></i> Performance Dashboards</li>
-                </ul>
-            </div>
+            <div class="tag">Education Tech</div>
+            <i class="fas fa-user-graduate card-icon"></i>
+            <h3>Learner Matrix</h3>
+            <p>High-capacity student management. Engineered to handle 5,000+ registrations with specialized portals for learners and administrators.</p>
+            <ul class="feature-list">
+                <li><i class="fas fa-check"></i> 5K+ Scalable Architecture</li>
+                <li><i class="fas fa-check"></i> Automated Enrollment</li>
+                <li><i class="fas fa-check"></i> Performance Dashboards</li>
+            </ul>
             <div class="automation-bar">
                 <i class="fab fa-whatsapp"></i>
-                <div class="automation-text">WhatsApp Credential Delivery</div>
+                <div class="automation-text">WhatsApp Credential Delivery Integrated</div>
             </div>
         </div>
+
     </main>
 
     <footer>
