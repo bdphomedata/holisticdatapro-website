@@ -24,7 +24,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
             background: var(--brand-blue-dark);
-            overflow: hidden; /* LOCKS TO SINGLE SCREEN */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            overflow-y: auto;   /* Allow vertical scroll for stacked mobile view */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -97,7 +98,7 @@
         /* --- THE DUAL CONTROL PANELS --- */
         .dual-command-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-            height: 48vh; /* TIGHT VERTICAL FIT */
+            min-height: 48vh;
             margin-bottom: 20px;
         }
 
@@ -129,7 +130,6 @@
             background: rgba(74, 222, 128, 0.1); border: 2px solid var(--brand-green);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; z-index: 10; box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
-            /* PULSE ANIMATION ADDED */
             animation: pulse-green 3s infinite;
         }
 
@@ -172,6 +172,23 @@
             0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
             70% { box-shadow: 0 0 0 15px rgba(74, 222, 128, 0); }
             100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+        }
+
+        /* --- MOBILE RESPONSIVENESS ADDITIONS --- */
+        @media (max-width: 992px) {
+            .nav-container { flex-direction: column; gap: 15px; }
+            .nav-left-group { flex-direction: column; gap: 10px; }
+            .nav-buttons { flex-wrap: wrap; justify-content: center; }
+            .dual-command-container { grid-template-columns: 1fr; min-height: auto; }
+            .circular-network { transform: scale(0.85); margin: -30px 0; }
+            h1 { font-size: 1.8rem; }
+            .main-hero { padding-top: 40px; }
+        }
+
+        @media (max-width: 480px) {
+            .logo-static { font-size: 1.4rem; letter-spacing: 2px; }
+            .circular-network { transform: scale(0.65); margin: -60px 0; }
+            .nav-btn-green { font-size: 0.55rem; padding: 4px 10px; }
         }
     </style>
 </head>
@@ -282,7 +299,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 Holistic Data Pro. All rights reserved.</p>
+        <p>&copy; 2026 Holistic Data Pro. All rights reserved.</p>
     </footer>
 
 </body>
