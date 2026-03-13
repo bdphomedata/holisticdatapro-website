@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Holistic Data Pro | Enterprise BI & Digital Calm</title>
+    <title>Holistic Data Pro | Expert Data Solutions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* MODERN RESET & VARIABLES */
+        /* MODERN RESET & VARIABLES (REVERTED TO YOUR ORIGINAL PALETTE) */
         :root {
+            --brand-blue-light: #0077c8;
             --brand-blue-dark: #001f3f;
-            --brand-green: #4ade80;
             --brand-gold: #ffc629;
+            --brand-green: #4ade80;
             --text-white: #ffffff;
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
@@ -22,14 +23,14 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
-            background: #000b1a; /* Darker base for high contrast */
-            overflow: hidden; /* CRITICAL: Force the page into one screen */
+            background: var(--brand-blue-dark);
+            overflow: hidden; /* LOCKS TO SINGLE SCREEN */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* --- BACKGROUND --- */
+        /* --- VIDEO BACKGROUND --- */
         .video-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden;
         }
@@ -38,170 +39,111 @@
         }
         .video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0, 31, 63, 0.9) 0%, rgba(0, 11, 26, 0.98) 100%);
+            /* REVERTED TO YOUR PREFERRED GRADIENT */
+            background: linear-gradient(135deg, rgba(0, 119, 200, 0.7) 0%, rgba(0, 31, 63, 0.9) 100%);
             z-index: -1; 
         }
 
         /* --- NAVIGATION --- */
         nav {
             width: 100%;
-            padding: 1rem 3%;
+            padding: 0.8rem 3%;
             background: rgba(0, 31, 63, 0.4);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
-            position: relative; /* Not sticky, part of single flow */
             z-index: 1000;
         }
 
         .nav-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between; 
-            align-items: center;
+            max-width: 1600px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
         .nav-left-group { display: flex; align-items: center; gap: 40px; }
 
         .logo-static { 
-            font-size: 1.8rem; /* Compressed from 2.1 */
-            font-weight: 900; 
-            letter-spacing: 4px; /* Slightly tighter */
-            text-transform: uppercase;
-            cursor: default;
-            user-select: none;
+            font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
             background: linear-gradient(to bottom, #fff 0%, #e0e0e0 45%, var(--brand-green) 50%, #fff 55%, #b0b0b0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 5px rgba(0,0,0,0.8)) drop-shadow(0px 0px 12px rgba(74, 222, 128, 0.4));
             display: inline-block;
         }
 
-        /* --- MENU LINKS --- */
         .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 700; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; opacity: 0.8; }
-        .nav-links a:hover { opacity: 1; color: var(--brand-gold) !important; }
+        .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; opacity: 0.9; }
+        .nav-links a:hover { color: var(--brand-gold) !important; opacity: 1; }
 
         .dropdown { position: relative; }
-        .dropdown-content { display: none; position: absolute; background: rgba(0, 31, 63, 0.98); min-width: 220px; border-top: 3px solid var(--brand-gold); top: 100%; left: 0; backdrop-filter: blur(20px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .dropdown-content { display: none; position: absolute; background: rgba(0, 31, 63, 0.98); min-width: 220px; border-top: 3px solid var(--brand-gold); top: 100%; left: 0; backdrop-filter: blur(20px); }
         .dropdown:hover .dropdown-content { display: block; }
-        .dropdown-content a { display: block; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .dropdown-content a { display: block; padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
-        /* --- BUTTONS --- */
         .nav-buttons { display: flex; gap: 10px; align-items: center; }
-        .nav-btn-green { text-decoration: none; padding: 6px 14px; border-radius: 50px; border: 2px solid var(--brand-green); color: white !important; font-weight: 800; font-size: 0.65rem; transition: all 0.3s ease; white-space: nowrap; text-transform: uppercase; }
-        .nav-btn-green:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 15px rgba(74, 222, 128, 0.4); transform: translateY(-1px); }
+        .nav-btn-green { text-decoration: none; padding: 6px 14px; border-radius: 50px; border: 2px solid var(--brand-green); color: white !important; font-weight: 700; font-size: 0.65rem; transition: all 0.3s ease; text-transform: uppercase; }
+        .nav-btn-green:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 10px rgba(74, 222, 128, 0.4); transform: translateY(-1px); }
 
-        /* --- COMPRESSED MAIN COMMAND CENTER --- */
+        /* --- COMPRESSED MAIN SECTION --- */
         .main-hero {
             flex: 1;
-            padding: 30px 5%;
-            max-width: 1500px;
-            margin: 0 auto;
+            padding: 20px 5% 10px 5%;
+            max-width: 1500px; margin: 0 auto;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            display: flex; flex-direction: column; justify-content: center;
         }
 
-        h1 { font-size: 2.2rem; /* Compressed from 2.5 */ margin-bottom: 0.5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .description { font-size: 0.95rem; /* Compressed from 1.1 */ max-width: 900px; margin: 0 auto 30px auto; line-height: 1.6; color: #f0f4f8; }
+        h1 { font-size: 2.2rem; margin-bottom: 0.4rem; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .description { font-size: 0.95rem; max-width: 900px; margin: 0 auto 20px auto; line-height: 1.5; color: #f0f4f8; }
+        .description strong { color: var(--brand-green); }
 
-        /* --- COMPRESSED DUAL CONTROL CENTER --- */
+        /* --- THE DUAL CONTROL PANELS --- */
         .dual-command-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            height: 50vh; /* FORCES VISUAL INTO 50% OF THE VIEWPORT HEIGHT */
-            margin-bottom: 30px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            height: 48vh; /* TIGHT VERTICAL FIT */
+            margin-bottom: 20px;
         }
 
         .control-panel {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 20px;
-            backdrop-filter: blur(15px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            border-radius: 15px; padding: 15px;
+            backdrop-filter: blur(10px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
         .panel-header {
-            font-size: 1.2rem; /* Compressed from 1.4 */
-            font-weight: 800;
-            color: var(--brand-green);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(74, 222, 128, 0.3);
-            width: 100%;
-            padding-bottom: 10px;
+            font-size: 1.1rem; font-weight: 800; color: var(--brand-green);
+            text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 15px; border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+            width: 100%; padding-bottom: 8px;
         }
 
-        /* --- THE UNIFIED CIRCULAR VISUAL --- */
+        /* --- CIRCULAR NETWORK LOGIC --- */
         .circular-network {
-            position: relative;
-            width: 400px; /* Compressed from 500 */
-            height: 400px; /* Compressed from 500 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: relative; width: 360px; height: 360px;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        /* Connecting Lines (Decorative SVG) */
-        .svg-lines {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1;
-        }
+        .svg-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
 
-        /* Central Hub (Legacy Mod / Digital Calm) */
         .hub-center {
-            width: 120px; /* Compressed from 150 */
-            height: 120px; /* Compressed from 150 */
-            border-radius: 50%;
-            background: rgba(74, 222, 128, 0.15);
-            border: 2px solid var(--brand-green);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 10px;
-            z-index: 10;
-            box-shadow: 0 0 30px rgba(74, 222, 128, 0.3);
+            width: 110px; height: 110px; border-radius: 50%;
+            background: rgba(74, 222, 128, 0.1); border: 2px solid var(--brand-green);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; z-index: 10; box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
         }
 
-        /* Satellite Nodes (Circles on periphery) */
         .node {
-            position: absolute;
-            width: 90px; /* Compressed from 110 */
-            height: 90px; /* Compressed from 110 */
-            border-radius: 50%;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 10px;
-            transition: 0.3s;
-            z-index: 5;
+            position: absolute; width: 85px; height: 85px; border-radius: 50%;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 5px; transition: 0.3s; z-index: 5;
         }
+        .node:hover { border-color: var(--brand-green); transform: scale(1.1); background: rgba(74, 222, 128, 0.05); }
 
-        .node:hover {
-            border-color: var(--brand-green);
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
-            cursor: pointer;
-        }
+        .node-title { font-size: 0.6rem; font-weight: 800; color: var(--brand-green); text-transform: uppercase; margin-bottom: 2px; }
+        .node-desc { font-size: 0.45rem; text-transform: uppercase; opacity: 0.8; }
 
-        /* Tighter content sizes within compressed nodes */
-        .node-title { font-size: 0.65rem; font-weight: 800; color: var(--brand-green); line-height: 1.1; margin-bottom: 3px; text-transform: uppercase; }
-        .node-desc { font-size: 0.45rem; text-transform: uppercase; opacity: 0.8; line-height: 1.2; }
-
-        /* Compressed positioning of Satellite Nodes */
+        /* Positioning Satellite Nodes */
         .n1 { top: 10%; left: 50%; transform: translate(-50%, -50%); } 
         .n2 { top: 25%; right: 5%; transform: translate(50%, -50%); } 
         .n3 { bottom: 25%; right: 5%; transform: translate(50%, 50%); } 
@@ -211,23 +153,18 @@
 
         /* --- TICKER --- */
         .ticker-wrapper {
-            width: 100vw; height: 60px; /* Compressed from 70 */
+            width: 100vw; height: 50px;
             background: rgba(0, 31, 63, 0.9);
             border-top: 1px solid rgba(74, 222, 128, 0.3);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            z-index: 10;
+            overflow: hidden; display: flex; align-items: center;
         }
-
         .ticker-track { display: flex; animation: scrollText 40s linear infinite; width: max-content; }
-        .ticker-item { display: flex; align-items: center; padding: 0 40px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; white-space: nowrap; }
-        .ticker-item i { color: var(--brand-green); margin-right: 12px; }
+        .ticker-item { display: flex; align-items: center; padding: 0 30px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .ticker-item i { color: var(--brand-green); margin-right: 10px; }
 
         @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* FOOTER is visible but minimal */
-        footer { padding: 15px; background: #000b1a; text-align: center; font-size: 0.65rem; color: rgba(255,255,255,0.5); }
+        footer { padding: 10px; background: #000b1a; text-align: center; font-size: 0.6rem; color: rgba(255,255,255,0.4); }
     </style>
 </head>
 <body>
@@ -266,28 +203,30 @@
     </nav>
 
     <div class="main-hero">
-        <h1>Enterprise Authority, Digital Calm.</h1>
+        <h1>Expert Data-Driven Business Intelligence</h1>
         <p class="description">
-            Holistic Data Pro is led by Bartus de Paiva, a Senior BI Developer with <strong>over 25 years of specialized experience</strong>. We standardize on Enterprise engineering principles to provide unified Data Integrity across high-volume corporate infrastructure *and* secure, modernized personal digital assets.
+            Holistic Data Pro is led by Bartus de Paiva, a Senior BI Developer with <strong>over 25 years of specialized experience</strong>. We specialize in engineering end-to-end intelligence solutions from raw data to executive insights.
         </p>
 
         <div class="dual-command-container">
-            
             <div class="control-panel">
-                <div class="panel-header">Header for Home Users</div>
-                
+                <div class="panel-header">Home Users</div>
                 <div class="circular-network">
                     <svg class="svg-lines">
-                        <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> <line x1="50%" y1="50%" x2="95%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> <line x1="50%" y1="50%" x2="95%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> <line x1="50%" y1="50%" x2="50%" y2="90%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> <line x1="50%" y1="50%" x2="5%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> <line x1="50%" y1="50%" x2="5%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> </svg>
-
+                        <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="50%" y2="90%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                    </svg>
                     <div class="hub-center">
-                        <div class="node-title" style="font-size: 0.9rem; border-color: var(--brand-green);">DIGITAL CALM</div>
+                        <div class="node-title" style="font-size: 0.75rem;">DIGITAL CALM</div>
                         <div class="node-desc">Home Integration</div>
                     </div>
-
                     <div class="node n1"><div class="node-title">HOME DATA</div><div class="node-desc">Architecture</div></div>
                     <div class="node n2"><div class="node-title">FINANCES</div><div class="node-desc">Dashboards</div></div>
-                    <div class="node n3"><div class="node-title">HOME NETWORK</div><div class="node-desc">Performance</div></div>
+                    <div class="node n3"><div class="node-title">NETWORKS</div><div class="node-desc">Performance</div></div>
                     <div class="node n4"><div class="node-title">LEGACY MEDIA</div><div class="node-desc">Modernization</div></div>
                     <div class="node n5"><div class="node-title">SMART HOME</div><div class="node-desc">Governance</div></div>
                     <div class="node n6"><div class="node-title">HOUSEHOLD</div><div class="node-desc">Strategic Insights</div></div>
@@ -295,17 +234,20 @@
             </div>
 
             <div class="control-panel">
-                <div class="panel-header">Header for SME and Corporate</div>
-                
+                <div class="panel-header">SME & Corporate</div>
                 <div class="circular-network">
                     <svg class="svg-lines">
-                        <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> <line x1="50%" y1="50%" x2="95%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> <line x1="50%" y1="50%" x2="95%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> <line x1="50%" y1="50%" x2="50%" y2="90%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> <line x1="50%" y1="50%" x2="5%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> <line x1="50%" y1="50%" x2="5%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/> </svg>
-
+                        <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="50%" y2="90%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                    </svg>
                     <div class="hub-center">
-                        <div class="node-title" style="font-size: 0.9rem; border-color: var(--brand-green);">LEGACY MOD</div>
+                        <div class="node-title" style="font-size: 0.75rem;">LEGACY MOD</div>
                         <div class="node-desc">Reverse Engineering</div>
                     </div>
-
                     <div class="node n1"><div class="node-title">Data Eng.</div><div class="node-desc">Pipelines</div></div>
                     <div class="node n2"><div class="node-title">Architecture</div><div class="node-desc">Dimensional</div></div>
                     <div class="node n3"><div class="node-title">Strategic</div><div class="node-desc">Analytics</div></div>
@@ -314,7 +256,6 @@
                     <div class="node n6"><div class="node-title">WAREHOUSE</div><div class="node-desc">Design</div></div>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -333,7 +274,7 @@
     </div>
 
     <footer>
-        &copy; 2025 Holistic Data Pro. All rights reserved.
+        <p>&copy; 2025 Holistic Data Pro. All rights reserved.</p>
     </footer>
 
 </body>
