@@ -78,13 +78,15 @@
             gap: 50px; 
         }
 
-        /* --- THE NEW 3D METALLIC LOGO --- */
-        .logo { 
-            font-size: 1.8rem; 
+        /* --- FINALIZED 3D METALLIC LOGO (NON-LINK) --- */
+        .logo-static { 
+            /* Permanent larger size and wide spacing */
+            font-size: 2.1rem; 
             font-weight: 900; 
-            letter-spacing: 3px; 
-            text-decoration: none;
+            letter-spacing: 5px; 
             text-transform: uppercase;
+            cursor: default; /* Indicates it's not a link */
+            user-select: none;
             
             /* Metallic Chrome Gradient */
             background: linear-gradient(
@@ -98,25 +100,16 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             
-            /* The 3D Depth Layering */
+            /* Permanent 3D Depth Layering */
             filter: 
                 drop-shadow(0px 1px 0px #ffffff) 
-                drop-shadow(0px 3px 5px rgba(0,0,0,0.8))
-                drop-shadow(0px 0px 10px rgba(74, 222, 128, 0.3));
+                drop-shadow(0px 4px 6px rgba(0,0,0,0.8))
+                drop-shadow(0px 0px 15px rgba(74, 222, 128, 0.4));
             
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-block;
         }
 
-        .logo:hover { 
-            transform: scale(1.05) translateY(-2px);
-            letter-spacing: 5px;
-            filter: 
-                drop-shadow(0px 1px 0px #ffffff) 
-                drop-shadow(0px 6px 10px rgba(0,0,0,0.9))
-                drop-shadow(0px 0px 20px rgba(74, 222, 128, 0.6));
-        }
-
+        /* --- MENU LINKS --- */
         .nav-links { 
             display: flex; 
             gap: 25px; 
@@ -148,6 +141,7 @@
         .dropdown:hover .dropdown-content { display: block; }
         .dropdown-content a { display: block; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
+        /* --- BUTTONS --- */
         .nav-buttons { display: flex; gap: 12px; align-items: center; }
 
         .nav-btn-green {
@@ -240,7 +234,7 @@
     <nav>
         <div class="nav-container">
             <div class="nav-left-group">
-                <a href="index.html" class="logo">HOLISTIC DATA PRO</a>
+                <span class="logo-static">HOLISTIC DATA PRO</span>
                 
                 <div class="nav-links">
                     <div class="dropdown">
