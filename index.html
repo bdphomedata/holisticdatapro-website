@@ -25,7 +25,7 @@
             color: var(--text-white);
             background: var(--brand-blue-dark);
             overflow-x: hidden;
-            overflow-y: auto; /* Changed from hidden to allow mobile scrolling */
+            overflow-y: auto;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -76,10 +76,14 @@
         }
 
         .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; opacity: 0.9; }
-        .nav-links a:hover { color: var(--brand-gold) !important; opacity: 1; }
+        .nav-links a, .nav-links .dropdown-label { 
+            color: #ffffff !important; text-decoration: none; font-weight: 600; 
+            font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; opacity: 0.9; 
+            cursor: pointer;
+        }
+        .nav-links a:hover, .nav-links .dropdown:hover .dropdown-label { color: var(--brand-gold) !important; opacity: 1; }
 
-        .dropdown { position: relative; display: inline-block; }
+        .dropdown { position: relative; display: inline-block; padding: 10px 0; }
         .dropdown-content { 
             display: none; position: absolute; background: rgba(0, 31, 63, 0.95); min-width: 240px; 
             border-top: 3px solid var(--brand-gold); top: 100%; left: 0; backdrop-filter: blur(20px); 
@@ -87,6 +91,16 @@
         }
         .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
         .dropdown-content a { display: block; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem !important; }
+        .dropdown-content a i { margin-right: 10px; color: var(--brand-green); width: 15px; text-align: center; }
+
+        .dropdown-header {
+            padding: 10px 20px 5px 20px;
+            font-size: 0.6rem;
+            color: var(--brand-green);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
 
         .nav-buttons { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; }
         .nav-btn-green { text-decoration: none; padding: 6px 14px; border-radius: 50px; border: 2px solid var(--brand-green); color: white !important; font-weight: 700; font-size: 0.65rem; transition: all 0.3s ease; text-transform: uppercase; white-space: nowrap; }
@@ -207,7 +221,7 @@
                 <span class="logo-static">HOLISTIC DATA PRO</span>
                 <div class="nav-links">
                     <div class="dropdown">
-                        <a href="services.html">SERVICES <i class="fas fa-caret-down"></i></a>
+                        <span class="dropdown-label">SERVICES <i class="fas fa-caret-down"></i></span>
                         <div class="dropdown-content">
                             <div class="dropdown-header">Tailored for:</div>
                             <a href="services-home.html"><i class="fas fa-home"></i> HOME USERS</a>
