@@ -28,7 +28,7 @@
             display: flex;
             flex-direction: column;
             background: #001f3f;
-            overflow-x: hidden; /* Prevents side-scrolling from the full-width ticker */
+            overflow-x: hidden;
         }
 
         /* --- VIDEO BACKGROUND --- */
@@ -52,7 +52,7 @@
             z-index: -1; 
         }
 
-        /* --- NAVIGATION --- */
+        /* --- NAVIGATION (UPDATED ALIGNMENT) --- */
         nav {
             width: 100%;
             padding: 1rem 3%;
@@ -68,16 +68,43 @@
             max-width: 1600px;
             margin: 0 auto;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Pushes Left Group and Buttons apart */
             align-items: center;
         }
 
-        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; color: var(--text-white); }
-        .nav-actions { display: flex; align-items: center; gap: 25px; }
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        /* Grouping Logo and Main Links on the Left */
+        .nav-left-group {
+            display: flex;
+            align-items: center;
+            gap: 50px; /* Space between logo and first menu item */
+        }
+
+        .logo { 
+            font-size: 1.5rem; 
+            font-weight: 800; 
+            letter-spacing: 2px; 
+            color: var(--text-white); 
+            text-decoration: none;
+        }
+
+        .nav-links { 
+            display: flex; 
+            gap: 25px; 
+            align-items: center; 
+        }
+
+        .nav-links a { 
+            color: #ffffff !important; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 0.85rem; 
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
         .nav-links a:hover { color: var(--brand-gold) !important; }
 
+        /* Dropdown content styling */
         .dropdown { position: relative; }
         .dropdown-content {
             display: none;
@@ -92,20 +119,26 @@
         .dropdown:hover .dropdown-content { display: block; }
         .dropdown-content a { display: block; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
+        /* Buttons on the Right */
         .nav-buttons { display: flex; gap: 12px; align-items: center; }
+
         .nav-btn-green {
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 8px 18px;
             border-radius: 50px;
             border: 2px solid var(--brand-green);
             color: white !important;
             font-weight: 700;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             transition: all 0.3s ease;
             white-space: nowrap;
             text-transform: uppercase;
         }
-        .nav-btn-green:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 15px rgba(74, 222, 128, 0.4); transform: translateY(-2px); }
+        .nav-btn-green:hover { 
+            background: rgba(74, 222, 128, 0.15); 
+            box-shadow: 0 0 15px rgba(74, 222, 128, 0.4); 
+            transform: translateY(-2px); 
+        }
 
         /* --- HERO SECTION --- */
         .hero {
@@ -115,7 +148,7 @@
             padding: 60px 5% 40px 5%;
             max-width: 1400px;
             margin: 0 auto;
-            flex: 1; /* Allows hero to take up available space between nav and ticker */
+            flex: 1;
             gap: 40px;
         }
 
@@ -146,9 +179,9 @@
         .stat-number { font-size: 0.85rem; font-weight: 800; color: var(--brand-green); line-height: 1.1; }
         .stat-label { font-size: 0.5rem; text-transform: uppercase; opacity: 0.9; }
 
-        /* --- FULL WIDTH TICKER (OUTSIDE HERO) --- */
+        /* --- FULL WIDTH TICKER --- */
         .ticker-wrapper {
-            width: 100vw; /* Forces it to full screen width */
+            width: 100vw;
             height: 70px;
             background: rgba(0, 31, 63, 0.85);
             border-top: 1px solid rgba(74, 222, 128, 0.3);
@@ -178,8 +211,9 @@
 
     <nav>
         <div class="nav-container">
-            <div class="logo">HOLISTIC DATA PRO</div>
-            <div class="nav-actions">
+            <div class="nav-left-group">
+                <a href="index.html" class="logo">HOLISTIC DATA PRO</a>
+                
                 <div class="nav-links">
                     <div class="dropdown">
                         <a href="#">ABOUT US <i class="fas fa-caret-down"></i></a>
@@ -193,12 +227,13 @@
                     <a href="services.html">SERVICES</a>
                     <a href="construction.html">SOLUTIONS</a>
                 </div>
-                <div class="nav-buttons">
-                    <a href="subscribe.html" class="nav-btn-green">SUBSCRIBE</a>
-                    <a href="login.html" class="nav-btn-green">LOGIN</a>
-                    <a href="contact.html" class="nav-btn-green">CONNECT WITH ME</a>
-                    <a href="Bartus-de-Paiva-CV.docx" class="nav-btn-green" download>DOWNLOAD PROFILE</a>
-                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <a href="subscribe.html" class="nav-btn-green">SUBSCRIBE</a>
+                <a href="login.html" class="nav-btn-green">LOGIN</a>
+                <a href="contact.html" class="nav-btn-green">CONNECT WITH ME</a>
+                <a href="Bartus-de-Paiva-CV.docx" class="nav-btn-green" download>DOWNLOAD PROFILE</a>
             </div>
         </div>
     </nav>
