@@ -28,7 +28,7 @@
             display: flex;
             flex-direction: column;
             background: #001f3f;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Prevents side-scrolling from the full-width ticker */
         }
 
         /* --- VIDEO BACKGROUND --- */
@@ -52,122 +52,110 @@
             z-index: -1; 
         }
 
-        /* --- NAVIGATION (RESTORING ALL 4 BUTTONS) --- */
+        /* --- NAVIGATION --- */
         nav {
+            width: 100%;
+            padding: 1rem 3%;
+            background: rgba(0, 31, 63, 0.4);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0; 
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1600px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.5rem 2%;
-            background: rgba(0, 31, 63, 0.3);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--glass-border);
-            position: sticky;
-            top: 0; z-index: 1000;
         }
 
-        .logo { font-size: 1.4rem; font-weight: 800; letter-spacing: 1.5px; white-space: nowrap; }
+        .logo { font-size: 1.5rem; font-weight: 800; letter-spacing: 2px; color: var(--text-white); }
+        .nav-actions { display: flex; align-items: center; gap: 25px; }
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--brand-gold) !important; }
 
-        .nav-links { display: flex; gap: 15px; align-items: center; }
-        .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
-
-        .dropdown { position: relative; padding: 10px 0; }
+        .dropdown { position: relative; }
         .dropdown-content {
             display: none;
             position: absolute;
             background: rgba(0, 31, 63, 0.98);
-            min-width: 240px;
+            min-width: 220px;
             border-top: 3px solid var(--brand-gold);
             top: 100%; left: 0;
             backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         .dropdown:hover .dropdown-content { display: block; }
-        .dropdown-content a { display: block; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .dropdown-content a { display: block; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
-        .nav-buttons { display: flex; gap: 10px; align-items: center; }
-
+        .nav-buttons { display: flex; gap: 12px; align-items: center; }
         .nav-btn-green {
             text-decoration: none;
-            padding: 10px 18px;
+            padding: 10px 20px;
             border-radius: 50px;
             border: 2px solid var(--brand-green);
             color: white !important;
             font-weight: 700;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             transition: all 0.3s ease;
             white-space: nowrap;
+            text-transform: uppercase;
         }
-        .nav-btn-green:hover { background: rgba(74, 222, 128, 0.1); box-shadow: 0 0 15px rgba(74, 222, 128, 0.4); transform: translateY(-2px); }
+        .nav-btn-green:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 15px rgba(74, 222, 128, 0.4); transform: translateY(-2px); }
 
-        /* --- HERO SPLIT LAYOUT --- */
+        /* --- HERO SECTION --- */
         .hero {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 80px 5% 120px 5%;
+            padding: 60px 5% 40px 5%;
             max-width: 1400px;
             margin: 0 auto;
-            min-height: 85vh; 
+            flex: 1; /* Allows hero to take up available space between nav and ticker */
             gap: 40px;
-            position: relative;
         }
 
-        .hero-content-left { flex: 1; max-width: 600px; }
+        .hero-content-left { flex: 1.2; max-width: 650px; }
         h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
         .description { font-size: 1.1rem; line-height: 1.6; color: #f0f4f8; }
         .description strong { color: var(--brand-green); }
 
         /* --- NETWORK GRID --- */
         .hero-visual-right { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
-        
-        .network-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            position: relative;
-            padding: 20px;
-        }
-
+        .network-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; position: relative; padding: 20px; }
         .network-background-lines {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;
             background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20,20 L50,50 L80,20' stroke='rgba(74, 222, 128, 0.2)' stroke-width='1' fill='none'/%3E%3Cpath d='M20,50 L50,50 L80,50' stroke='rgba(74, 222, 128, 0.2)' stroke-width='1' fill='none'/%3E%3Cpath d='M20,80 L50,50 L80,80' stroke='rgba(74, 222, 128, 0.2)' stroke-width='1' fill='none'/%3E%3Cpath d='M50,20 L50,80' stroke='rgba(74, 222, 128, 0.2)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
-            background-size: cover;
-            pointer-events: none;
+            background-size: cover; pointer-events: none;
         }
 
         .stat-circle {
-            width: 100px; height: 100px;
-            border-radius: 50%;
+            width: 100px; height: 100px; border-radius: 50%;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 5px;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(5px);
-            transition: transform 0.3s, border-color 0.3s;
-            z-index: 1;
+            text-align: center; padding: 5px; background: var(--glass-bg);
+            border: 1px solid var(--glass-border); backdrop-filter: blur(5px);
+            transition: 0.3s; z-index: 1;
         }
+        .stat-circle:hover { transform: scale(1.1); border-color: var(--brand-green); box-shadow: 0 0 20px rgba(74, 222, 128, 0.4); }
 
-        .stat-circle:hover {
-            transform: scale(1.1);
-            border-color: var(--brand-green);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);
-        }
-
-        /* Staggered logic */
         .network-grid > :nth-child(2), .network-grid > :nth-child(5), .network-grid > :nth-child(8) { transform: translateY(30px); }
-        .network-grid > :nth-child(2):hover, .network-grid > :nth-child(5):hover, .network-grid > :nth-child(8):hover { transform: translateY(30px) scale(1.1); }
+        .stat-number { font-size: 0.85rem; font-weight: 800; color: var(--brand-green); line-height: 1.1; }
+        .stat-label { font-size: 0.5rem; text-transform: uppercase; opacity: 0.9; }
 
-        .stat-number { font-size: 0.85rem; font-weight: 800; color: var(--brand-green); line-height: 1.1; margin-bottom: 2px; }
-        .stat-label { font-size: 0.5rem; text-transform: uppercase; opacity: 0.9; letter-spacing: 0.5px; }
-
-        /* --- TICKER --- */
+        /* --- FULL WIDTH TICKER (OUTSIDE HERO) --- */
         .ticker-wrapper {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%; height: 70px;
+            width: 100vw; /* Forces it to full screen width */
+            height: 70px;
             background: rgba(0, 31, 63, 0.85);
             border-top: 1px solid rgba(74, 222, 128, 0.3);
-            overflow: hidden; display: flex; align-items: center;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            z-index: 10;
         }
 
         .ticker-track { display: flex; animation: scrollText 40s linear infinite; width: max-content; }
@@ -189,25 +177,29 @@
     <div class="video-overlay"></div>
 
     <nav>
-        <div class="logo">HOLISTIC DATA PRO</div>
-        <div class="nav-links">
-            <div class="dropdown">
-                <a href="#">About Us <i class="fas fa-caret-down"></i></a>
-                <div class="dropdown-content">
-                    <a href="index.html">Home</a>
-                    <a href="overview.html">Professional Overview</a>
-                    <a href="journey.html">My Journey (1999-2025)</a>
-                    <a href="qualifications.html">Qualifications</a>
+        <div class="nav-container">
+            <div class="logo">HOLISTIC DATA PRO</div>
+            <div class="nav-actions">
+                <div class="nav-links">
+                    <div class="dropdown">
+                        <a href="#">ABOUT US <i class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="index.html">HOME</a>
+                            <a href="overview.html">PROFESSIONAL OVERVIEW</a>
+                            <a href="journey.html">MY JOURNEY</a>
+                            <a href="qualifications.html">QUALIFICATIONS</a>
+                        </div>
+                    </div>
+                    <a href="services.html">SERVICES</a>
+                    <a href="construction.html">SOLUTIONS</a>
+                </div>
+                <div class="nav-buttons">
+                    <a href="subscribe.html" class="nav-btn-green">SUBSCRIBE</a>
+                    <a href="login.html" class="nav-btn-green">LOGIN</a>
+                    <a href="contact.html" class="nav-btn-green">CONNECT WITH ME</a>
+                    <a href="Bartus-de-Paiva-CV.docx" class="nav-btn-green" download>DOWNLOAD PROFILE</a>
                 </div>
             </div>
-            <a href="services.html">Services</a>
-            <a href="construction.html">Solutions</a>
-        </div>
-        <div class="nav-buttons">
-            <a href="subscribe.html" class="nav-btn-green">SUBSCRIBE</a>
-            <a href="login.html" class="nav-btn-green">LOGIN</a>
-            <a href="contact.html" class="nav-btn-green">CONNECT WITH ME</a>
-            <a href="Bartus-de-Paiva-CV.docx" class="nav-btn-green" download>DOWNLOAD PROFILE</a>
         </div>
     </nav>
 
@@ -225,32 +217,30 @@
                 <div class="stat-circle"><div class="stat-number">Data Engineering</div><div class="stat-label">End-to-End Pipelines</div></div>
                 <div class="stat-circle"><div class="stat-number">Data Architecture</div><div class="stat-label">Dimensional Modeling</div></div>
                 <div class="stat-circle"><div class="stat-number">Strategic Analytics</div><div class="stat-label">Business Intelligence</div></div>
-                
                 <div class="stat-circle"><div class="stat-number">Multi-Dimensional</div><div class="stat-label">Tabular & Cubes</div></div>
                 <div class="stat-circle"><div class="stat-number">Legacy Modernization</div><div class="stat-label">Reverse Engineering</div></div>
                 <div class="stat-circle"><div class="stat-number">Data Governance</div><div class="stat-label">Integrity & Control</div></div>
-                
                 <div class="stat-circle"><div class="stat-number">Scalable Integration</div><div class="stat-label">High-Volume Data</div></div>
                 <div class="stat-circle"><div class="stat-number">Warehouse Design</div><div class="stat-label">Staging & Marts</div></div>
                 <div class="stat-circle"><div class="stat-number">Strategic Insights</div><div class="stat-label">Consultant Expert</div></div>
             </div>
         </div>
+    </div>
 
-        <div class="ticker-wrapper">
-            <div class="ticker-track">
-                <div class="ticker-item"><i class="fas fa-sync-alt"></i> Legacy Reverse Engineering</div>
-                <div class="ticker-item"><i class="fas fa-infinity"></i> End-to-End Data Warehousing</div>
-                <div class="ticker-item"><i class="fas fa-network-wired"></i> Scalable Data Integration</div>
-                <div class="ticker-item"><i class="fas fa-cloud-upload-alt"></i> Cloud Data Migration</div>
-                <div class="ticker-item"><i class="fas fa-sitemap"></i> Dimensional Data Modeling</div>
-                <div class="ticker-item"><i class="fas fa-microchip"></i> High-Performance T-SQL</div>
-                <div class="ticker-item"><i class="fas fa-sync-alt"></i> Legacy Reverse Engineering</div>
-                <div class="ticker-item"><i class="fas fa-infinity"></i> End-to-End Data Warehousing</div>
-                <div class="ticker-item"><i class="fas fa-network-wired"></i> Scalable Data Integration</div>
-                <div class="ticker-item"><i class="fas fa-cloud-upload-alt"></i> Cloud Data Migration</div>
-                <div class="ticker-item"><i class="fas fa-sitemap"></i> Dimensional Data Modeling</div>
-                <div class="ticker-item"><i class="fas fa-microchip"></i> High-Performance T-SQL</div>
-            </div>
+    <div class="ticker-wrapper">
+        <div class="ticker-track">
+            <div class="ticker-item"><i class="fas fa-sync-alt"></i> Legacy Reverse Engineering</div>
+            <div class="ticker-item"><i class="fas fa-infinity"></i> End-to-End Data Warehousing</div>
+            <div class="ticker-item"><i class="fas fa-network-wired"></i> Scalable Data Integration</div>
+            <div class="ticker-item"><i class="fas fa-cloud-upload-alt"></i> Cloud Data Migration</div>
+            <div class="ticker-item"><i class="fas fa-sitemap"></i> Dimensional Data Modeling</div>
+            <div class="ticker-item"><i class="fas fa-microchip"></i> High-Performance T-SQL</div>
+            <div class="ticker-item"><i class="fas fa-sync-alt"></i> Legacy Reverse Engineering</div>
+            <div class="ticker-item"><i class="fas fa-infinity"></i> End-to-End Data Warehousing</div>
+            <div class="ticker-item"><i class="fas fa-network-wired"></i> Scalable Data Integration</div>
+            <div class="ticker-item"><i class="fas fa-cloud-upload-alt"></i> Cloud Data Migration</div>
+            <div class="ticker-item"><i class="fas fa-sitemap"></i> Dimensional Data Modeling</div>
+            <div class="ticker-item"><i class="fas fa-microchip"></i> High-Performance T-SQL</div>
         </div>
     </div>
 
