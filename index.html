@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* MODERN RESET & VARIABLES (REVERTED TO YOUR ORIGINAL PALETTE) */
         :root {
             --brand-blue-light: #0077c8;
             --brand-blue-dark: #001f3f;
@@ -24,126 +23,62 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
             background: var(--brand-blue-dark);
-            overflow: hidden; /* LOCKS TO SINGLE SCREEN */
+            overflow: hidden; 
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
         /* --- VIDEO BACKGROUND --- */
-        .video-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden;
-        }
-        #bg-video {
-            min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover;
-        }
+        .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
+        #bg-video { min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; }
         .video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* REVERTED TO YOUR PREFERRED GRADIENT */
             background: linear-gradient(135deg, rgba(0, 119, 200, 0.7) 0%, rgba(0, 31, 63, 0.9) 100%);
             z-index: -1; 
         }
 
         /* --- NAVIGATION --- */
-        nav {
-            width: 100%;
-            padding: 0.8rem 3%;
-            background: rgba(0, 31, 63, 0.4);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1600px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-
+        nav { width: 100%; padding: 0.8rem 3%; background: rgba(0, 31, 63, 0.4); backdrop-filter: blur(15px); border-bottom: 1px solid var(--glass-border); z-index: 1000; }
+        .nav-container { max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .nav-left-group { display: flex; align-items: center; gap: 40px; }
-
         .logo-static { 
             font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
             background: linear-gradient(to bottom, #fff 0%, #e0e0e0 45%, var(--brand-green) 50%, #fff 55%, #b0b0b0 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 5px rgba(0,0,0,0.8)) drop-shadow(0px 0px 12px rgba(74, 222, 128, 0.4));
-            display: inline-block;
+            filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 5px rgba(0,0,0,0.8));
         }
-
         .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; opacity: 0.9; }
-        .nav-links a:hover { color: var(--brand-gold) !important; opacity: 1; }
-
+        .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
         .dropdown { position: relative; }
         .dropdown-content { display: none; position: absolute; background: rgba(0, 31, 63, 0.98); min-width: 220px; border-top: 3px solid var(--brand-gold); top: 100%; left: 0; backdrop-filter: blur(20px); }
         .dropdown:hover .dropdown-content { display: block; }
         .dropdown-content a { display: block; padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .nav-btn-green { text-decoration: none; padding: 6px 14px; border-radius: 50px; border: 2px solid var(--brand-green); color: white !important; font-weight: 700; font-size: 0.65rem; text-transform: uppercase; }
 
-        .nav-buttons { display: flex; gap: 10px; align-items: center; }
-        .nav-btn-green { text-decoration: none; padding: 6px 14px; border-radius: 50px; border: 2px solid var(--brand-green); color: white !important; font-weight: 700; font-size: 0.65rem; transition: all 0.3s ease; text-transform: uppercase; }
-        .nav-btn-green:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 10px rgba(74, 222, 128, 0.4); transform: translateY(-1px); }
-
-        /* --- COMPRESSED MAIN SECTION --- */
-        .main-hero {
-            flex: 1;
-            padding: 20px 5% 10px 5%;
-            max-width: 1500px; margin: 0 auto;
-            text-align: center;
-            display: flex; flex-direction: column; justify-content: center;
-        }
-
-        h1 { font-size: 2.2rem; margin-bottom: 0.4rem; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        .description { font-size: 0.95rem; max-width: 900px; margin: 0 auto 20px auto; line-height: 1.5; color: #f0f4f8; }
+        /* --- MAIN CONTENT --- */
+        .main-hero { flex: 1; padding: 20px 5% 10px 5%; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+        h1 { font-size: 2.2rem; margin-bottom: 0.4rem; }
+        .description { font-size: 0.95rem; max-width: 900px; margin: 0 auto 20px auto; line-height: 1.5; }
         .description strong { color: var(--brand-green); }
 
-        /* --- THE DUAL CONTROL PANELS --- */
-        .dual-command-container {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-            height: 48vh; /* TIGHT VERTICAL FIT */
-            margin-bottom: 20px;
-        }
-
+        /* --- DUAL CONTROL PANELS --- */
+        .dual-command-container { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; height: 48vh; margin-bottom: 20px; }
         .control-panel {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px; padding: 15px;
-            backdrop-filter: blur(10px);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 15px; padding: 15px;
+            backdrop-filter: blur(10px); display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
+        .panel-header { font-size: 1.1rem; font-weight: 800; color: var(--brand-green); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; border-bottom: 1px solid rgba(74, 222, 128, 0.3); width: 100%; padding-bottom: 8px; }
 
-        .panel-header {
-            font-size: 1.1rem; font-weight: 800; color: var(--brand-green);
-            text-transform: uppercase; letter-spacing: 2px;
-            margin-bottom: 15px; border-bottom: 1px solid rgba(74, 222, 128, 0.3);
-            width: 100%; padding-bottom: 8px;
-        }
-
-        /* --- CIRCULAR NETWORK LOGIC --- */
-        .circular-network {
-            position: relative; width: 360px; height: 360px;
-            display: flex; justify-content: center; align-items: center;
-        }
-
+        /* --- CIRCULAR NETWORK --- */
+        .circular-network { position: relative; width: 360px; height: 360px; display: flex; justify-content: center; align-items: center; }
         .svg-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
-
-        .hub-center {
-            width: 110px; height: 110px; border-radius: 50%;
-            background: rgba(74, 222, 128, 0.1); border: 2px solid var(--brand-green);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; z-index: 10; box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
-        }
-
-        .node {
-            position: absolute; width: 85px; height: 85px; border-radius: 50%;
-            background: var(--glass-bg); border: 1px solid var(--glass-border);
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center; padding: 5px; transition: 0.3s; z-index: 5;
-        }
+        .hub-center { width: 110px; height: 110px; border-radius: 50%; background: rgba(74, 222, 128, 0.1); border: 2px solid var(--brand-green); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; z-index: 10; box-shadow: 0 0 20px rgba(74, 222, 128, 0.2); }
+        .node { position: absolute; width: 85px; height: 85px; border-radius: 50%; background: var(--glass-bg); border: 1px solid var(--glass-border); display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; z-index: 5; transition: 0.3s; }
         .node:hover { border-color: var(--brand-green); transform: scale(1.1); background: rgba(74, 222, 128, 0.05); }
-
-        .node-title { font-size: 0.6rem; font-weight: 800; color: var(--brand-green); text-transform: uppercase; margin-bottom: 2px; }
+        .node-title { font-size: 0.6rem; font-weight: 800; color: var(--brand-green); text-transform: uppercase; }
         .node-desc { font-size: 0.45rem; text-transform: uppercase; opacity: 0.8; }
 
-        /* Positioning Satellite Nodes */
         .n1 { top: 10%; left: 50%; transform: translate(-50%, -50%); } 
         .n2 { top: 25%; right: 5%; transform: translate(50%, -50%); } 
         .n3 { bottom: 25%; right: 5%; transform: translate(50%, 50%); } 
@@ -151,18 +86,20 @@
         .n5 { bottom: 25%; left: 5%; transform: translate(-50%, 50%); } 
         .n6 { top: 25%; left: 5%; transform: translate(-50%, -50%); } 
 
-        /* --- TICKER --- */
-        .ticker-wrapper {
-            width: 100vw; height: 50px;
-            background: rgba(0, 31, 63, 0.9);
-            border-top: 1px solid rgba(74, 222, 128, 0.3);
-            overflow: hidden; display: flex; align-items: center;
-        }
-        .ticker-track { display: flex; animation: scrollText 40s linear infinite; width: max-content; }
-        .ticker-item { display: flex; align-items: center; padding: 0 30px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        /* --- SPLIT TICKER SYSTEM --- */
+        .split-ticker-wrapper { display: grid; grid-template-columns: 1fr 1fr; width: 100vw; height: 50px; background: rgba(0, 31, 63, 0.9); border-top: 1px solid rgba(74, 222, 128, 0.3); overflow: hidden; }
+        .ticker-half { overflow: hidden; display: flex; align-items: center; position: relative; }
+        .ticker-half:first-child { border-right: 1px solid rgba(74, 222, 128, 0.3); }
+        
+        .ticker-track { display: flex; width: max-content; }
+        .ticker-item { display: flex; align-items: center; padding: 0 25px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
         .ticker-item i { color: var(--brand-green); margin-right: 10px; }
 
-        @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-left { animation: scrollLeft 30s linear infinite; }
+        @keyframes scrollLeft { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        .animate-right { animation: scrollRight 30s linear infinite; }
+        @keyframes scrollRight { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
 
         footer { padding: 10px; background: #000b1a; text-align: center; font-size: 0.6rem; color: rgba(255,255,255,0.4); }
     </style>
@@ -213,12 +150,12 @@
                 <div class="panel-header">Home Users</div>
                 <div class="circular-network">
                     <svg class="svg-lines">
-                        <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
-                        <line x1="50%" y1="50%" x2="95%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
-                        <line x1="50%" y1="50%" x2="95%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
-                        <line x1="50%" y1="50%" x2="50%" y2="90%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
-                        <line x1="50%" y1="50%" x2="5%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
-                        <line x1="50%" y1="50%" x2="5%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="25%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="75%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                        <line x1="50%" y1="50%" x2="50%" y2="90%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="75%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="25%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
                     </svg>
                     <div class="hub-center">
                         <div class="node-title" style="font-size: 0.75rem;">DIGITAL CALM</div>
@@ -237,12 +174,12 @@
                 <div class="panel-header">SME & Corporate</div>
                 <div class="circular-network">
                     <svg class="svg-lines">
-                        <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
-                        <line x1="50%" y1="50%" x2="95%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
-                        <line x1="50%" y1="50%" x2="95%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
-                        <line x1="50%" y1="50%" x2="50%" y2="90%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
-                        <line x1="50%" y1="50%" x2="5%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
-                        <line x1="50%" y1="50%" x2="5%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="25%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="75%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                        <line x1="50%" y1="50%" x2="50%" y2="90%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="75%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="25%" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
                     </svg>
                     <div class="hub-center">
                         <div class="node-title" style="font-size: 0.75rem;">LEGACY MOD</div>
@@ -259,17 +196,26 @@
         </div>
     </div>
 
-    <div class="ticker-wrapper">
-        <div class="ticker-track">
-            <div class="ticker-item"><i class="fas fa-sync-alt"></i> Legacy Reverse Engineering</div>
-            <div class="ticker-item"><i class="fas fa-infinity"></i> End-to-End Data Warehousing</div>
-            <div class="ticker-item"><i class="fas fa-network-wired"></i> Scalable Data Integration</div>
-            <div class="ticker-item"><i class="fas fa-cloud-upload-alt"></i> Cloud Data Migration</div>
-            <div class="ticker-item"><i class="fas fa-sitemap"></i> Dimensional Data Modeling</div>
-            <div class="ticker-item"><i class="fas fa-microchip"></i> High-Performance T-SQL</div>
-            <div class="ticker-item"><i class="fas fa-sync-alt"></i> Legacy Reverse Engineering</div>
-            <div class="ticker-item"><i class="fas fa-infinity"></i> End-to-End Data Warehousing</div>
-            <div class="ticker-item"><i class="fas fa-network-wired"></i> Scalable Data Integration</div>
+    <div class="split-ticker-wrapper">
+        <div class="ticker-half">
+            <div class="ticker-track animate-left">
+                <div class="ticker-item"><i class="fas fa-home"></i> HOME NETWORK SECURITY</div>
+                <div class="ticker-item"><i class="fas fa-wallet"></i> PERSONAL FINANCE DASHBOARDS</div>
+                <div class="ticker-item"><i class="fas fa-compact-disc"></i> MEDIA MODERNIZATION</div>
+                <div class="ticker-item"><i class="fas fa-microchip"></i> IOT GOVERNANCE</div>
+                <div class="ticker-item"><i class="fas fa-home"></i> HOME NETWORK SECURITY</div>
+                <div class="ticker-item"><i class="fas fa-wallet"></i> PERSONAL FINANCE DASHBOARDS</div>
+            </div>
+        </div>
+        <div class="ticker-half">
+            <div class="ticker-track animate-right">
+                <div class="ticker-item"><i class="fas fa-database"></i> HIGH-PERFORMANCE T-SQL</div>
+                <div class="ticker-item"><i class="fas fa-sync-alt"></i> REVERSE ENGINEERING</div>
+                <div class="ticker-item"><i class="fas fa-server"></i> AZURE WAREHOUSING</div>
+                <div class="ticker-item"><i class="fas fa-chart-line"></i> STRATEGIC ANALYTICS</div>
+                <div class="ticker-item"><i class="fas fa-database"></i> HIGH-PERFORMANCE T-SQL</div>
+                <div class="ticker-item"><i class="fas fa-sync-alt"></i> REVERSE ENGINEERING</div>
+            </div>
         </div>
     </div>
 
