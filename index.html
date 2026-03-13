@@ -24,8 +24,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
             background: var(--brand-blue-dark);
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            overflow-y: auto;   /* Allow vertical scroll for stacked mobile view */
+            overflow: hidden; /* LOCKS TO SINGLE SCREEN */
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -73,10 +72,42 @@
         .nav-links a { color: #ffffff !important; text-decoration: none; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; opacity: 0.9; }
         .nav-links a:hover { color: var(--brand-gold) !important; opacity: 1; }
 
-        .dropdown { position: relative; }
-        .dropdown-content { display: none; position: absolute; background: rgba(0, 31, 63, 0.98); min-width: 220px; border-top: 3px solid var(--brand-gold); top: 100%; left: 0; backdrop-filter: blur(20px); }
-        .dropdown:hover .dropdown-content { display: block; }
-        .dropdown-content a { display: block; padding: 10px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        /* --- IMPROVED DROPDOWN --- */
+        .dropdown { position: relative; display: inline-block; }
+        
+        .dropdown-content { 
+            display: none; 
+            position: absolute; 
+            background: rgba(0, 31, 63, 0.95); 
+            min-width: 240px; 
+            border-top: 3px solid var(--brand-gold); 
+            top: 100%; 
+            left: 0; 
+            backdrop-filter: blur(20px); 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 10px 0;
+            z-index: 1001;
+        }
+
+        .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
+        
+        .dropdown-content a { 
+            display: block; 
+            padding: 12px 20px; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); 
+            font-size: 0.75rem !important;
+        }
+
+        .dropdown-header {
+            padding: 10px 20px 5px 20px;
+            font-size: 0.6rem;
+            color: var(--brand-green);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+
+        .dropdown-content a i { margin-right: 10px; color: var(--brand-green); width: 15px; text-align: center; }
 
         .nav-buttons { display: flex; gap: 10px; align-items: center; }
         .nav-btn-green { text-decoration: none; padding: 6px 14px; border-radius: 50px; border: 2px solid var(--brand-green); color: white !important; font-weight: 700; font-size: 0.65rem; transition: all 0.3s ease; text-transform: uppercase; }
@@ -98,7 +129,7 @@
         /* --- THE DUAL CONTROL PANELS --- */
         .dual-command-container {
             display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
-            min-height: 48vh;
+            height: 48vh; /* TIGHT VERTICAL FIT */
             margin-bottom: 20px;
         }
 
@@ -164,31 +195,14 @@
         .ticker-item i { color: var(--brand-green); margin-right: 10px; }
 
         @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
         footer { padding: 10px; background: #000b1a; text-align: center; font-size: 0.6rem; color: rgba(255,255,255,0.4); }
 
-        /* --- PULSE ANIMATION KEYFRAMES --- */
         @keyframes pulse-green {
             0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
             70% { box-shadow: 0 0 0 15px rgba(74, 222, 128, 0); }
             100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
-        }
-
-        /* --- MOBILE RESPONSIVENESS ADDITIONS --- */
-        @media (max-width: 992px) {
-            .nav-container { flex-direction: column; gap: 15px; }
-            .nav-left-group { flex-direction: column; gap: 10px; }
-            .nav-buttons { flex-wrap: wrap; justify-content: center; }
-            .dual-command-container { grid-template-columns: 1fr; min-height: auto; }
-            .circular-network { transform: scale(0.85); margin: -30px 0; }
-            h1 { font-size: 1.8rem; }
-            .main-hero { padding-top: 40px; }
-        }
-
-        @media (max-width: 480px) {
-            .logo-static { font-size: 1.4rem; letter-spacing: 2px; }
-            .circular-network { transform: scale(0.65); margin: -60px 0; }
-            .nav-btn-green { font-size: 0.55rem; padding: 4px 10px; }
         }
     </style>
 </head>
@@ -214,7 +228,16 @@
                             <a href="journey.html">MY JOURNEY</a>
                         </div>
                     </div>
-                    <a href="services.html">SERVICES</a>
+                    
+                    <div class="dropdown">
+                        <a href="services.html">SERVICES <i class="fas fa-caret-down"></i></a>
+                        <div class="dropdown-content">
+                            <div class="dropdown-header">Tailored for:</div>
+                            <a href="services-home.html"><i class="fas fa-home"></i> HOME USERS</a>
+                            <a href="services-corporate.html"><i class="fas fa-building"></i> SME & CORPORATE</a>
+                        </div>
+                    </div>
+
                     <a href="construction.html">SOLUTIONS</a>
                 </div>
             </div>
