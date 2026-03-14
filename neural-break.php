@@ -25,7 +25,6 @@
             --snake-red: #ff4757;
         }
 
-        /* [Existing Styles Unchanged] */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--brand-blue-dark); color: white; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
         .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
@@ -38,8 +37,6 @@
         .label { position: absolute; top: 15px; left: 20px; font-size: 0.7rem; letter-spacing: 2px; color: var(--brand-green); font-weight: bold; text-transform: uppercase; }
         .board-container { position: relative; width: 100%; max-width: 600px; margin: 0 auto; }
         .snakes-grid { display: grid; grid-template-columns: repeat(10, 1fr); width: 100%; border: 3px solid #ffffff; background: #111; }
-        
-        /* Updated SVG Overlay */
         #game-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
 
         .s-cell { aspect-ratio: 1/1; border: 0.5px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; color: rgba(0, 0, 0, 0.8); position: relative; }
@@ -51,8 +48,39 @@
         .s-cell.c-t { background: var(--tile-teal); }
         .s-cell.c-m { background: var(--tile-magenta); }
         .player-token { width: 75%; height: 75%; background: white; border-radius: 50%; border: 3px solid #000; z-index: 10; display: flex; align-items: center; justify-content: center; color: #000; font-size: 0.7rem; box-shadow: 0 0 10px rgba(255,255,255,0.8); transition: all 0.5s ease; }
-        .btn-neural { margin: 20px auto 0; background: transparent; border: 1px solid var(--brand-green); color: white; padding: 8px 30px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
-        .btn-neural:hover { background: var(--brand-green); color: black; }
+
+        /* --- 3D DICE STYLES --- */
+        .dice-scene {
+            width: 60px; height: 60px;
+            margin: 20px auto 0;
+            perspective: 600px;
+            cursor: pointer;
+        }
+        .dice {
+            width: 100%; height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+        }
+        .dice-face {
+            position: absolute;
+            width: 60px; height: 60px;
+            background: white;
+            border: 2px solid #ccc;
+            line-height: 56px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            border-radius: 6px;
+        }
+        .face-1 { transform: rotateY(0deg) translateZ(30px); }
+        .face-2 { transform: rotateY(90deg) translateZ(30px); }
+        .face-3 { transform: rotateX(90deg) translateZ(30px); }
+        .face-4 { transform: rotateX(-90deg) translateZ(30px); }
+        .face-5 { transform: rotateY(-90deg) translateZ(30px); }
+        .face-6 { transform: rotateY(180deg) translateZ(30px); }
+
         .ticker-bar { height: 40px; background: #000; border-top: 2px solid var(--border-glow); display: flex; align-items: center; overflow: hidden; }
         .status-links { display: flex; animation: scroll 40s linear infinite; }
         .status-item { padding: 0 30px; font-size: 0.7rem; color: #fff; white-space: nowrap; }
@@ -105,7 +133,16 @@
                     </div>
                 </div>
 
-                <button class="btn-neural" onclick="executeRoll()">EXECUTE ROLL</button>
+                <div class="dice-scene" onclick="executeRoll()">
+                    <div class="dice" id="dice">
+                        <div class="dice-face face-1">1</div>
+                        <div class="dice-face face-2">2</div>
+                        <div class="dice-face face-3">3</div>
+                        <div class="dice-face face-4">4</div>
+                        <div class="dice-face face-5">5</div>
+                        <div class="dice-face face-6">6</div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -133,6 +170,7 @@
     <script>
         let playerPos = 1;
         const totalCells = 100;
+        let isRolling = false;
 
         const ladders = { 4: 14, 9: 31, 20: 38, 28: 84, 40: 59, 51: 67, 63: 81, 71: 91 };
         const snakes = { 17: 7, 54: 34, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 99: 78 };
@@ -148,9 +186,8 @@
 
         function drawElements() {
             const svg = document.getElementById('game-svg');
-            svg.innerHTML = ''; // Clear for redraw
+            svg.innerHTML = ''; 
 
-            // Draw Ladders
             Object.keys(ladders).forEach(start => {
                 const s = getCoords(start);
                 const e = getCoords(ladders[start]);
@@ -163,13 +200,11 @@
                 svg.appendChild(line);
             });
 
-            // Draw Snakes (Curved)
             Object.keys(snakes).forEach(head => {
                 const s = getCoords(head);
                 const e = getCoords(snakes[head]);
-                const cpX = (s.x + e.x) / 2 + 10; // Control point for curve
+                const cpX = (s.x + e.x) / 2 + 10; 
                 const cpY = (s.y + e.y) / 2;
-                
                 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
                 path.setAttribute("d", `M ${s.x} ${s.y} Q ${cpX} ${cpY} ${e.x} ${e.y}`);
                 path.setAttribute("stroke", "var(--snake-red)");
@@ -181,16 +216,45 @@
         }
 
         function executeRoll() {
+            if (isRolling) return;
+            isRolling = true;
+
+            const dice = document.getElementById('dice');
             const roll = Math.floor(Math.random() * 6) + 1;
-            let newPos = playerPos + roll;
-            if (newPos > totalCells) return; 
+            
+            // Map roll to CSS rotation
+            const rollMap = {
+                1: "rotateX(0deg) rotateY(0deg)",
+                2: "rotateX(0deg) rotateY(-90deg)",
+                3: "rotateX(-90deg) rotateY(0deg)",
+                4: "rotateX(90deg) rotateY(0deg)",
+                5: "rotateX(0deg) rotateY(90deg)",
+                6: "rotateX(180deg) rotateY(0deg)"
+            };
 
-            // Logic check
-            if (ladders[newPos]) newPos = ladders[newPos];
-            else if (snakes[newPos]) newPos = snakes[newPos];
+            // Add a "wild" spin before landing
+            const randomSpin = `rotateX(${Math.random() * 720}deg) rotateY(${Math.random() * 720}deg)`;
+            dice.style.transform = randomSpin;
 
-            movePlayer(newPos);
-            playerPos = newPos;
+            setTimeout(() => {
+                dice.style.transform = rollMap[roll];
+                
+                // Finalize move after animation ends
+                setTimeout(() => {
+                    let newPos = playerPos + roll;
+                    if (newPos > totalCells) {
+                        isRolling = false;
+                        return;
+                    }
+
+                    if (ladders[newPos]) newPos = ladders[newPos];
+                    else if (snakes[newPos]) newPos = snakes[newPos];
+
+                    movePlayer(newPos);
+                    playerPos = newPos;
+                    isRolling = false;
+                }, 1000); 
+            }, 100);
         }
 
         function movePlayer(pos) {
@@ -208,7 +272,7 @@
             drawElements();
         };
 
-        window.onresize = drawElements; // Keep SVG aligned on resize
+        window.onresize = drawElements;
     </script>
 </body>
 </html>
