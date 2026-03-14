@@ -36,7 +36,7 @@
             z-index: -1;
         }
 
-        /* --- LAYOUT (STRICT MATCH TO BLUEPRINT) --- */
+        /* --- LAYOUT --- */
         .main-stage {
             flex: 1;
             display: flex;
@@ -48,7 +48,6 @@
         .game-column-left { flex: 2; display: flex; }
         .game-column-right { flex: 1; display: flex; flex-direction: column; gap: 20px; }
 
-        /* --- GLASS PANEL SYSTEM --- */
         .glass-panel {
             background: var(--glass-bg);
             border: 2px solid var(--border-glow);
@@ -72,28 +71,31 @@
             text-transform: uppercase;
         }
 
-        /* --- MODULE 1: DATA PIPELINE (FILLS WIDTH) --- */
+        /* --- THE CLASSIC BOARD OVERLAY --- */
         .snakes-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             width: 100%;
             height: auto;
-            max-width: 650px; /* Forces board to be dominant */
+            max-width: 600px;
             margin: 0 auto;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 2px solid #fff;
+            position: relative;
+            /* Update the path below to your uploaded image */
+            background: url('image_232adb.jpg'); 
+            background-size: cover;
+            background-position: center;
         }
+
         .s-cell {
             aspect-ratio: 1/1;
-            border: 0.5px solid rgba(0,0,0,0.15);
+            border: 0.5px solid rgba(255,255,255,0.1);
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem; font-weight: bold; color: rgba(0,0,0,0.7);
+            font-size: 0.8rem; font-weight: 900; 
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.1); /* Subtle tint to see image better */
         }
-        /* Vibrant Grid Colors */
-        .s-cell:nth-child(5n+1) { background: #ff7675; }
-        .s-cell:nth-child(5n+2) { background: #fdcb6e; }
-        .s-cell:nth-child(5n+3) { background: #55efc4; }
-        .s-cell:nth-child(5n+4) { background: #81ecec; }
-        .s-cell:nth-child(5n+5) { background: #a29bfe; }
 
         .btn-neural {
             margin: 20px auto 0;
@@ -102,7 +104,6 @@
             cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
         }
 
-        /* --- MODULE 2: NEURAL LOGIC --- */
         .ttt-grid {
             display: grid; grid-template-columns: repeat(3, 1fr);
             gap: 15px; width: 160px; margin: 0 auto;
@@ -112,7 +113,6 @@
             background: rgba(255,255,255,0.05); border-radius: 4px;
         }
 
-        /* --- FOOTER STATUS BAR --- */
         .ticker-bar {
             height: 40px; background: #000;
             border-top: 2px solid var(--border-glow);
@@ -145,7 +145,24 @@
             <div class="glass-panel">
                 <span class="label">Primary Module: Data Pipeline</span>
                 <div class="snakes-grid">
-                    <?php for($i=100; $i>=1; $i--) echo "<div class='s-cell'>$i</div>"; ?>
+                    <?php 
+                    // Zig-Zag (Boustrophedon) Logic for 10x10 Board
+                    for ($row = 9; $row >= 0; $row--) {
+                        if ($row % 2 != 0) {
+                            // Odd rows (counting from bottom 0) go Right to Left
+                            for ($col = 1; $col <= 10; $col++) {
+                                $num = ($row * 10) + $col;
+                                echo "<div class='s-cell'>$num</div>";
+                            }
+                        } else {
+                            // Even rows go Left to Right
+                            for ($col = 10; $col >= 1; $col--) {
+                                $num = ($row * 10) + $col;
+                                echo "<div class='s-cell'>$num</div>";
+                            }
+                        }
+                    }
+                    ?>
                 </div>
                 <button class="btn-neural">EXECUTE ROLL</button>
             </div>
@@ -173,10 +190,6 @@
 
     <footer class="ticker-bar">
         <div class="status-links">
-            <div class="status-item"><i class="fas fa-circle"></i> NEURAL ENGINE ACTIVE</div>
-            <div class="status-item"><i class="fas fa-circle"></i> AZURE SQL LINK STABLE</div>
-            <div class="status-item"><i class="fas fa-circle"></i> LPTMYBUSINESS CONNECTED</div>
-            <div class="status-item"><i class="fas fa-circle"></i> DATA PIPELINE READY</div>
             <div class="status-item"><i class="fas fa-circle"></i> NEURAL ENGINE ACTIVE</div>
             <div class="status-item"><i class="fas fa-circle"></i> AZURE SQL LINK STABLE</div>
             <div class="status-item"><i class="fas fa-circle"></i> LPTMYBUSINESS CONNECTED</div>
