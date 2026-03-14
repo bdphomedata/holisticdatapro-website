@@ -22,7 +22,7 @@
             background: var(--brand-blue-dark);
             color: white;
             margin: 0;
-            overflow: hidden; /* Critical: Stops the scrolling */
+            overflow: hidden; 
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -41,38 +41,45 @@
             z-index: -1;
         }
 
-        /* --- MAIN LAYOUT (STRETCHED 70/30) --- */
+        /* --- ALIGNED LEFT LAYOUT --- */
         .neural-container {
             display: grid;
             grid-template-columns: 1.8fr 1fr; 
-            gap: 25px;
-            padding: 20px 3%;
-            max-width: 1800px;
-            margin: 0 auto;
+            gap: 30px;
+            padding: 20px 4%; /* Increased side padding for better framing */
+            max-width: 1900px;
+            margin: 0; /* Changed from auto to 0 to align container left */
             flex: 1;
-            align-items: center; /* Centers cards vertically in the viewport */
+            align-items: center; 
         }
 
         .game-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
-            padding: 25px;
+            padding: 20px;
             backdrop-filter: blur(15px);
             text-align: center;
             box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
 
-        .game-title { color: var(--brand-green); letter-spacing: 3px; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; }
-        .status-text { color: var(--brand-gold); font-size: 0.85rem; margin-bottom: 20px; text-transform: uppercase; font-weight: bold; }
+        /* Specifically push the pipeline to the left of its grid cell */
+        .pipeline-card {
+            margin-right: auto;
+            width: 100%;
+            max-width: 950px; /* Limits the stretch slightly for better proportions */
+        }
 
-        /* --- DATA PIPELINE BOARD --- */
+        .game-title { color: var(--brand-green); letter-spacing: 3px; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; }
+        .status-text { color: var(--brand-gold); font-size: 0.85rem; margin-bottom: 15px; text-transform: uppercase; font-weight: bold; }
+
+        /* --- BOARD GRID --- */
         .snakes-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             width: 100%;
-            border: 5px solid #111;
-            margin-bottom: 20px;
+            border: 4px solid #111;
+            margin-bottom: 15px;
             background: #222;
         }
 
@@ -80,35 +87,34 @@
             aspect-ratio: 1/1;
             border: 1px solid rgba(0,0,0,0.2);
             display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 1rem; color: #333;
+            font-weight: 900; font-size: 0.9rem; color: #333;
             position: relative;
         }
 
-        /* Color sequence from mockup */
+        /* Colors based on your provided image */
         .s-cell:nth-child(4n+1) { background: #ff6b6b; } 
         .s-cell:nth-child(4n+2) { background: #4ecdc4; } 
         .s-cell:nth-child(4n+3) { background: #ffe66d; } 
         .s-cell:nth-child(4n+4) { background: #ff9ff3; }
 
         .player-pawn {
-            width: 30px; height: 30px;
-            background: white; border: 4px solid #000;
+            width: 25px; height: 25px;
+            background: white; border: 3px solid #000;
             border-radius: 50%; position: absolute; z-index: 10;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* --- NEURAL LOGIC GRID --- */
-        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 300px; margin: 0 auto 20px; }
+        /* --- TIC TAC TOE --- */
+        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 280px; margin: 0 auto 15px; }
         .ttt-cell {
             aspect-ratio: 1/1; background: rgba(255,255,255,0.05);
             border: 1px solid var(--glass-border); border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; cursor: pointer; color: var(--brand-gold);
+            font-size: 2rem; cursor: pointer; color: var(--brand-gold);
         }
 
         .btn-action {
-            background: transparent; border: 2.5px solid var(--brand-green);
-            color: white; padding: 12px 35px; border-radius: 25px;
+            background: transparent; border: 2px solid var(--brand-green);
+            color: white; padding: 10px 30px; border-radius: 25px;
             cursor: pointer; font-weight: bold; text-transform: uppercase;
             transition: 0.3s;
         }
@@ -116,13 +122,13 @@
 
         /* --- TICKER --- */
         .ticker-wrapper {
-            width: 100vw; height: 45px; background: rgba(0, 31, 63, 0.95);
+            width: 100vw; height: 40px; background: rgba(0, 31, 63, 0.95);
             border-top: 1px solid rgba(74, 222, 128, 0.3);
             overflow: hidden; display: flex; align-items: center;
         }
         .ticker-track { display: flex; animation: scrollText 30s linear infinite; width: max-content; }
-        .ticker-item { display: flex; align-items: center; padding: 0 40px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; }
-        .ticker-item i { color: var(--brand-green); margin-right: 12px; }
+        .ticker-item { display: flex; align-items: center; padding: 0 40px; font-size: 0.75rem; text-transform: uppercase; }
+        .ticker-item i { color: var(--brand-green); margin-right: 10px; }
 
         @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
@@ -139,7 +145,7 @@
     <?php include 'header.php'; ?>
 
     <main class="neural-container">
-        <div class="game-card">
+        <div class="game-card pipeline-card">
             <h2 class="game-title">DATA PIPELINE</h2>
             <div id="snakes-status" class="status-text">SYSTEM STANDBY... AWAITING EXECUTION</div>
             <div id="snakes-board" class="snakes-grid"></div>
@@ -175,7 +181,6 @@
     </div>
 
     <script>
-        // Board Logic
         function initBoard() {
             const board = document.getElementById('snakes-board');
             for (let i = 100; i >= 1; i--) {
