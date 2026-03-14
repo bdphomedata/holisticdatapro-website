@@ -12,6 +12,7 @@
             --brand-gold: #ffc629;
             --brand-green: #4ade80;
             --glass-bg: rgba(255, 255, 255, 0.03);
+            --border-glow: #ffffff;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,57 +36,59 @@
             z-index: -1;
         }
 
-        /* --- THREE-GAME GRID SYSTEM --- */
+        /* --- LAYOUT (STRICT MATCH TO BLUEPRINT) --- */
         .main-stage {
             flex: 1;
             display: flex;
-            padding: 20px 50px;
-            gap: 20px;
+            padding: 30px 50px;
+            gap: 25px;
             align-items: stretch;
         }
 
         .game-column-left { flex: 2; display: flex; }
         .game-column-right { flex: 1; display: flex; flex-direction: column; gap: 20px; }
 
+        /* --- GLASS PANEL SYSTEM --- */
         .glass-panel {
             background: var(--glass-bg);
-            border: 2px solid #ffffff; 
+            border: 2px solid var(--border-glow);
             border-radius: 4px;
             backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 40px 20px 20px 20px;
             position: relative;
+            width: 100%;
         }
 
         .label {
             position: absolute;
             top: 15px;
             left: 20px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             color: var(--brand-green);
             font-weight: bold;
             text-transform: uppercase;
         }
 
-        /* --- THE BOARD --- */
+        /* --- MODULE 1: DATA PIPELINE (FILLS WIDTH) --- */
         .snakes-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             width: 100%;
-            max-width: 450px;
+            height: auto;
+            max-width: 650px; /* Forces board to be dominant */
+            margin: 0 auto;
             border: 1px solid rgba(255,255,255,0.3);
         }
         .s-cell {
             aspect-ratio: 1/1;
-            border: 0.1px solid rgba(0,0,0,0.1);
+            border: 0.5px solid rgba(0,0,0,0.15);
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.6rem; font-weight: bold; color: rgba(255,255,255,0.8);
+            font-size: 0.7rem; font-weight: bold; color: rgba(0,0,0,0.7);
         }
-        /* Vibrant Break Pattern */
+        /* Vibrant Grid Colors */
         .s-cell:nth-child(5n+1) { background: #ff7675; }
         .s-cell:nth-child(5n+2) { background: #fdcb6e; }
         .s-cell:nth-child(5n+3) { background: #55efc4; }
@@ -93,24 +96,34 @@
         .s-cell:nth-child(5n+5) { background: #a29bfe; }
 
         .btn-neural {
-            margin-top: 20px; background: transparent; border: 1px solid var(--brand-green);
-            color: white; padding: 5px 20px; border-radius: 20px; font-size: 0.7rem; 
-            cursor: pointer; text-transform: uppercase; transition: 0.3s;
+            margin: 20px auto 0;
+            background: transparent; border: 1px solid var(--brand-green);
+            color: white; padding: 8px 30px; border-radius: 20px; font-size: 0.75rem;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
         }
-        .btn-neural:hover { background: var(--brand-green); color: var(--brand-blue-dark); }
 
-        /* --- TICKER (THE BREAK MESSAGE) --- */
+        /* --- MODULE 2: NEURAL LOGIC --- */
+        .ttt-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 15px; width: 160px; margin: 0 auto;
+        }
+        .ttt-box {
+            aspect-ratio: 1/1; border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05); border-radius: 4px;
+        }
+
+        /* --- FOOTER STATUS BAR --- */
         .ticker-bar {
-            height: 50px; background: rgba(0,0,0,0.8);
-            border-top: 2px solid #ffffff;
+            height: 40px; background: #000;
+            border-top: 2px solid var(--border-glow);
             display: flex; align-items: center; overflow: hidden;
         }
-        .ticker-text { display: flex; animation: scroll 30s linear infinite; }
-        .ticker-item { 
-            padding: 0 40px; font-size: 0.75rem; color: #ffffff; 
+        .status-links { display: flex; animation: scroll 40s linear infinite; }
+        .status-item { 
+            padding: 0 30px; font-size: 0.7rem; color: #fff; 
             white-space: nowrap; display: flex; align-items: center;
         }
-        .ticker-item i { margin-right: 10px; color: var(--brand-gold); }
+        .status-item i { margin-right: 8px; color: var(--brand-green); font-size: 0.6rem; }
 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
@@ -139,33 +152,35 @@
         </div>
 
         <div class="game-column-right">
-            <div class="glass-panel" style="flex:1;">
+            <div class="glass-panel" style="flex: 1.5;">
                 <span class="label">Secondary: Neural Logic</span>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 120px;">
-                    <?php for($i=0; $i<9; $i++) echo "<div style='aspect-ratio:1/1; border:1px solid #fff; background:rgba(255,255,255,0.05);'></div>"; ?>
+                <div class="ttt-grid">
+                    <?php for($i=0; $i<9; $i++) echo "<div class='ttt-box'></div>"; ?>
                 </div>
-                <button class="btn-neural">RESET LOGIC</button>
+                <button class="btn-neural" style="margin-top: 30px;">RESET LOGIC</button>
             </div>
             
-            <div class="glass-panel" style="flex:1;">
-                <span class="label">Tertiary: Zen State</span>
-                <i class="fas fa-mug-hot" style="font-size: 1.5rem; color: var(--brand-gold); margin-bottom: 10px;"></i>
-                <p style="font-size: 0.6rem; text-align: center; color: rgba(255,255,255,0.6);">SYSTEM PAUSED.<br>REST PROTOCOL ACTIVE.</p>
+            <div class="glass-panel" style="flex: 1;">
+                <span class="label">Tertiary: System Choice</span>
+                <div style="text-align: center; margin: auto;">
+                    <i class="fas fa-lock" style="font-size: 1.5rem; opacity: 0.3; margin-bottom: 15px;"></i>
+                    <p style="font-size: 0.65rem; color: var(--brand-gold); letter-spacing: 1px;">AWAITING SELECTION...</p>
+                </div>
             </div>
         </div>
 
     </main>
 
     <footer class="ticker-bar">
-        <div class="ticker-text">
-            <div class="ticker-item"><i class="fas fa-gamepad"></i> NO WORK ALLOWED</div>
-            <div class="ticker-item"><i class="fas fa-coffee"></i> TAKE A BREAK</div>
-            <div class="ticker-item"><i class="fas fa-battery-three-quarters"></i> RECHARGE YOUR BRAIN</div>
-            <div class="ticker-item"><i class="fas fa-smile"></i> ENJOY THE GAME</div>
-            <div class="ticker-item"><i class="fas fa-gamepad"></i> NO WORK ALLOWED</div>
-            <div class="ticker-item"><i class="fas fa-coffee"></i> TAKE A BREAK</div>
-            <div class="ticker-item"><i class="fas fa-battery-three-quarters"></i> RECHARGE YOUR BRAIN</div>
-            <div class="ticker-item"><i class="fas fa-smile"></i> ENJOY THE GAME</div>
+        <div class="status-links">
+            <div class="status-item"><i class="fas fa-circle"></i> NEURAL ENGINE ACTIVE</div>
+            <div class="status-item"><i class="fas fa-circle"></i> AZURE SQL LINK STABLE</div>
+            <div class="status-item"><i class="fas fa-circle"></i> LPTMYBUSINESS CONNECTED</div>
+            <div class="status-item"><i class="fas fa-circle"></i> DATA PIPELINE READY</div>
+            <div class="status-item"><i class="fas fa-circle"></i> NEURAL ENGINE ACTIVE</div>
+            <div class="status-item"><i class="fas fa-circle"></i> AZURE SQL LINK STABLE</div>
+            <div class="status-item"><i class="fas fa-circle"></i> LPTMYBUSINESS CONNECTED</div>
+            <div class="status-item"><i class="fas fa-circle"></i> DATA PIPELINE READY</div>
         </div>
     </footer>
 
