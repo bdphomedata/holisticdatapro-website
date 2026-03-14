@@ -11,9 +11,7 @@
             --brand-blue-dark: #001f3f;
             --brand-gold: #ffc629;
             --brand-green: #4ade80;
-            /* High-transparency glass for the floating effect */
-            --glass-bg: rgba(255, 255, 255, 0.04);
-            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.03);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,74 +22,92 @@
             color: white;
             height: 100vh;
             display: flex;
-            flex-direction: column; /* Stacks Image 2 (Top), Image 1 (Mid), and Image 3 (Bottom) */
+            flex-direction: column;
             overflow: hidden;
         }
 
-        /* --- BACKGROUND LAYER --- */
+        /* --- BACKGROUND --- */
         .video-container {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
         }
-        #bg-video {
-            width: 100%; height: 100%; object-fit: cover;
-        }
+        #bg-video { width: 100%; height: 100%; object-fit: cover; }
         .video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(0, 119, 200, 0.2) 0%, rgba(0, 31, 63, 0.85) 100%);
+            background: radial-gradient(circle, rgba(0, 40, 80, 0.2) 0%, rgba(0, 20, 40, 0.8) 100%);
             z-index: -1;
         }
 
-        /* --- MAIN CONTENT AREA (Image 1 Space) --- */
-        .neural-container {
-            flex: 1; /* Automatically expands to fit between Header and Ticker */
+        /* --- THREE-GAME GRID SYSTEM (Matches your image) --- */
+        .main-stage {
+            flex: 1;
             display: flex;
-            align-items: center; 
-            justify-content: flex-start; /* Aligns boxes to the left */
-            padding: 0 5%;
-            gap: 30px;
+            padding: 20px 50px;
+            gap: 20px;
+            align-items: stretch;
         }
 
-        /* Foundational Glass Boxes */
-        .content-placeholder {
-            background: var(--glass-bg);
-            /* White box lines as requested */
-            border: 2px solid #ffffff; 
-            border-radius: 12px;
-            padding: 40px;
-            backdrop-filter: blur(10px);
-            text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
+        /* Left Side - Game 1 (Large) */
+        .game-column-left {
+            flex: 2; /* Takes more width */
+            display: flex;
+        }
+
+        /* Right Side - Game 2 & 3 (Stacked) */
+        .game-column-right {
+            flex: 1; /* Takes less width */
             display: flex;
             flex-direction: column;
+            gap: 20px;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            border: 2px solid #ffffff; /* Exact white box lines from mockup */
+            border-radius: 4px; /* Sharper corners to match drawing */
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            transition: transform 0.3s ease;
+            padding: 20px;
+            position: relative;
         }
 
-        .large-slot { width: 520px; min-height: 450px; }
-        .small-slot { width: 360px; min-height: 450px; }
+        .game-1 { width: 100%; }
+        .game-2, .game-3 { flex: 1; }
 
-        .slot-title {
+        .label {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
             color: var(--brand-green);
-            font-size: 1.2rem;
-            letter-spacing: 3px;
+            font-weight: bold;
             text-transform: uppercase;
-            margin-bottom: 20px;
         }
 
-        /* --- TICKER AREA (Image 3) --- */
-        .ticker-wrapper {
-            height: 45px; 
-            background: rgba(0, 15, 30, 0.9);
-            border-top: 1px solid #ffffff; /* White line for ticker border */
-            display: flex; 
-            align-items: center; 
+        /* --- TICKER (Footer) --- */
+        .ticker-bar {
+            height: 50px;
+            background: rgba(0,0,0,0.8);
+            border-top: 2px solid #ffffff;
+            display: flex;
+            align-items: center;
             overflow: hidden;
         }
-        .ticker-track { display: flex; animation: scrollText 30s linear infinite; width: max-content; }
-        .ticker-item { padding: 0 40px; font-size: 0.75rem; color: #ffffff; white-space: nowrap; text-transform: uppercase; font-weight: 600; }
-        .ticker-item i { color: var(--brand-green); margin-right: 10px; }
+        .ticker-text { display: flex; animation: scroll 40s linear infinite; }
+        .ticker-item { 
+            padding: 0 40px; 
+            font-size: 0.75rem; 
+            color: #ffffff; 
+            white-space: nowrap; 
+            display: flex; 
+            align-items: center;
+        }
+        .ticker-item i { margin-right: 10px; color: var(--brand-green); }
 
-        @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
 </head>
 <body>
@@ -105,28 +121,40 @@
 
     <?php include 'header.php'; ?>
 
-    <main class="neural-container">
-        <div class="content-placeholder large-slot">
-            <h2 class="slot-title">DATA PIPELINE</h2>
-            <p style="color: var(--brand-gold); font-size: 0.9rem;">STRUCTURAL FRAMEWORK READY</p>
+    <main class="main-stage">
+        
+        <div class="game-column-left">
+            <div class="glass-panel game-1">
+                <span class="label">Primary Module: Data Pipeline</span>
+                <h2 style="color: var(--brand-gold);">GAME 1 SLOT</h2>
+                <p style="font-size: 0.8rem; opacity: 0.6;">Awaiting Core Initialization...</p>
+            </div>
         </div>
 
-        <div class="content-placeholder small-slot">
-            <h2 class="slot-title">NEURAL LOGIC</h2>
-            <p style="color: var(--brand-gold); font-size: 0.9rem;">STRUCTURAL FRAMEWORK READY</p>
+        <div class="game-column-right">
+            <div class="glass-panel game-2">
+                <span class="label">Secondary: Neural Logic</span>
+                <h3 style="color: var(--brand-gold);">GAME 2 SLOT</h3>
+            </div>
+            
+            <div class="glass-panel game-3">
+                <span class="label">Tertiary: System Choice</span>
+                <h3 style="color: var(--brand-gold);">GAME 3 SLOT</h3>
+            </div>
         </div>
+
     </main>
 
-    <footer class="ticker-wrapper">
-        <div class="ticker-track">
-            <div class="ticker-item"><i class="fas fa-server"></i> AZURE SQL LINK STABLE</div>
-            <div class="ticker-item"><i class="fas fa-code-branch"></i> REPOSITORY V1.0.2</div>
-            <div class="ticker-item"><i class="fas fa-microchip"></i> NEURAL ENGINE ACTIVE</div>
-            <div class="ticker-item"><i class="fas fa-network-wired"></i> LPTMYBUSINESS CONNECTED</div>
-            <div class="ticker-item"><i class="fas fa-server"></i> AZURE SQL LINK STABLE</div>
-            <div class="ticker-item"><i class="fas fa-code-branch"></i> REPOSITORY V1.0.2</div>
-            <div class="ticker-item"><i class="fas fa-microchip"></i> NEURAL ENGINE ACTIVE</div>
-            <div class="ticker-item"><i class="fas fa-network-wired"></i> LPTMYBUSINESS CONNECTED</div>
+    <footer class="ticker-bar">
+        <div class="ticker-text">
+            <div class="ticker-item"><i class="fas fa-microchip"></i> HIGH-PERFORMANCE T-SQL</div>
+            <div class="ticker-item"><i class="fas fa-code-branch"></i> LEGACY REVERSE ENGINEERING</div>
+            <div class="ticker-item"><i class="fas fa-database"></i> END-TO-END DATA WAREHOUSING</div>
+            <div class="ticker-item"><i class="fas fa-network-wired"></i> SCALABLE DATA INTEGRATION</div>
+            <div class="ticker-item"><i class="fas fa-microchip"></i> HIGH-PERFORMANCE T-SQL</div>
+            <div class="ticker-item"><i class="fas fa-code-branch"></i> LEGACY REVERSE ENGINEERING</div>
+            <div class="ticker-item"><i class="fas fa-database"></i> END-TO-END DATA WAREHOUSING</div>
+            <div class="ticker-item"><i class="fas fa-network-wired"></i> SCALABLE DATA INTEGRATION</div>
         </div>
     </footer>
 
