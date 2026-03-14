@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neural Break | Holistic Data Pro</title>
+    <title>Holistic Data Pro | Expert Data Solutions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* --- BRAND VARIABLES & RESET --- */
+        /* MODERN RESET & VARIABLES */
         :root {
             --brand-blue-light: #0077c8;
             --brand-blue-dark: #001f3f;
@@ -24,103 +24,121 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: var(--text-white);
             background: var(--brand-blue-dark);
+            overflow-x: hidden;
+            overflow-y: auto;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
+        }
+
+        /* Desktop specific lock for that 'Dashboard' feel */
+        @media (min-width: 1024px) {
+            body { overflow: hidden; }
         }
 
         /* --- VIDEO BACKGROUND --- */
-        .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
-        #bg-video { min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; }
-        .video-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 119, 200, 0.7) 0%, rgba(0, 31, 63, 0.9) 100%); z-index: -1; }
-
-        /* --- MAIN LAYOUT --- */
-        .main-hero { 
-            flex: 1; 
-            padding: 40px 5%; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            text-align: center; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center;
+        .video-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden;
+        }
+        #bg-video {
+            min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover;
+        }
+        .video-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(0, 119, 200, 0.7) 0%, rgba(0, 31, 63, 0.9) 100%);
+            z-index: -1; 
         }
 
-        h1 { font-size: 2.5rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 3px; }
-        .status-text { font-size: 1rem; color: var(--brand-gold); font-weight: 700; margin-bottom: 30px; letter-spacing: 1px; }
-
-        /* --- GAME PANEL (GLASS UI) --- */
-        .game-container {
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 40px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: 0.3s;
+        /* --- HERO SECTION --- */
+        .main-hero {
+            flex: 1; padding: 20px 5%; max-width: 1500px; margin: 0 auto;
+            text-align: center; display: flex; flex-direction: column; justify-content: center;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-gap: 15px;
-            margin-bottom: 30px;
+        h1 { font-size: 2.2rem; margin-bottom: 0.4rem; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .description { font-size: 0.95rem; max-width: 900px; margin: 0 auto 20px auto; line-height: 1.5; color: #f0f4f8; }
+        .description strong { color: var(--brand-green); }
+
+        /* --- DUAL CONTROL PANELS --- */
+        .dual-command-container {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            min-height: 48vh; margin-bottom: 20px;
         }
 
-        .cell {
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 900;
-            cursor: pointer;
-            transition: all 0.2s ease;
+        .control-panel {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 15px; padding: 15px; backdrop-filter: blur(10px);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            overflow: hidden;
         }
-        .cell:hover { background: rgba(74, 222, 128, 0.1); border-color: var(--brand-green); }
-        .cell.x { color: var(--brand-gold); }
-        .cell.o { color: var(--brand-green); }
 
-        .reboot-btn {
-            background: transparent;
-            border: 2px solid var(--brand-green);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            font-weight: 800;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.3s;
-            letter-spacing: 1px;
+        .panel-header {
+            font-size: 1.1rem; font-weight: 800; color: var(--brand-green);
+            text-transform: uppercase; letter-spacing: 2px;
+            margin-bottom: 15px; border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+            width: 100%; padding-bottom: 8px;
         }
-        .reboot-btn:hover { background: var(--brand-green); color: var(--brand-blue-dark); box-shadow: 0 0 20px rgba(74, 222, 128, 0.4); }
+
+        /* --- CIRCULAR NETWORK LOGIC --- */
+        .circular-network {
+            position: relative; width: 360px; height: 360px;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        .svg-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+
+        .hub-center {
+            width: 110px; height: 110px; border-radius: 50%;
+            background: rgba(74, 222, 128, 0.1); border: 2px solid var(--brand-green);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; z-index: 10; box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
+            animation: pulse-green 3s infinite;
+        }
+
+        .node {
+            position: absolute; width: 85px; height: 85px; border-radius: 50%;
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 5px; transition: 0.3s; z-index: 5;
+        }
+        .node:hover { border-color: var(--brand-green); transform: scale(1.1); background: rgba(74, 222, 128, 0.05); }
+        .node-title { font-size: 0.6rem; font-weight: 800; color: var(--brand-green); text-transform: uppercase; margin-bottom: 2px; }
+        .node-desc { font-size: 0.45rem; text-transform: uppercase; opacity: 0.8; }
+
+        /* Node Positions around the circle */
+        .n1 { top: 10%; left: 50%; transform: translate(-50%, -50%); } 
+        .n2 { top: 25%; right: 5%; transform: translate(50%, -50%); } 
+        .n3 { bottom: 25%; right: 5%; transform: translate(50%, 50%); } 
+        .n4 { bottom: 10%; left: 50%; transform: translate(-50%, 50%); } 
+        .n5 { bottom: 25%; left: 5%; transform: translate(-50%, 50%); } 
+        .n6 { top: 25%; left: 5%; transform: translate(-50%, -50%); } 
 
         /* --- TICKER --- */
-        .ticker-wrapper { width: 100vw; height: 50px; background: rgba(0, 31, 63, 0.9); border-top: 1px solid rgba(74, 222, 128, 0.3); overflow: hidden; display: flex; align-items: center; }
+        .ticker-wrapper {
+            width: 100vw; height: 50px; background: rgba(0, 31, 63, 0.9);
+            border-top: 1px solid rgba(74, 222, 128, 0.3);
+            overflow: hidden; display: flex; align-items: center;
+        }
         .ticker-track { display: flex; animation: scrollText 40s linear infinite; width: max-content; }
         .ticker-item { display: flex; align-items: center; padding: 0 30px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
         .ticker-item i { color: var(--brand-green); margin-right: 10px; }
 
-        /* --- MOBILE ADAPTATION --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8rem; }
-            .game-container { padding: 20px; transform: scale(0.9); }
-            .grid { grid-template-columns: repeat(3, 85px); grid-gap: 10px; }
-            .cell { width: 85px; height: 85px; font-size: 2rem; }
+        footer { padding: 15px; background: #000b1a; text-align: center; font-size: 0.65rem; color: rgba(255,255,255,0.4); }
+
+        /* --- RESPONSIVENESS --- */
+        @media (max-width: 1024px) {
+            body { overflow-y: auto !important; }
+            .dual-command-container { grid-template-columns: 1fr; height: auto; }
+            .circular-network { transform: scale(0.85); margin: 20px 0; }
+            .main-hero { padding-top: 40px; }
         }
 
         @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        
-        footer { padding: 15px; background: #000b1a; text-align: center; font-size: 0.65rem; color: rgba(255,255,255,0.4); }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(74, 222, 128, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+        }
     </style>
 </head>
 <body>
@@ -133,26 +151,63 @@
     <div class="video-overlay"></div>
 
     <?php include 'header.php'; ?>
+    
+    <div class="main-hero">
+        <h1>Expert Data-Driven Business Intelligence</h1>
+        <p class="description">
+            Holistic Data Pro is led by Bartus de Paiva, a Senior BI Developer with <strong>over 25 years of specialized experience</strong>. We specialize in engineering end-to-end intelligence solutions from raw data to executive insights.
+        </p>
 
-    <main class="main-hero">
-        <h1>Neural Break</h1>
-        <div class="status-text" id="status">HUMAN INPUT REQUIRED (X)</div>
-
-        <div class="game-container">
-            <div class="grid">
-                <div class="cell" onclick="handleCellClick(0)"></div>
-                <div class="cell" onclick="handleCellClick(1)"></div>
-                <div class="cell" onclick="handleCellClick(2)"></div>
-                <div class="cell" onclick="handleCellClick(3)"></div>
-                <div class="cell" onclick="handleCellClick(4)"></div>
-                <div class="cell" onclick="handleCellClick(5)"></div>
-                <div class="cell" onclick="handleCellClick(6)"></div>
-                <div class="cell" onclick="handleCellClick(7)"></div>
-                <div class="cell" onclick="handleCellClick(8)"></div>
+        <div class="dual-command-container">
+            <div class="control-panel">
+                <div class="panel-header">Home Users</div>
+                <div class="circular-network">
+                    <svg class="svg-lines">
+                        <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="50%" y2="90%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                    </svg>
+                    <div class="hub-center">
+                        <div class="node-title" style="font-size: 0.75rem;">DIGITAL CALM</div>
+                        <div class="node-desc">Home Integration</div>
+                    </div>
+                    <div class="node n1"><div class="node-title">HOME DATA</div><div class="node-desc">Architecture</div></div>
+                    <div class="node n2"><div class="node-title">FINANCES</div><div class="node-desc">Dashboards</div></div>
+                    <div class="node n3"><div class="node-title">NETWORKS</div><div class="node-desc">Performance</div></div>
+                    <div class="node n4"><div class="node-title">LEGACY MEDIA</div><div class="node-desc">Modernization</div></div>
+                    <div class="node n5"><div class="node-title">SMART HOME</div><div class="node-desc">Governance</div></div>
+                    <div class="node n6"><div class="node-title">HOUSEHOLD</div><div class="node-desc">Strategic Insights</div></div>
+                </div>
             </div>
-            <button class="reboot-btn" onclick="resetGame()">System Reboot</button>
+
+            <div class="control-panel">
+                <div class="panel-header">SME & Corporate</div>
+                <div class="circular-network">
+                    <svg class="svg-lines">
+                        <line x1="50%" y1="50%" x2="50%" y2="10%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="95%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="50%" y2="90%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="75%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                        <line x1="50%" y1="50%" x2="5%" y2="25%" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                    </svg>
+                    <div class="hub-center">
+                        <div class="node-title" style="font-size: 0.75rem;">LEGACY MOD</div>
+                        <div class="node-desc">Reverse Engineering</div>
+                    </div>
+                    <div class="node n1"><div class="node-title">Data Eng.</div><div class="node-desc">Pipelines</div></div>
+                    <div class="node n2"><div class="node-title">Architecture</div><div class="node-desc">Dimensional</div></div>
+                    <div class="node n3"><div class="node-title">Strategic</div><div class="node-desc">Analytics</div></div>
+                    <div class="node n4"><div class="node-title">GOVERNANCE</div><div class="node-desc">Integrity</div></div>
+                    <div class="node n5"><div class="node-title">SCALABLE</div><div class="node-desc">Integration</div></div>
+                    <div class="node n6"><div class="node-title">WAREHOUSE</div><div class="node-desc">Design</div></div>
+                </div>
+            </div>
         </div>
-    </main>
+    </div>
 
     <div class="ticker-wrapper">
         <div class="ticker-track">
@@ -171,79 +226,5 @@
         <p>&copy; 2026 Holistic Data Pro. All rights reserved.</p>
     </footer>
 
-    <script>
-        let board = ["", "", "", "", "", "", "", "", ""];
-        let gameActive = true;
-        const statusDisplay = document.getElementById('status');
-
-        function handleCellClick(index) {
-            if (board[index] !== "" || !gameActive) return;
-            
-            board[index] = "X";
-            updateBoard();
-            checkResult();
-            
-            if (gameActive) {
-                statusDisplay.innerText = "SYSTEM ANALYZING...";
-                setTimeout(computerMove, 500);
-            }
-        }
-
-        function computerMove() {
-            let emptyCells = board.map((val, idx) => val === "" ? idx : null).filter(val => val !== null);
-            if (emptyCells.length > 0) {
-                let randomIdx = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-                board[randomIdx] = "O";
-                updateBoard();
-                checkResult();
-                if (gameActive) statusDisplay.innerText = "HUMAN INPUT REQUIRED (X)";
-            }
-        }
-
-        function updateBoard() {
-            const cells = document.querySelectorAll('.cell');
-            board.forEach((val, idx) => {
-                cells[idx].innerText = val;
-                cells[idx].classList.remove('x', 'o');
-                if (val === "X") cells[idx].classList.add('x');
-                if (val === "O") cells[idx].classList.add('o');
-            });
-        }
-
-        function checkResult() {
-            const winConditions = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8],
-                [0, 3, 6], [1, 4, 7], [2, 5, 8],
-                [0, 4, 8], [2, 4, 6]
-            ];
-
-            let roundWon = false;
-            for (let condition of winConditions) {
-                let [a, b, c] = condition;
-                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-                    roundWon = true;
-                    break;
-                }
-            }
-
-            if (roundWon) {
-                statusDisplay.innerText = "SEQUENCE COMPLETE. WINNER DETECTED.";
-                gameActive = false;
-                return;
-            }
-
-            if (!board.includes("")) {
-                statusDisplay.innerText = "DATA STALEMATE. REBOOT REQUIRED.";
-                gameActive = false;
-            }
-        }
-
-        function resetGame() {
-            board = ["", "", "", "", "", "", "", "", ""];
-            gameActive = true;
-            statusDisplay.innerText = "HUMAN INPUT REQUIRED (X)";
-            updateBoard();
-        }
-    </script>
 </body>
 </html>
