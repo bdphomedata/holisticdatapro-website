@@ -1,76 +1,120 @@
+<?php
+// header.php
+?>
 <style>
-    /* --- NAVIGATION LOGIC FROM YOUR BACKUP --- */
-    nav {
-        width: 100%;
-        padding: 0.8rem 3%;
-        background: rgba(0, 31, 63, 0.4);
-        backdrop-filter: blur(15px);
-        border-bottom: 1px solid var(--glass-border);
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 30px;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: relative;
         z-index: 1000;
     }
 
-    .nav-container {
-        max-width: 1600px; margin: 0 auto;
-        display: flex; justify-content: space-between; align-items: center;
-        flex-wrap: wrap; gap: 15px;
+    .logo {
+        font-weight: 900;
+        letter-spacing: 3px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 1.2rem;
     }
 
-    .nav-left-group { display: flex; align-items: center; gap: 40px; }
-
-    .logo-static { 
-        font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
-        background: linear-gradient(to bottom, #fff 0%, #e0e0e0 45%, var(--brand-green) 50%, #fff 55%, #b0b0b0 100%);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 5px rgba(0,0,0,0.8)) drop-shadow(0px 0px 12px rgba(74, 222, 128, 0.4));
-        display: inline-block;
+    /* Desktop Nav */
+    .nav-links {
+        display: flex;
+        gap: 20px;
+        align-items: center;
     }
 
-    .nav-links { display: flex; gap: 20px; align-items: center; }
-    .nav-links a, .nav-links .dropdown-label { 
-        color: #ffffff !important; text-decoration: none; font-weight: 600; 
-        font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; opacity: 0.9; 
+    .nav-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: 0.3s;
+        padding: 8px 15px;
+        border: 1px solid transparent;
+        border-radius: 20px;
+    }
+
+    .nav-links a:hover {
+        color: var(--brand-green);
+        border-color: var(--brand-green);
+    }
+
+    /* Mobile Menu Toggle */
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
         cursor: pointer;
+        background: none;
+        border: none;
+        padding: 5px;
     }
-    .nav-links a:hover, .nav-links .dropdown:hover .dropdown-label { color: var(--brand-gold) !important; opacity: 1; }
 
-    .dropdown { position: relative; display: inline-block; padding: 10px 0; }
-    .dropdown-content { 
-        display: none; position: absolute; background: rgba(0, 31, 63, 0.95); min-width: 240px; 
-        border-top: 3px solid var(--brand-gold); top: 100%; left: 0; backdrop-filter: blur(20px); 
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 10px 0; z-index: 1001;
+    .menu-toggle span {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background: white;
+        transition: 0.3s;
     }
-    .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
-    .dropdown-content a { display: block; padding: 12px 20px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.75rem !important; }
 
-    .nav-buttons { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; }
-    .nav-btn-green { text-decoration: none; padding: 6px 14px; border-radius: 50px; border: 2px solid var(--brand-green); color: white !important; font-weight: 700; font-size: 0.65rem; transition: all 0.3s ease; text-transform: uppercase; white-space: nowrap; }
-    .nav-btn-green:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 10px rgba(74, 222, 128, 0.4); transform: translateY(-1px); }
+    /* Mobile Specific Styles */
+    @media (max-width: 768px) {
+        .menu-toggle { display: flex; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .nav-links {
+            display: none; /* Hidden by default on mobile */
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 31, 63, 0.95);
+            flex-direction: column;
+            padding: 20px;
+            gap: 15px;
+            border-bottom: 2px solid var(--brand-green);
+        }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .nav-links a {
+            width: 100%;
+            text-align: center;
+        }
+    }
 </style>
 
-<nav>
-    <div class="nav-container">
-        <div class="nav-left-group">
-            <span class="logo-static">HOLISTIC DATA PRO</span>
-            <div class="nav-links">
-                <div class="dropdown">
-                    <span class="dropdown-label">SERVICES <i class="fas fa-caret-down"></i></span>
-                    <div class="dropdown-content">
-                        <a href="services-home.php"><i class="fas fa-home"></i> HOME USERS</a>
-                        <a href="services-corporate.php"><i class="fas fa-building"></i> SME & CORPORATE</a>
-                    </div>
-                </div>
-                <a href="solutions.php">SOLUTIONS</a>
-                <a href="neural-break.php">NEURAL BREAK</a>
-            </div>
-        </div>
-        <div class="nav-buttons">
-            <a href="index.php" class="nav-btn-green">HOME</a>
-            <a href="subscribe.php" class="nav-btn-green">SUBSCRIBE</a>
-            <a href="login.php" class="nav-btn-green">LOGIN</a>
-            <a href="contact.php" class="nav-btn-green">CONNECT</a>
-            <a href="Bartus-de-Paiva-CV.docx" class="nav-btn-green" download>PROFILE</a>
-        </div>
-    </div>
-</nav>
+<header>
+    <a href="index.php" class="logo">HOLISTIC DATA PRO</a>
+    
+    <button class="menu-toggle" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="nav-links" id="navLinks">
+        <a href="index.php">Home</a>
+        <a href="services.php">Services</a>
+        <a href="solutions.php">Solutions</a>
+        <a href="neural_break.php">Neural Break</a>
+        <a href="contact.php">Connect</a>
+        <a href="profile.php" style="border-color: var(--brand-green); color: var(--brand-green);">Profile</a>
+    </nav>
+</header>
+
+<script>
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        nav.classList.toggle('active');
+    }
+</script>
