@@ -77,6 +77,10 @@
         .status-links { display: flex; animation: scroll 40s linear infinite; }
         .status-item { padding: 0 30px; font-size: 0.7rem; color: #fff; white-space: nowrap; }
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- NEURAL DRIFT GAME STYLES --- */
+        #drift-canvas { background: rgba(0, 0, 0, 0.4); width: 100%; height: 100%; border-radius: 4px; display: block; cursor: crosshair; }
+        .game-stats { position: absolute; top: 15px; right: 20px; font-family: 'Courier New', monospace; font-size: 0.8rem; color: var(--brand-green); text-shadow: 0 0 5px var(--brand-green); z-index: 10; }
     </style>
 </head>
 <body>
@@ -144,9 +148,13 @@
                 <div style="text-align: center; margin: auto;">AWAITING LOGIC...</div>
             </div>
             
-            <div class="glass-panel" style="flex: 1;">
-                <span class="label">Tertiary: System Choice</span>
-                <div style="text-align: center; margin: auto;">LOCKED</div>
+            <div class="glass-panel" style="flex: 1; overflow: hidden;" id="gemini-module">
+                <span class="label">Tertiary: Neural Drift (v1.0)</span>
+                <div class="game-stats">BIT-RATE: <span id="score">0</span></div>
+                <canvas id="drift-canvas"></canvas>
+                <div id="game-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.8); cursor: pointer; z-index: 20; text-align: center; padding: 20px;">
+                    <span style="color: var(--brand-green); font-weight: bold; letter-spacing: 2px;">CONNECTION READY<br>CLICK TO INJECT DATA</span>
+                </div>
             </div>
         </div>
     </main>
@@ -160,6 +168,7 @@
     </footer>
 
     <script>
+        // --- SNAKES & LADDERS LOGIC ---
         let playerPos = 1;
         const totalCells = 100;
         let isRolling = false;
@@ -210,35 +219,17 @@
         function executeRoll() {
             if (isRolling) return;
             isRolling = true;
-
             const dice = document.getElementById('dice');
             const roll = Math.floor(Math.random() * 6) + 1;
-            
-            const rollMap = {
-                1: "rotateX(0deg) rotateY(0deg)",
-                2: "rotateX(0deg) rotateY(-90deg)",
-                3: "rotateX(-90deg) rotateY(0deg)",
-                4: "rotateX(90deg) rotateY(0deg)",
-                5: "rotateX(0deg) rotateY(90deg)",
-                6: "rotateX(180deg) rotateY(0deg)"
-            };
-
-            const randomSpin = `rotateX(${Math.random() * 720}deg) rotateY(${Math.random() * 720}deg)`;
-            dice.style.transform = randomSpin;
-
+            const rollMap = { 1: "rotateX(0deg) rotateY(0deg)", 2: "rotateX(0deg) rotateY(-90deg)", 3: "rotateX(-90deg) rotateY(0deg)", 4: "rotateX(90deg) rotateY(0deg)", 5: "rotateX(0deg) rotateY(90deg)", 6: "rotateX(180deg) rotateY(0deg)" };
+            dice.style.transform = `rotateX(${Math.random() * 720}deg) rotateY(${Math.random() * 720}deg)`;
             setTimeout(() => {
                 dice.style.transform = rollMap[roll];
-                
                 setTimeout(() => {
                     let newPos = playerPos + roll;
-                    if (newPos > totalCells) {
-                        isRolling = false;
-                        return;
-                    }
-
+                    if (newPos > totalCells) { isRolling = false; return; }
                     if (ladders[newPos]) newPos = ladders[newPos];
                     else if (snakes[newPos]) newPos = snakes[newPos];
-
                     movePlayer(newPos);
                     playerPos = newPos;
                     isRolling = false;
@@ -259,9 +250,107 @@
         window.onload = () => {
             movePlayer(1);
             drawElements();
+            initDriftGame();
         };
+        window.onresize = () => { drawElements(); initDriftGame(); };
 
-        window.onresize = drawElements;
+        // --- NEURAL DRIFT LOGIC ---
+        const driftCanvas = document.getElementById('drift-canvas');
+        const driftCtx = driftCanvas.getContext('2d');
+        const driftContainer = document.getElementById('gemini-module');
+        const driftOverlay = document.getElementById('game-overlay');
+        const driftScoreEl = document.getElementById('score');
+
+        let driftScore = 0;
+        let driftActive = false;
+        let driftPlayer = { x: 0, y: 0, size: 8 };
+        let obstacles = [];
+        let powerups = [];
+        let driftAnimationId;
+
+        function initDriftGame() {
+            driftCanvas.width = driftContainer.clientWidth;
+            driftCanvas.height = driftContainer.clientHeight - 40;
+            driftPlayer.x = driftCanvas.width / 2;
+            driftPlayer.y = driftCanvas.height - 30;
+        }
+
+        driftContainer.addEventListener('mousemove', (e) => {
+            const rect = driftCanvas.getBoundingClientRect();
+            driftPlayer.x = e.clientX - rect.left;
+            if(driftPlayer.x < 5) driftPlayer.x = 5;
+            if(driftPlayer.x > driftCanvas.width - 5) driftPlayer.x = driftCanvas.width - 5;
+        });
+
+        driftOverlay.addEventListener('click', () => {
+            driftOverlay.style.display = 'none';
+            driftScore = 0;
+            driftScoreEl.innerText = driftScore;
+            obstacles = [];
+            powerups = [];
+            driftActive = true;
+            initDriftGame();
+            animateDrift();
+        });
+
+        function animateDrift() {
+            if (!driftActive) return;
+            driftCtx.clearRect(0, 0, driftCanvas.width, driftCanvas.height);
+
+            // Draw Player
+            driftCtx.shadowBlur = 15;
+            driftCtx.shadowColor = '#4ade80';
+            driftCtx.fillStyle = '#4ade80';
+            driftCtx.beginPath();
+            driftCtx.arc(driftPlayer.x, driftPlayer.y, driftPlayer.size, 0, Math.PI * 2);
+            driftCtx.fill();
+
+            // Spawn Logic
+            if (Math.random() < 0.05) {
+                obstacles.push({ x: Math.random() * driftCanvas.width, y: -10, speed: 2 + Math.random() * 3, size: 10 });
+            }
+            if (Math.random() < 0.01) {
+                powerups.push({ x: Math.random() * driftCanvas.width, y: -10, speed: 2 });
+            }
+
+            // Update Obstacles
+            driftCtx.shadowBlur = 5;
+            driftCtx.shadowColor = '#ff4757';
+            driftCtx.fillStyle = '#ff4757';
+            obstacles.forEach((ob, index) => {
+                ob.y += ob.speed;
+                driftCtx.fillRect(ob.x, ob.y, ob.size, ob.size);
+                if (Math.hypot(driftPlayer.x - ob.x, driftPlayer.y - ob.y) < driftPlayer.size + 5) {
+                    driftGameOver();
+                }
+                if (ob.y > driftCanvas.height) obstacles.splice(index, 1);
+            });
+
+            // Update Powerups
+            driftCtx.shadowColor = '#ffc629';
+            driftCtx.fillStyle = '#ffc629';
+            powerups.forEach((p, index) => {
+                p.y += p.speed;
+                driftCtx.beginPath();
+                driftCtx.arc(p.x, p.y, 5, 0, Math.PI * 2);
+                driftCtx.fill();
+                if (Math.hypot(driftPlayer.x - p.x, driftPlayer.y - p.y) < driftPlayer.size + 5) {
+                    driftScore += 10;
+                    driftScoreEl.innerText = driftScore;
+                    powerups.splice(index, 1);
+                }
+                if (p.y > driftCanvas.height) powerups.splice(index, 1);
+            });
+
+            driftAnimationId = requestAnimationFrame(animateDrift);
+        }
+
+        function driftGameOver() {
+            driftActive = false;
+            cancelAnimationFrame(driftAnimationId);
+            driftOverlay.style.display = 'flex';
+            driftOverlay.innerHTML = `<span style="color: #ff4757; font-weight: bold; letter-spacing: 1px;">CONNECTION LOST<br>BIT-RATE: ${driftScore}<br>CLICK TO REBOOT</span>`;
+        }
     </script>
 </body>
 </html>
