@@ -36,7 +36,6 @@
             z-index: -1;
         }
 
-        /* --- LAYOUT --- */
         .main-stage {
             flex: 1;
             display: flex;
@@ -71,18 +70,15 @@
             text-transform: uppercase;
         }
 
-        /* --- THE CLASSIC BOARD OVERLAY --- */
+        /* --- THE BOARD --- */
         .snakes-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             width: 100%;
-            height: auto;
             max-width: 600px;
             margin: 0 auto;
             border: 2px solid #fff;
-            position: relative;
-            /* Update the path below to your uploaded image */
-            background: url('image_232adb.jpg'); 
+            background: url('image_232adb.jpg'); /* */
             background-size: cover;
             background-position: center;
         }
@@ -94,7 +90,23 @@
             font-size: 0.8rem; font-weight: 900; 
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-            background: rgba(0,0,0,0.1); /* Subtle tint to see image better */
+            position: relative;
+        }
+
+        /* PLAYER TOKEN */
+        .player-token {
+            width: 70%;
+            height: 70%;
+            background: var(--brand-gold);
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 0 10px var(--brand-gold);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 0.6rem;
         }
 
         .btn-neural {
@@ -104,26 +116,13 @@
             cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
         }
 
-        .ttt-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 15px; width: 160px; margin: 0 auto;
-        }
-        .ttt-box {
-            aspect-ratio: 1/1; border: 2px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.05); border-radius: 4px;
-        }
-
         .ticker-bar {
             height: 40px; background: #000;
             border-top: 2px solid var(--border-glow);
             display: flex; align-items: center; overflow: hidden;
         }
         .status-links { display: flex; animation: scroll 40s linear infinite; }
-        .status-item { 
-            padding: 0 30px; font-size: 0.7rem; color: #fff; 
-            white-space: nowrap; display: flex; align-items: center;
-        }
-        .status-item i { margin-right: 8px; color: var(--brand-green); font-size: 0.6rem; }
+        .status-item { padding: 0 30px; font-size: 0.7rem; color: #fff; white-space: nowrap; }
 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
@@ -137,52 +136,42 @@
     </div>
     <div class="video-overlay"></div>
 
-    <?php include 'header.php'; ?>
-
     <main class="main-stage">
         
         <div class="game-column-left">
             <div class="glass-panel">
                 <span class="label">Primary Module: Data Pipeline</span>
-                <div class="snakes-grid">
+                <div class="snakes-grid" id="board">
                     <?php 
-                    // Zig-Zag (Boustrophedon) Logic for 10x10 Board
+                    // Zig-Zag Logic: 100 down to 1
                     for ($row = 9; $row >= 0; $row--) {
-                        if ($row % 2 != 0) {
-                            // Odd rows (counting from bottom 0) go Right to Left
+                        if ($row % 2 != 0) { // Odd rows go Left to Right
                             for ($col = 1; $col <= 10; $col++) {
                                 $num = ($row * 10) + $col;
-                                echo "<div class='s-cell'>$num</div>";
+                                echo "<div class='s-cell' id='cell-$num'>$num</div>";
                             }
-                        } else {
-                            // Even rows go Left to Right
+                        } else { // Even rows go Right to Left
                             for ($col = 10; $col >= 1; $col--) {
                                 $num = ($row * 10) + $col;
-                                echo "<div class='s-cell'>$num</div>";
+                                echo "<div class='s-cell' id='cell-$num'>$num</div>";
                             }
                         }
                     }
                     ?>
                 </div>
-                <button class="btn-neural">EXECUTE ROLL</button>
+                <button class="btn-neural" onclick="executeRoll()">EXECUTE ROLL</button>
             </div>
         </div>
 
         <div class="game-column-right">
             <div class="glass-panel" style="flex: 1.5;">
                 <span class="label">Secondary: Neural Logic</span>
-                <div class="ttt-grid">
-                    <?php for($i=0; $i<9; $i++) echo "<div class='ttt-box'></div>"; ?>
-                </div>
-                <button class="btn-neural" style="margin-top: 30px;">RESET LOGIC</button>
+                <div style="text-align: center; margin: auto;">AWAITING LOGIC...</div>
             </div>
             
             <div class="glass-panel" style="flex: 1;">
                 <span class="label">Tertiary: System Choice</span>
-                <div style="text-align: center; margin: auto;">
-                    <i class="fas fa-lock" style="font-size: 1.5rem; opacity: 0.3; margin-bottom: 15px;"></i>
-                    <p style="font-size: 0.65rem; color: var(--brand-gold); letter-spacing: 1px;">AWAITING SELECTION...</p>
-                </div>
+                <div style="text-align: center; margin: auto;">LOCKED</div>
             </div>
         </div>
 
@@ -190,12 +179,62 @@
 
     <footer class="ticker-bar">
         <div class="status-links">
-            <div class="status-item"><i class="fas fa-circle"></i> NEURAL ENGINE ACTIVE</div>
-            <div class="status-item"><i class="fas fa-circle"></i> AZURE SQL LINK STABLE</div>
-            <div class="status-item"><i class="fas fa-circle"></i> LPTMYBUSINESS CONNECTED</div>
-            <div class="status-item"><i class="fas fa-circle"></i> DATA PIPELINE READY</div>
+            <div class="status-item">DATA PIPELINE READY</div>
+            <div class="status-item">NEURAL ENGINE ACTIVE</div>
+            <div class="status-item">AZURE SQL LINK STABLE</div>
+            <div class="status-item">DATA PIPELINE READY</div>
+            <div class="status-item">NEURAL ENGINE ACTIVE</div>
+            <div class="status-item">AZURE SQL LINK STABLE</div>
         </div>
     </footer>
 
+    <script>
+        let playerPos = 1;
+        
+        // NEURAL MAP: Based on the image jumps
+        const neuralMap = {
+            // Ladders (Upward)
+            1: 38, 4: 14, 9: 31, 21: 42, 28: 84, 36: 44, 51: 67, 71: 91, 80: 100,
+            // Snakes (Downward)
+            16: 6, 47: 26, 49: 11, 56: 53, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 98: 78
+        };
+
+        function executeRoll() {
+            const roll = Math.floor(Math.random() * 6) + 1;
+            alert("System Rolled: " + roll);
+            
+            let newPos = playerPos + roll;
+            if (newPos > 100) return; // Must land exactly or stay put
+
+            // Move to initial roll spot
+            movePlayer(newPos);
+            playerPos = newPos;
+
+            // Check for Neural Jump (Snake or Ladder)
+            setTimeout(() => {
+                if (neuralMap[playerPos]) {
+                    alert("Neural Anomaly Detected: Redirecting...");
+                    playerPos = neuralMap[playerPos];
+                    movePlayer(playerPos);
+                }
+            }, 600);
+        }
+
+        function movePlayer(pos) {
+            // Clear current token
+            const oldToken = document.querySelector('.player-token');
+            if (oldToken) oldToken.remove();
+
+            // Add token to new cell
+            const targetCell = document.getElementById('cell-' + pos);
+            const token = document.createElement('div');
+            token.className = 'player-token';
+            token.innerHTML = '<i class="fas fa-microchip"></i>';
+            targetCell.appendChild(token);
+        }
+
+        // Initialize Player at Start
+        window.onload = () => movePlayer(1);
+    </script>
 </body>
 </html>
