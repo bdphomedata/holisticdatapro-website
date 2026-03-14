@@ -7,27 +7,15 @@
         -webkit-backdrop-filter: blur(15px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start; /* Aligns items to the left */
         align-items: center;
         position: sticky;
         top: 0;
         z-index: 1000;
+        gap: 20px; /* Space between hamburger and logo */
     }
 
-    /* Your Signature Chrome/Green Logo */
-    .logo-static { 
-        font-size: 1.8rem; 
-        font-weight: 900; 
-        letter-spacing: 4px; 
-        text-transform: uppercase;
-        background: linear-gradient(to bottom, #fff 0%, #e0e0e0 45%, var(--brand-green) 50%, #fff 55%, #b0b0b0 100%);
-        -webkit-background-clip: text; 
-        -webkit-text-fill-color: transparent;
-        filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 5px rgba(0,0,0,0.8)) drop-shadow(0px 0px 12px rgba(74, 222, 128, 0.4));
-        text-decoration: none;
-    }
-
-    /* The Hamburger Button - Always Visible Now */
+    /* The Hamburger Button - Now on the Left */
     .menu-toggle {
         display: flex;
         flex-direction: column;
@@ -41,11 +29,25 @@
 
     .menu-toggle span {
         display: block;
-        width: 30px;
+        width: 28px;
         height: 2px;
         background: var(--brand-green);
         transition: 0.3s ease;
         box-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
+    }
+
+    /* Your Signature Chrome/Green Logo - Now follows the Hamburger */
+    .logo-static { 
+        font-size: 1.6rem; 
+        font-weight: 900; 
+        letter-spacing: 3px; 
+        text-transform: uppercase;
+        background: linear-gradient(to bottom, #fff 0%, #e0e0e0 45%, var(--brand-green) 50%, #fff 55%, #b0b0b0 100%);
+        -webkit-background-clip: text; 
+        -webkit-text-fill-color: transparent;
+        filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 5px rgba(0,0,0,0.8)) drop-shadow(0px 0px 12px rgba(74, 222, 128, 0.4));
+        text-decoration: none;
+        margin-left: 10px;
     }
 
     /* The Dropdown Menu (Hidden by default) */
@@ -54,20 +56,20 @@
         flex-direction: column;
         position: absolute;
         top: 100%;
-        right: 0;
+        left: 0; /* Menu now drops down from the left side */
         width: 300px;
         background: rgba(0, 11, 26, 0.95);
         backdrop-filter: blur(20px);
         padding: 30px;
         gap: 20px;
-        border-left: 1px solid var(--brand-green);
+        border-right: 1px solid var(--brand-green);
         border-bottom: 1px solid var(--brand-green);
-        box-shadow: -10px 10px 30px rgba(0,0,0,0.5);
+        box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
     }
 
     .nav-links.active {
         display: flex;
-        animation: slideIn 0.3s ease-out;
+        animation: slideInLeft 0.3s ease-out;
     }
 
     .nav-links a {
@@ -87,7 +89,6 @@
         padding-left: 10px;
     }
 
-    /* Profile Button inside the Menu */
     .nav-btn-green {
         border: 2px solid var(--brand-green) !important;
         color: var(--brand-green) !important;
@@ -96,26 +97,25 @@
         margin-top: 10px;
     }
 
-    @keyframes slideIn {
-        from { opacity: 0; transform: translateX(20px); }
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-20px); }
         to { opacity: 1; transform: translateX(0); }
     }
 
-    /* Small adjustments for actual mobile phones */
     @media (max-width: 600px) {
-        .logo-static { font-size: 1.2rem; letter-spacing: 2px; }
-        .nav-links { width: 100%; border-left: none; }
+        .logo-static { font-size: 1.1rem; letter-spacing: 1px; }
+        .nav-links { width: 100%; border-right: none; }
     }
 </style>
 
 <header>
-    <a href="index.php" class="logo-static">HOLISTIC DATA PRO</a>
-    
     <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle Menu">
         <span></span>
         <span></span>
         <span></span>
     </button>
+
+    <a href="index.php" class="logo-static">HOLISTIC DATA PRO</a>
 
     <nav class="nav-links" id="universalNav">
         <a href="index.php">Home</a>
