@@ -161,21 +161,7 @@
 </head>
 <body>
 
-    <nav>
-        <div class="nav-container">
-            <div class="nav-left-group">
-                <span class="logo-static">HOLISTIC DATA PRO</span>
-                <div class="nav-links">
-                    <a href="solutions.html">SOLUTIONS</a>
-                    <a href="neural-break.php" style="color: var(--brand-gold) !important;"><i class="fas fa-brain"></i> NEURAL BREAK</a>
-                </div>
-            </div>
-            <div class="nav-buttons">
-                <a href="index.html" class="nav-btn-green">HOME</a>
-                <a href="login.html" class="nav-btn-green">LOGIN</a>
-            </div>
-        </div>
-    </nav>
+    <?php include 'header.php'; ?>
 
     <div class="game-hero">
         <h1>Neural Break</h1>
