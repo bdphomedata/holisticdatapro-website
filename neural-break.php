@@ -26,11 +26,24 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Segoe UI', sans-serif; background: var(--brand-blue-dark); color: white; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--brand-blue-dark); color: white; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; }
+        
         .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
         #bg-video { width: 100%; height: 100%; object-fit: cover; }
         .video-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(0, 40, 80, 0.2) 0%, rgba(0, 20, 40, 0.8) 100%); z-index: -1; }
+        
         .main-stage { flex: 1; display: flex; padding: 20px 50px; gap: 25px; align-items: stretch; }
+
+        /* --- MOBILE RESPONSIVE OVERRIDES --- */
+        @media (max-width: 768px) {
+            body { overflow-y: auto; }
+            .main-stage { flex-direction: column; padding: 10px; gap: 15px; }
+            .game-column-left, .game-column-right { width: 100%; flex: none; }
+            .board-container { max-width: 100%; }
+            .s-cell { font-size: 0.6rem; }
+            .glass-panel { padding: 35px 15px 15px 15px; }
+        }
+
         .game-column-left { flex: 2; display: flex; }
         .game-column-right { flex: 1; display: flex; flex-direction: column; gap: 20px; }
         .glass-panel { background: var(--glass-bg); border: 2px solid var(--border-glow); border-radius: 4px; backdrop-filter: blur(10px); display: flex; flex-direction: column; padding: 40px 20px 20px 20px; position: relative; width: 100%; }
@@ -50,30 +63,9 @@
         .player-token { width: 75%; height: 75%; background: white; border-radius: 50%; border: 3px solid #000; z-index: 10; display: flex; align-items: center; justify-content: center; color: #000; font-size: 0.7rem; box-shadow: 0 0 10px rgba(255,255,255,0.8); transition: all 0.5s ease; }
 
         /* --- 3D DICE STYLES --- */
-        .dice-scene {
-            width: 60px; height: 60px;
-            margin: 20px auto 0;
-            perspective: 600px;
-            cursor: pointer;
-        }
-        .dice {
-            width: 100%; height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 1s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-        }
-        .dice-face {
-            position: absolute;
-            width: 60px; height: 60px;
-            background: white;
-            border: 2px solid #ccc;
-            line-height: 56px;
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
-            text-align: center;
-            border-radius: 6px;
-        }
+        .dice-scene { width: 60px; height: 60px; margin: 20px auto 0; perspective: 600px; cursor: pointer; }
+        .dice { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 1s cubic-bezier(0.17, 0.67, 0.83, 0.67); }
+        .dice-face { position: absolute; width: 60px; height: 60px; background: white; border: 2px solid #ccc; line-height: 56px; font-size: 24px; font-weight: bold; color: #333; text-align: center; border-radius: 6px; }
         .face-1 { transform: rotateY(0deg) translateZ(30px); }
         .face-2 { transform: rotateY(90deg) translateZ(30px); }
         .face-3 { transform: rotateX(90deg) translateZ(30px); }
@@ -222,7 +214,6 @@
             const dice = document.getElementById('dice');
             const roll = Math.floor(Math.random() * 6) + 1;
             
-            // Map roll to CSS rotation
             const rollMap = {
                 1: "rotateX(0deg) rotateY(0deg)",
                 2: "rotateX(0deg) rotateY(-90deg)",
@@ -232,14 +223,12 @@
                 6: "rotateX(180deg) rotateY(0deg)"
             };
 
-            // Add a "wild" spin before landing
             const randomSpin = `rotateX(${Math.random() * 720}deg) rotateY(${Math.random() * 720}deg)`;
             dice.style.transform = randomSpin;
 
             setTimeout(() => {
                 dice.style.transform = rollMap[roll];
                 
-                // Finalize move after animation ends
                 setTimeout(() => {
                     let newPos = playerPos + roll;
                     if (newPos > totalCells) {
