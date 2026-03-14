@@ -10,7 +10,7 @@
         background: rgba(0, 0, 0, 0.4);
         backdrop-filter: blur(10px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        position: sticky; /* Changed to sticky so it stays at the top */
+        position: sticky;
         top: 0;
         z-index: 1000;
     }
@@ -21,56 +21,20 @@
         color: #fff;
         text-decoration: none;
         font-size: 1.2rem;
-        /* Using your brand gradient if available */
         background: linear-gradient(to bottom, #fff, var(--brand-green, #4ade80));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
-    /* Desktop Nav */
-    .nav-links {
-        display: flex;
-        gap: 15px;
-        align-items: center;
-    }
-
-    .nav-links a {
-        color: rgba(255, 255, 255, 0.8);
-        text-decoration: none;
-        font-size: 0.75rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        transition: 0.3s;
-        padding: 8px 15px;
-        border: 1px solid transparent;
-        border-radius: 20px;
-    }
-
-    .nav-links a:hover {
-        color: var(--brand-green, #4ade80);
-        border-color: var(--brand-green, #4ade80);
-    }
-
-    /* Special Styling for New Buttons */
-    .btn-subscribe {
-        background: var(--brand-green, #4ade80) !important;
-        color: #000 !important;
-        border-color: var(--brand-green, #4ade80) !important;
-    }
-
-    .btn-login {
-        border-color: rgba(255, 255, 255, 0.3) !important;
-    }
-
-    /* Mobile Menu Toggle */
+    /* --- HAMBURGER MENU ALWAYS VISIBLE --- */
     .menu-toggle {
-        display: none;
+        display: flex; /* Changed from 'none' to 'flex' for desktop */
         flex-direction: column;
         gap: 5px;
         cursor: pointer;
         background: none;
         border: none;
-        padding: 5px;
+        padding: 10px;
     }
 
     .menu-toggle span {
@@ -79,34 +43,70 @@
         height: 2px;
         background: white;
         transition: 0.3s;
+        box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
     }
 
-    /* Mobile Specific Styles */
-    @media (max-width: 992px) { /* Increased breakpoint to accommodate more links */
-        .menu-toggle { display: flex; }
+    /* --- NAVIGATION LINKS HIDDEN BY DEFAULT --- */
+    .nav-links {
+        display: none; 
+        position: absolute;
+        top: 100%;
+        right: 0; /* Align to the right side of the screen */
+        width: 300px;
+        background: rgba(0, 11, 26, 0.98);
+        flex-direction: column;
+        padding: 30px 20px;
+        gap: 15px;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 2px solid var(--brand-green, #4ade80);
+        box-shadow: -10px 10px 30px rgba(0,0,0,0.5);
+    }
 
+    .nav-links.active {
+        display: flex;
+        animation: fadeInDown 0.3s ease-out;
+    }
+
+    /* Mobile specific: make menu full width */
+    @media (max-width: 600px) {
         .nav-links {
-            display: none; 
-            position: absolute;
-            top: 100%;
-            left: 0;
             width: 100%;
-            background: rgba(0, 11, 26, 0.98); /* Slightly darker for readability */
-            flex-direction: column;
-            padding: 30px 20px;
-            gap: 15px;
-            border-bottom: 2px solid var(--brand-green, #4ade80);
         }
+    }
 
-        .nav-links.active {
-            display: flex;
-        }
+    .nav-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: 0.3s;
+        padding: 12px 15px;
+        border-radius: 5px;
+        text-align: right; /* Text aligns with the hamburger position */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
 
-        .nav-links a {
-            width: 100%;
-            text-align: center;
-            padding: 12px;
-        }
+    .nav-links a:hover {
+        color: var(--brand-green, #4ade80);
+        background: rgba(255, 255, 255, 0.05);
+        padding-right: 25px;
+    }
+
+    .btn-subscribe {
+        background: var(--brand-green, #4ade80) !important;
+        color: #000 !important;
+        text-align: center !important;
+    }
+
+    .btn-login {
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        text-align: center !important;
+    }
+
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 </style>
 
@@ -125,8 +125,10 @@
         <a href="solutions.php">Solutions</a>
         <a href="neuralbreak.php">Neural Break</a>
         <a href="contact.php">Connect</a>
-        <a href="login.php" class="btn-login">Login</a>
-        <a href="subscribe.php" class="btn-subscribe">Subscribe</a>
+        <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 10px;">
+            <a href="login.php" class="btn-login">Login</a>
+            <a href="subscribe.php" class="btn-subscribe">Subscribe</a>
+        </div>
     </nav>
 </header>
 
@@ -136,10 +138,12 @@
         nav.classList.toggle('active');
     }
 
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            document.getElementById('navLinks').classList.remove('active');
-        });
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        const nav = document.getElementById('navLinks');
+        const btn = document.querySelector('.menu-toggle');
+        if (!nav.contains(event.target) && !btn.contains(event.target)) {
+            nav.classList.remove('active');
+        }
     });
 </script>
