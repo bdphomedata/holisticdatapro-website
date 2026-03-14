@@ -121,7 +121,7 @@
         <a href="index.php">Home</a>
         <a href="services.php">Services</a>
         <a href="solutions.php">Solutions</a>
-        <a href="neural-break.php">Neural Break</a>
+        <a href="neuralbreak.php">Neural Break</a>
         <a href="contact.php">Connect</a>
         <a href="profile.php" class="nav-btn-green">View Profile</a>
     </nav>
