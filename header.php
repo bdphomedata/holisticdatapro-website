@@ -1,134 +1,120 @@
+<?php
+// header.php
+?>
 <style>
-    /* Navigation Bar Base */
     header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px 5%;
-        background: rgba(0, 31, 63, 0.8);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        padding: 15px 30px;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        position: sticky;
-        top: 0;
+        position: relative;
         z-index: 1000;
-        width: 100%;
     }
 
     .logo {
-        font-weight: 800;
-        letter-spacing: 2px;
+        font-weight: 900;
+        letter-spacing: 3px;
         color: #fff;
         text-decoration: none;
-        font-size: 1.1rem;
-        text-transform: uppercase;
+        font-size: 1.2rem;
     }
 
-    /* Desktop Navigation */
+    /* Desktop Nav */
     .nav-links {
         display: flex;
-        gap: 15px;
+        gap: 20px;
         align-items: center;
     }
 
     .nav-links a {
         color: rgba(255, 255, 255, 0.8);
         text-decoration: none;
-        font-size: 0.7rem;
-        font-weight: 600;
+        font-size: 0.75rem;
+        font-weight: bold;
         text-transform: uppercase;
-        padding: 8px 16px;
+        transition: 0.3s;
+        padding: 8px 15px;
         border: 1px solid transparent;
-        border-radius: 4px;
-        transition: all 0.3s ease;
+        border-radius: 20px;
     }
 
-    .nav-links a:hover, .nav-links a.active-link {
+    .nav-links a:hover {
         color: var(--brand-green);
         border-color: var(--brand-green);
-        background: rgba(74, 222, 128, 0.05);
     }
 
-    /* Hamburger Toggle Button */
+    /* Mobile Menu Toggle */
     .menu-toggle {
         display: none;
         flex-direction: column;
-        justify-content: space-between;
-        width: 24px;
-        height: 18px;
+        gap: 5px;
+        cursor: pointer;
         background: none;
         border: none;
-        cursor: pointer;
-        padding: 0;
-        z-index: 1100;
+        padding: 5px;
     }
 
     .menu-toggle span {
-        width: 100%;
+        display: block;
+        width: 25px;
         height: 2px;
-        background-color: #fff;
-        transition: all 0.3s ease;
+        background: white;
+        transition: 0.3s;
     }
 
-    /* Mobile Logic (Phones) */
+    /* Mobile Specific Styles */
     @media (max-width: 768px) {
-        .menu-toggle {
-            display: flex;
-        }
+        .menu-toggle { display: flex; }
 
         .nav-links {
-            display: none; /* Hidden by default */
+            display: none; /* Hidden by default on mobile */
             position: absolute;
-            top: 0;
+            top: 100%;
             left: 0;
             width: 100%;
-            height: 100vh;
-            background: var(--brand-blue-dark);
+            background: rgba(0, 31, 63, 0.95);
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-            z-index: 1050;
+            padding: 20px;
+            gap: 15px;
+            border-bottom: 2px solid var(--brand-green);
         }
 
-        .nav-links.show {
+        .nav-links.active {
             display: flex;
         }
 
         .nav-links a {
-            font-size: 1.2rem;
-            width: 80%;
+            width: 100%;
             text-align: center;
         }
     }
 </style>
 
 <header>
-    <a href="index.php" class="logo">Holistic Data Pro</a>
+    <a href="index.php" class="logo">HOLISTIC DATA PRO</a>
     
-    <button class="menu-toggle" id="mobile-menu-btn" onclick="toggleMobileMenu()">
+    <button class="menu-toggle" onclick="toggleMenu()">
         <span></span>
         <span></span>
         <span></span>
     </button>
 
-    <nav class="nav-links" id="nav-menu">
+    <nav class="nav-links" id="navLinks">
         <a href="index.php">Home</a>
         <a href="services.php">Services</a>
         <a href="solutions.php">Solutions</a>
         <a href="neural_break.php">Neural Break</a>
         <a href="contact.php">Connect</a>
-        <a href="profile.php" style="color: var(--brand-green); border-color: var(--brand-green);">Profile</a>
+        <a href="profile.php" style="border-color: var(--brand-green); color: var(--brand-green);">Profile</a>
     </nav>
 </header>
 
 <script>
-    function toggleMobileMenu() {
-        const menu = document.getElementById('nav-menu');
-        const btn = document.getElementById('mobile-menu-btn');
-        menu.classList.toggle('show');
-        
-        // Optional: Animate hamburger to X
-        btn.classList.toggle('open');
+    function toggleMenu() {
+        const nav = document.getElementById('navLinks');
+        nav.classList.toggle('active');
     }
 </script>
