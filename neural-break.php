@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neural Break | Fun Zone</title>
+    <title>Neural Break | Holistic Data Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -12,12 +12,6 @@
             --brand-gold: #ffc629;
             --brand-green: #4ade80;
             --glass-bg: rgba(255, 255, 255, 0.03);
-            /* Game Colors */
-            --tile-red: #ff5e57;
-            --tile-blue: #34e7e4;
-            --tile-yellow: #f7d794;
-            --tile-green: #58b19f;
-            --tile-purple: #c56cf0;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,7 +35,7 @@
             z-index: -1;
         }
 
-        /* --- STRUCTURE (HAPPY IMAGE 1) --- */
+        /* --- THREE-GAME GRID SYSTEM --- */
         .main-stage {
             flex: 1;
             display: flex;
@@ -55,7 +49,7 @@
 
         .glass-panel {
             background: var(--glass-bg);
-            border: 2px solid #ffffff; /* Those exact white lines */
+            border: 2px solid #ffffff; 
             border-radius: 4px;
             backdrop-filter: blur(10px);
             display: flex;
@@ -72,63 +66,51 @@
             left: 20px;
             font-size: 0.7rem;
             letter-spacing: 2px;
-            color: var(--brand-gold);
+            color: var(--brand-green);
             font-weight: bold;
             text-transform: uppercase;
         }
 
-        /* --- COOL SNAKES & LADDERS BOARD --- */
+        /* --- THE BOARD --- */
         .snakes-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             width: 100%;
-            max-width: 500px;
-            border: 2px solid #ffffff;
-            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            max-width: 450px;
+            border: 1px solid rgba(255,255,255,0.3);
         }
-
         .s-cell {
             aspect-ratio: 1/1;
-            border: 1px solid rgba(255,255,255,0.2);
+            border: 0.1px solid rgba(0,0,0,0.1);
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem; font-weight: 900; color: #fff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            font-size: 0.6rem; font-weight: bold; color: rgba(255,255,255,0.8);
         }
+        /* Vibrant Break Pattern */
+        .s-cell:nth-child(5n+1) { background: #ff7675; }
+        .s-cell:nth-child(5n+2) { background: #fdcb6e; }
+        .s-cell:nth-child(5n+3) { background: #55efc4; }
+        .s-cell:nth-child(5n+4) { background: #81ecec; }
+        .s-cell:nth-child(5n+5) { background: #a29bfe; }
 
-        /* Vibrant Game Pattern */
-        .s-cell:nth-child(5n+1) { background-color: var(--tile-red); }
-        .s-cell:nth-child(5n+2) { background-color: var(--tile-blue); }
-        .s-cell:nth-child(5n+3) { background-color: var(--tile-yellow); }
-        .s-cell:nth-child(5n+4) { background-color: var(--tile-green); }
-        .s-cell:nth-child(5n+5) { background-color: var(--tile-purple); }
-
-        .pawn {
-            width: 25px; height: 25px;
-            background: #fff; border: 3px solid #333;
-            border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        .btn-neural {
+            margin-top: 20px; background: transparent; border: 1px solid var(--brand-green);
+            color: white; padding: 5px 20px; border-radius: 20px; font-size: 0.7rem; 
+            cursor: pointer; text-transform: uppercase; transition: 0.3s;
         }
+        .btn-neural:hover { background: var(--brand-green); color: var(--brand-blue-dark); }
 
-        .btn-play {
-            margin-top: 20px;
-            padding: 10px 30px;
-            background: var(--brand-green);
-            border: none;
-            border-radius: 50px;
-            color: var(--brand-blue-dark);
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
-        }
-
-        /* --- TICKER --- */
+        /* --- TICKER (THE BREAK MESSAGE) --- */
         .ticker-bar {
             height: 50px; background: rgba(0,0,0,0.8);
             border-top: 2px solid #ffffff;
             display: flex; align-items: center; overflow: hidden;
         }
-        .ticker-text { display: flex; animation: scroll 40s linear infinite; }
-        .ticker-item { padding: 0 40px; font-size: 0.75rem; color: #ffffff; white-space: nowrap; }
+        .ticker-text { display: flex; animation: scroll 30s linear infinite; }
+        .ticker-item { 
+            padding: 0 40px; font-size: 0.75rem; color: #ffffff; 
+            white-space: nowrap; display: flex; align-items: center;
+        }
+        .ticker-item i { margin-right: 10px; color: var(--brand-gold); }
 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
@@ -147,32 +129,28 @@
     <main class="main-stage">
         
         <div class="game-column-left">
-            <div class="glass-panel game-1">
-                <span class="label">Snakes & Ladders Classic</span>
+            <div class="glass-panel">
+                <span class="label">Primary Module: Data Pipeline</span>
                 <div class="snakes-grid">
-                    <?php 
-                    // Generate 100 tiles in the correct board order
-                    for($i=100; $i>=1; $i--) {
-                        echo "<div class='s-cell' id='tile-$i'>$i</div>";
-                    }
-                    ?>
+                    <?php for($i=100; $i>=1; $i--) echo "<div class='s-cell'>$i</div>"; ?>
                 </div>
-                <button class="btn-play">ROLL DICE</button>
+                <button class="btn-neural">EXECUTE ROLL</button>
             </div>
         </div>
 
         <div class="game-column-right">
-            <div class="glass-panel game-2">
-                <span class="label">Quick Match: Tic-Tac-Toe</span>
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 120px;">
-                    <?php for($i=0; $i<9; $i++) echo "<div style='aspect-ratio:1/1; background:rgba(255,255,255,0.1); border:1px solid #fff;'></div>"; ?>
+            <div class="glass-panel" style="flex:1;">
+                <span class="label">Secondary: Neural Logic</span>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 120px;">
+                    <?php for($i=0; $i<9; $i++) echo "<div style='aspect-ratio:1/1; border:1px solid #fff; background:rgba(255,255,255,0.05);'></div>"; ?>
                 </div>
+                <button class="btn-neural">RESET LOGIC</button>
             </div>
             
-            <div class="glass-panel game-3">
-                <span class="label">Daily High Scores</span>
-                <i class="fas fa-trophy" style="font-size: 2rem; color: var(--brand-gold); margin-bottom: 10px;"></i>
-                <p style="font-size: 0.7rem;">Player 1: 100 pts</p>
+            <div class="glass-panel" style="flex:1;">
+                <span class="label">Tertiary: Zen State</span>
+                <i class="fas fa-mug-hot" style="font-size: 1.5rem; color: var(--brand-gold); margin-bottom: 10px;"></i>
+                <p style="font-size: 0.6rem; text-align: center; color: rgba(255,255,255,0.6);">SYSTEM PAUSED.<br>REST PROTOCOL ACTIVE.</p>
             </div>
         </div>
 
@@ -180,8 +158,14 @@
 
     <footer class="ticker-bar">
         <div class="ticker-text">
-            <div class="ticker-item">★ TAKE A BREAK ★ RELAX ★ RECHARGE ★ NO WORK ALLOWED ★ JUST PLAY ★</div>
-            <div class="ticker-item">★ TAKE A BREAK ★ RELAX ★ RECHARGE ★ NO WORK ALLOWED ★ JUST PLAY ★</div>
+            <div class="ticker-item"><i class="fas fa-gamepad"></i> NO WORK ALLOWED</div>
+            <div class="ticker-item"><i class="fas fa-coffee"></i> TAKE A BREAK</div>
+            <div class="ticker-item"><i class="fas fa-battery-three-quarters"></i> RECHARGE YOUR BRAIN</div>
+            <div class="ticker-item"><i class="fas fa-smile"></i> ENJOY THE GAME</div>
+            <div class="ticker-item"><i class="fas fa-gamepad"></i> NO WORK ALLOWED</div>
+            <div class="ticker-item"><i class="fas fa-coffee"></i> TAKE A BREAK</div>
+            <div class="ticker-item"><i class="fas fa-battery-three-quarters"></i> RECHARGE YOUR BRAIN</div>
+            <div class="ticker-item"><i class="fas fa-smile"></i> ENJOY THE GAME</div>
         </div>
     </footer>
 
