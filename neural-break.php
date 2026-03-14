@@ -13,6 +13,15 @@
             --brand-green: #4ade80;
             --glass-bg: rgba(255, 255, 255, 0.03);
             --border-glow: #ffffff;
+            
+            /* Core Game Colors from Image */
+            --tile-orange: #ff9f43;
+            --tile-purple: #9b59b6;
+            --tile-green: #27ae60;
+            --tile-blue: #3498db;
+            --tile-yellow: #f1c40f;
+            --tile-teal: #16a085;
+            --tile-magenta: #e056fd;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,7 +36,7 @@
             overflow: hidden;
         }
 
-        /* --- BACKGROUND --- */
+        /* --- BACKGROUND (Restored Structure) --- */
         .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
         #bg-video { width: 100%; height: 100%; object-fit: cover; }
         .video-overlay {
@@ -36,7 +45,6 @@
             z-index: -1;
         }
 
-        /* --- LAYOUT --- */
         .main-stage {
             flex: 1;
             display: flex;
@@ -55,14 +63,14 @@
             backdrop-filter: blur(10px);
             display: flex;
             flex-direction: column;
-            padding: 35px 20px 15px 20px;
+            padding: 40px 20px 20px 20px;
             position: relative;
             width: 100%;
         }
 
         .label {
             position: absolute;
-            top: 12px;
+            top: 15px;
             left: 20px;
             font-size: 0.7rem;
             letter-spacing: 2px;
@@ -71,45 +79,46 @@
             text-transform: uppercase;
         }
 
-        /* --- BOARD DESIGN --- */
+        /* --- DATA PIPELINE BOARD: COLOR BLOCKING & STYLING --- */
         .snakes-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             width: 100%;
-            max-width: 580px;
+            max-width: 600px;
             margin: 0 auto;
-            border: 2px solid #fff;
-            background: url('image_232adb.jpg'); /* References classic board style */
-            background-size: cover;
-            background-position: center;
+            border: 3px solid #ffffff; /* Explicit white box border */
+            background: #111; /* Grounding color */
         }
 
         .s-cell {
             aspect-ratio: 1/1;
-            border: 0.5px solid rgba(255,255,255,0.15);
+            border: 0.5px solid rgba(255, 255, 255, 0.15); /* White grid lines */
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.8rem; font-weight: 900; 
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            font-size: 0.8rem; font-weight: 800; 
+            /* Enhanced readable numbers (not office jargon) */
+            color: rgba(0, 0, 0, 0.8);
             position: relative;
         }
 
+        /* --- Specific Cell Color Blocks --- */
+        .s-cell.c-o { background: var(--tile-orange); }
+        .s-cell.c-p { background: var(--tile-purple); }
+        .s-cell.c-g { background: var(--tile-green); }
+        .s-cell.c-b { background: var(--tile-blue); }
+        .s-cell.c-y { background: var(--tile-yellow); }
+        .s-cell.c-t { background: var(--tile-teal); }
+        .s-cell.c-m { background: var(--tile-magenta); }
+
         .player-token {
-            width: 75%;
-            height: 75%;
-            background: var(--brand-gold);
-            border-radius: 50%;
-            border: 2px solid white;
-            box-shadow: 0 0 12px var(--brand-gold);
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #000;
+            width: 75%; height: 75%;
+            background: white; border-radius: 50%;
+            border: 3px solid #000; z-index: 10;
+            display: flex; align-items: center; justify-content: center;
+            color: #000; font-size: 0.7rem; box-shadow: 0 0 10px rgba(255,255,255,0.8);
         }
 
         .btn-neural {
-            margin: 15px auto 0;
+            margin: 20px auto 0;
             background: transparent; border: 1px solid var(--brand-green);
             color: white; padding: 8px 30px; border-radius: 20px; font-size: 0.7rem;
             cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
@@ -117,18 +126,13 @@
         }
         .btn-neural:hover { background: var(--brand-green); color: black; }
 
-        /* --- STATUS TICKER --- */
         .ticker-bar {
-            height: 35px; background: #000;
+            height: 40px; background: #000;
             border-top: 2px solid var(--border-glow);
             display: flex; align-items: center; overflow: hidden;
         }
         .status-links { display: flex; animation: scroll 40s linear infinite; }
-        .status-item { 
-            padding: 0 30px; font-size: 0.65rem; color: #fff; 
-            white-space: nowrap; display: flex; align-items: center;
-        }
-        .status-item i { margin-right: 8px; color: var(--brand-green); }
+        .status-item { padding: 0 30px; font-size: 0.7rem; color: #fff; white-space: nowrap; }
 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
@@ -151,19 +155,29 @@
                 <span class="label">Primary Module: Data Pipeline</span>
                 <div class="snakes-grid" id="board">
                     <?php 
-                    // Zig-Zag Logic for correct pathing
+                    // Zig-Zag Logic for pathing
                     for ($row = 9; $row >= 0; $row--) {
-                        if ($row % 2 != 0) { 
+                        if ($row % 2 != 0) { // L to R
                             for ($col = 1; $col <= 10; $col++) {
                                 $num = ($row * 10) + $col;
-                                echo "<div class='s-cell' id='cell-$num'>$num</div>";
+                                $c_class = getColorClass($num);
+                                echo "<div class='s-cell $c_class' id='cell-$num'>$num</div>";
                             }
-                        } else { 
+                        } else { // R to L
                             for ($col = 10; $col >= 1; $col--) {
                                 $num = ($row * 10) + $col;
-                                echo "<div class='s-cell' id='cell-$num'>$num</div>";
+                                $c_class = getColorClass($num);
+                                echo "<div class='s-cell $c_class' id='cell-$num'>$num</div>";
                             }
                         }
+                    }
+
+                    // Helper to map color to number
+                    function getColorClass($num) {
+                        // Color indices: Orange, Purple, Green, Blue, Yellow, Teal, Magenta
+                        $colorArray = ['c-o','c-p','c-g','c-b','c-y','c-t','c-m'];
+                        $index = ($num - 1) % 7;
+                        return $colorArray[$index];
                     }
                     ?>
                 </div>
@@ -174,18 +188,12 @@
         <div class="game-column-right">
             <div class="glass-panel" style="flex: 1.5;">
                 <span class="label">Secondary: Neural Logic</span>
-                <div style="text-align: center; margin: auto; opacity: 0.5; font-size: 0.8rem;">
-                    <i class="fas fa-brain" style="display:block; font-size: 2rem; margin-bottom: 10px;"></i>
-                    AWAITING LOGIC...
-                </div>
+                <div style="text-align: center; margin: auto;">AWAITING LOGIC...</div>
             </div>
             
             <div class="glass-panel" style="flex: 1;">
                 <span class="label">Tertiary: System Choice</span>
-                <div style="text-align: center; margin: auto; color: var(--brand-gold); font-size: 0.7rem;">
-                    <i class="fas fa-lock" style="display:block; font-size: 1.5rem; margin-bottom: 10px; opacity: 0.3;"></i>
-                    LOCKED
-                </div>
+                <div style="text-align: center; margin: auto;">LOCKED</div>
             </div>
         </div>
 
@@ -193,43 +201,25 @@
 
     <footer class="ticker-bar">
         <div class="status-links">
-            <div class="status-item"><i class="fas fa-circle"></i> DATA PIPELINE READY</div>
-            <div class="status-item"><i class="fas fa-circle"></i> NEURAL ENGINE ACTIVE</div>
-            <div class="status-item"><i class="fas fa-circle"></i> AZURE SQL LINK STABLE</div>
-            <div class="status-item"><i class="fas fa-circle"></i> LPTMYBUSINESS CONNECTED</div>
-            <div class="status-item"><i class="fas fa-circle"></i> DATA PIPELINE READY</div>
-            <div class="status-item"><i class="fas fa-circle"></i> NEURAL ENGINE ACTIVE</div>
-            <div class="status-item"><i class="fas fa-circle"></i> AZURE SQL LINK STABLE</div>
-            <div class="status-item"><i class="fas fa-circle"></i> LPTMYBUSINESS CONNECTED</div>
+            <div class="status-item">NO WORK ALLOWED</div>
+            <div class="status-item">RECHARGE YOUR BRAIN</div>
+            <div class="status-item">SYSTEM PAUSED. ENJOY THE GAME</div>
         </div>
     </footer>
 
     <script>
         let playerPos = 1;
-        
-        // Map based on the classic board snakes and ladders
-        const neuralMap = {
-            1: 38, 4: 14, 9: 31, 21: 42, 28: 84, 36: 44, 51: 67, 71: 91, 80: 100, // Ladders
-            16: 6, 47: 26, 49: 11, 56: 53, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 98: 78 // Snakes
-        };
+        const totalCells = 100;
 
         function executeRoll() {
             const roll = Math.floor(Math.random() * 6) + 1;
             console.log("System Roll: " + roll);
             
             let newPos = playerPos + roll;
-            if (newPos > 100) return; 
+            if (newPos > totalCells) return; 
 
             movePlayer(newPos);
             playerPos = newPos;
-
-            // Handle Neural Warp
-            setTimeout(() => {
-                if (neuralMap[playerPos]) {
-                    playerPos = neuralMap[playerPos];
-                    movePlayer(playerPos);
-                }
-            }, 500);
         }
 
         function movePlayer(pos) {
