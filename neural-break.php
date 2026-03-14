@@ -24,6 +24,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         /* --- VIDEO BACKGROUND --- */
@@ -34,12 +35,13 @@
         .neural-header { text-align: center; padding: 30px 0 10px; }
         .neural-header h1 { font-size: 2.2rem; text-transform: uppercase; letter-spacing: 4px; }
 
+        /* --- STRETCHED LAYOUT --- */
         .neural-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            padding: 20px 5%;
-            max-width: 1400px;
+            grid-template-columns: 1.5fr 1fr; /* Stretches the left side */
+            gap: 20px;
+            padding: 20px 3%;
+            max-width: 1800px; /* Wider container for the stretch */
             margin: 0 auto;
             align-items: start;
             flex: 1;
@@ -52,85 +54,67 @@
             padding: 20px;
             backdrop-filter: blur(15px);
             text-align: center;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .game-title { color: var(--brand-green); text-transform: uppercase; font-weight: 800; margin-bottom: 15px; font-size: 0.9rem; }
-        .status-text { font-size: 0.8rem; color: var(--brand-gold); margin-bottom: 15px; height: 1.2rem; font-weight: bold; }
+        .game-title { color: var(--brand-green); text-transform: uppercase; font-weight: 800; margin-bottom: 15px; font-size: 1rem; }
+        .status-text { font-size: 0.9rem; color: var(--brand-gold); margin-bottom: 15px; height: 1.5rem; font-weight: bold; }
 
-        /* --- RETRO SNAKES BOARD --- */
+        /* --- FULL-WIDTH SNAKES BOARD --- */
         .snakes-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             width: 100%;
-            max-width: 450px;
+            max-width: none; /* Allows it to fill the card */
             margin: 0 auto 20px;
             border: 4px solid #222;
         }
         .s-cell {
             aspect-ratio: 1/1;
             border: 1px solid rgba(0,0,0,0.1);
-            font-size: 0.7rem;
+            font-size: clamp(0.6rem, 1vw, 0.9rem); /* Responsive text size */
             font-weight: bold;
             display: flex; align-items: center; justify-content: center;
             position: relative; color: #333;
         }
 
-        /* Logic to mimic the image colors */
-        .s-cell:nth-child(4n+1) { background: #ff6b6b; } /* Soft Red */
-        .s-cell:nth-child(4n+2) { background: #4ecdc4; } /* Teal/Blue */
-        .s-cell:nth-child(4n+3) { background: #ffe66d; } /* Yellow */
-        .s-cell:nth-child(4n+4) { background: #ff9ff3; } /* Pink */
+        .s-cell:nth-child(4n+1) { background: #ff6b6b; } 
+        .s-cell:nth-child(4n+2) { background: #4ecdc4; } 
+        .s-cell:nth-child(4n+3) { background: #ffe66d; } 
+        .s-cell:nth-child(4n+4) { background: #ff9ff3; } 
 
-        .special-icon { position: absolute; font-size: 1.2rem; opacity: 0.6; pointer-events: none; }
+        .special-icon { position: absolute; font-size: 1.5rem; opacity: 0.6; pointer-events: none; }
         .player-pawn {
-            width: 22px; height: 22px;
+            width: 60%; height: 60%;
             background: white; border: 3px solid var(--brand-blue-dark);
             border-radius: 50%; position: absolute; z-index: 10;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
             transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* --- 3D DICE --- */
-        .dice-scene { width: 50px; height: 50px; perspective: 300px; margin: 15px auto; cursor: pointer; }
-        .dice { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.8s ease; }
-        .dice-face {
-            position: absolute; width: 50px; height: 50px;
-            background: white; border: 1px solid #333;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; font-weight: bold; color: #333;
-        }
-        .face-1 { transform: rotateY(0deg) translateZ(25px); }
-        .face-2 { transform: rotateY(90deg) translateZ(25px); }
-        .face-3 { transform: rotateY(180deg) translateZ(25px); }
-        .face-4 { transform: rotateY(-90deg) translateZ(25px); }
-        .face-5 { transform: rotateX(90deg) translateZ(25px); }
-        .face-6 { transform: rotateX(-90deg) translateZ(25px); }
-        .roll-1 { transform: rotateX(0deg) rotateY(0deg); }
-        .roll-2 { transform: rotateX(0deg) rotateY(-90deg); }
-        .roll-3 { transform: rotateX(0deg) rotateY(-180deg); }
-        .roll-4 { transform: rotateX(0deg) rotateY(90deg); }
-        .roll-5 { transform: rotateX(-90deg) rotateY(0deg); }
-        .roll-6 { transform: rotateX(90deg) rotateY(0deg); }
-
         /* --- TIC TAC TOE --- */
-        .ttt-grid { display: grid; grid-template-columns: repeat(3, 90px); gap: 10px; justify-content: center; margin-bottom: 20px; }
+        .ttt-grid { display: grid; grid-template-columns: repeat(3, 100px); gap: 15px; justify-content: center; margin-bottom: 20px; }
         .cell {
-            width: 90px; height: 90px; background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border); border-radius: 10px;
+            width: 100px; height: 100px; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border); border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; font-weight: 900; cursor: pointer;
+            font-size: 2.5rem; font-weight: 900; cursor: pointer;
         }
-        .cell.x { color: var(--brand-gold); }
-        .cell.o { color: var(--brand-green); }
 
         .reboot-btn {
             background: transparent; border: 2px solid var(--brand-green); color: white;
-            padding: 8px 20px; border-radius: 50px; font-weight: 800; font-size: 0.7rem;
-            cursor: pointer; transition: 0.3s;
+            padding: 12px 30px; border-radius: 50px; font-weight: 800; font-size: 0.8rem;
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+            align-self: center;
         }
         .reboot-btn:hover { background: var(--brand-green); color: var(--brand-blue-dark); }
 
-        @media (max-width: 1000px) { .neural-container { grid-template-columns: 1fr; } }
+        @media (max-width: 1100px) { 
+            .neural-container { grid-template-columns: 1fr; } 
+        }
     </style>
 </head>
 <body>
@@ -152,19 +136,9 @@
         
         <div class="game-card">
             <div class="game-title">Data Pipeline</div>
-            <div id="status-snakes" class="status-text">CLICK DICE TO ROLL</div>
+            <div id="status-snakes" class="status-text">INITIALIZING NODES...</div>
             <div class="snakes-grid" id="snakes-board"></div>
-            <div class="dice-scene" onclick="rollDice()">
-                <div class="dice" id="dice">
-                    <div class="dice-face face-1">1</div>
-                    <div class="dice-face face-2">2</div>
-                    <div class="dice-face face-3">3</div>
-                    <div class="dice-face face-4">4</div>
-                    <div class="dice-face face-5">5</div>
-                    <div class="dice-face face-6">6</div>
-                </div>
-            </div>
-            <button class="reboot-btn" onclick="rollDice()">Roll Dice</button>
+            <button class="reboot-btn" onclick="rollDice()">Execute Roll</button>
         </div>
 
         <div class="game-card">
@@ -186,12 +160,12 @@
     </main>
 
     <script>
-        /* --- SNAKES LOGIC (Aligned to Image) --- */
+        /* --- LOGIC REMAINS THE SAME --- */
         let playerPos = 1;
         let isRolling = false;
         const shortcuts = {
-            2: 38, 7: 14, 8: 31, 15: 26, 21: 42, 28: 84, 36: 44, 51: 67, 71: 91, 78: 98, 87: 94, // Ladders
-            16: 6, 46: 25, 49: 11, 62: 19, 64: 60, 74: 53, 89: 68, 92: 88, 95: 75, 99: 80  // Snakes
+            2: 38, 7: 14, 8: 31, 15: 26, 21: 42, 28: 84, 36: 44, 51: 67, 71: 91, 78: 98, 87: 94,
+            16: 6, 46: 25, 49: 11, 62: 19, 64: 60, 74: 53, 89: 68, 92: 88, 95: 75, 99: 80
         };
 
         function createBoard() {
@@ -216,15 +190,15 @@
             if (isRolling) return;
             isRolling = true;
             const res = Math.floor(Math.random() * 6) + 1;
-            document.getElementById('dice').className = 'dice roll-' + res;
+            document.getElementById('status-snakes').innerText = "SYSTEM ROLLED: " + res;
             
             setTimeout(() => {
                 playerPos += res;
-                if (playerPos >= 100) { playerPos = 100; alert("Goal Reached!"); }
+                if (playerPos >= 100) { playerPos = 100; document.getElementById('status-snakes').innerText = "PIPELINE COMPLETE!"; }
                 if (shortcuts[playerPos]) playerPos = shortcuts[playerPos];
                 updatePawn();
                 isRolling = false;
-            }, 800);
+            }, 600);
         }
 
         function updatePawn() {
@@ -235,7 +209,6 @@
             document.getElementById('scell-' + playerPos).appendChild(pawn);
         }
 
-        /* --- TTT LOGIC --- */
         let ttt = Array(9).fill("");
         let active = true;
         function handleTTT(i) {
@@ -259,6 +232,7 @@
                     active = false; return true;
                 }
             }
+            if (!ttt.includes("")) { document.getElementById('status-ttt').innerText = "STALEMATE"; return true; }
             return false;
         }
         function resetTTT() { ttt = Array(9).fill(""); active = true; renderTTT(); document.getElementById('status-ttt').innerText = "YOUR TURN (X)"; }
