@@ -11,8 +11,8 @@
             --brand-blue-dark: #001f3f;
             --brand-gold: #ffc629;
             --brand-green: #4ade80;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(255, 255, 255, 0.03); /* Lighter for Image 1 effect */
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,114 +21,106 @@
             font-family: 'Segoe UI', sans-serif;
             background: var(--brand-blue-dark);
             color: white;
-            margin: 0;
             overflow: hidden; 
             height: 100vh;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Stack: Header -> Main -> Ticker */
         }
 
         /* --- VIDEO BACKGROUND --- */
         .video-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
         }
         #bg-video {
-            min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover;
+            min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); object-fit: cover;
         }
         .video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0, 119, 200, 0.4) 0%, rgba(0, 31, 63, 0.8) 100%);
+            background: radial-gradient(circle, rgba(0, 119, 200, 0.2) 0%, rgba(0, 31, 63, 0.85) 100%);
             z-index: -1;
         }
 
-        /* --- ALIGNED LEFT LAYOUT --- */
+        /* --- MAIN CONTENT AREA (Image 1 Effect) --- */
         .neural-container {
-            display: grid;
-            grid-template-columns: 1.8fr 1fr; 
-            gap: 30px;
-            padding: 20px 4%; /* Increased side padding for better framing */
-            max-width: 1900px;
-            margin: 0; /* Changed from auto to 0 to align container left */
-            flex: 1;
+            display: flex;
+            flex: 1; /* Fills space between Image 2 (Header) and Image 3 (Ticker) */
             align-items: center; 
+            justify-content: flex-start;
+            padding: 0 5%;
+            gap: 30px;
         }
 
         .game-card {
             background: var(--glass-bg);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 20px;
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(8px); /* Image 1 soft glass effect */
             text-align: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
-        /* Specifically push the pipeline to the left of its grid cell */
-        .pipeline-card {
-            margin-right: auto;
-            width: 100%;
-            max-width: 950px; /* Limits the stretch slightly for better proportions */
-        }
+        .pipeline-card { width: 520px; }
+        .logic-card { width: 340px; }
 
-        .game-title { color: var(--brand-green); letter-spacing: 3px; font-weight: 800; margin-bottom: 5px; text-transform: uppercase; }
-        .status-text { color: var(--brand-gold); font-size: 0.85rem; margin-bottom: 15px; text-transform: uppercase; font-weight: bold; }
+        .game-title { color: var(--brand-green); font-size: 1.2rem; letter-spacing: 2px; margin-bottom: 5px; text-transform: uppercase; }
+        .status-text { color: var(--brand-gold); font-size: 0.75rem; margin-bottom: 12px; font-weight: bold; }
 
-        /* --- BOARD GRID --- */
+        /* --- BOARD GRID (Matching Image 1 Colors) --- */
         .snakes-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             width: 100%;
-            border: 4px solid #111;
+            border: 2px solid #000;
             margin-bottom: 15px;
-            background: #222;
+            background: #111;
         }
 
         .s-cell {
             aspect-ratio: 1/1;
-            border: 1px solid rgba(0,0,0,0.2);
+            border: 0.5px solid rgba(0,0,0,0.1);
             display: flex; align-items: center; justify-content: center;
-            font-weight: 900; font-size: 0.9rem; color: #333;
+            font-weight: 800; font-size: 0.75rem; color: #222;
             position: relative;
         }
 
-        /* Colors based on your provided image */
+        /* Colors sequence: Red, Teal, Yellow, Pink */
         .s-cell:nth-child(4n+1) { background: #ff6b6b; } 
         .s-cell:nth-child(4n+2) { background: #4ecdc4; } 
         .s-cell:nth-child(4n+3) { background: #ffe66d; } 
         .s-cell:nth-child(4n+4) { background: #ff9ff3; }
 
         .player-pawn {
-            width: 25px; height: 25px;
-            background: white; border: 3px solid #000;
+            width: 18px; height: 18px;
+            background: white; border: 2px solid #000;
             border-radius: 50%; position: absolute; z-index: 10;
         }
 
         /* --- TIC TAC TOE --- */
-        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 280px; margin: 0 auto 15px; }
+        .ttt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; max-width: 220px; margin: 0 auto 15px; }
         .ttt-cell {
-            aspect-ratio: 1/1; background: rgba(255,255,255,0.05);
-            border: 1px solid var(--glass-border); border-radius: 12px;
+            aspect-ratio: 1/1; background: rgba(255,255,255,0.03);
+            border: 1px solid var(--glass-border); border-radius: 8px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 2rem; cursor: pointer; color: var(--brand-gold);
+            font-size: 1.8rem; cursor: pointer; color: var(--brand-gold);
         }
 
         .btn-action {
-            background: transparent; border: 2px solid var(--brand-green);
-            color: white; padding: 10px 30px; border-radius: 25px;
-            cursor: pointer; font-weight: bold; text-transform: uppercase;
-            transition: 0.3s;
+            background: transparent; border: 1.5px solid var(--brand-green);
+            color: white; padding: 8px 20px; border-radius: 20px;
+            cursor: pointer; font-size: 0.8rem; font-weight: bold; text-transform: uppercase;
         }
-        .btn-action:hover { background: var(--brand-green); color: var(--brand-blue-dark); }
 
-        /* --- TICKER --- */
+        /* --- TICKER (Image 3 Area) --- */
         .ticker-wrapper {
-            width: 100vw; height: 40px; background: rgba(0, 31, 63, 0.95);
-            border-top: 1px solid rgba(74, 222, 128, 0.3);
-            overflow: hidden; display: flex; align-items: center;
+            height: 40px; background: rgba(0, 15, 30, 0.9);
+            border-top: 1px solid var(--glass-border);
+            display: flex; align-items: center; overflow: hidden;
         }
-        .ticker-track { display: flex; animation: scrollText 30s linear infinite; width: max-content; }
-        .ticker-item { display: flex; align-items: center; padding: 0 40px; font-size: 0.75rem; text-transform: uppercase; }
-        .ticker-item i { color: var(--brand-green); margin-right: 10px; }
+        .ticker-track { display: flex; animation: scrollText 25s linear infinite; width: max-content; }
+        .ticker-item { padding: 0 30px; font-size: 0.7rem; color: #aaa; }
+        .ticker-item i { color: var(--brand-green); margin-right: 8px; }
 
         @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
@@ -147,24 +139,16 @@
     <main class="neural-container">
         <div class="game-card pipeline-card">
             <h2 class="game-title">DATA PIPELINE</h2>
-            <div id="snakes-status" class="status-text">SYSTEM STANDBY... AWAITING EXECUTION</div>
+            <div id="snakes-status" class="status-text">INITIALIZING NODES...</div>
             <div id="snakes-board" class="snakes-grid"></div>
             <button class="btn-action" onclick="rollDice()">Execute Roll</button>
         </div>
 
-        <div class="game-card">
+        <div class="game-card logic-card">
             <h2 class="game-title">NEURAL LOGIC</h2>
             <div id="ttt-status" class="status-text">USER TURN (X)</div>
             <div class="ttt-grid" id="ttt-board">
-                <div class="ttt-cell" onclick="markCell(0)"></div>
-                <div class="ttt-cell" onclick="markCell(1)"></div>
-                <div class="ttt-cell" onclick="markCell(2)"></div>
-                <div class="ttt-cell" onclick="markCell(3)"></div>
-                <div class="ttt-cell" onclick="markCell(4)"></div>
-                <div class="ttt-cell" onclick="markCell(5)"></div>
-                <div class="ttt-cell" onclick="markCell(6)"></div>
-                <div class="ttt-cell" onclick="markCell(7)"></div>
-                <div class="ttt-cell" onclick="markCell(8)"></div>
+                <?php for($i=0; $i<9; $i++) echo "<div class='ttt-cell' onclick='markCell($i)'></div>"; ?>
             </div>
             <button class="btn-action" onclick="resetTTT()">Reset Logic</button>
         </div>
@@ -172,11 +156,11 @@
 
     <div class="ticker-wrapper">
         <div class="ticker-track">
-            <div class="ticker-item"><i class="fas fa-check-circle"></i> NEURAL ENGINE ACTIVE</div>
-            <div class="ticker-item"><i class="fas fa-server"></i> AZURE SQL LINK STABLE</div>
-            <div class="ticker-item"><i class="fas fa-code-branch"></i> REPOSITORY V1.0.2</div>
-            <div class="ticker-item"><i class="fas fa-check-circle"></i> NEURAL ENGINE ACTIVE</div>
-            <div class="ticker-item"><i class="fas fa-server"></i> AZURE SQL LINK STABLE</div>
+            <div class="ticker-item"><i class="fas fa-microchip"></i> NEURAL ENGINE ACTIVE</div>
+            <div class="ticker-item"><i class="fas fa-database"></i> AZURE SQL LINK STABLE</div>
+            <div class="ticker-item"><i class="fas fa-shield-alt"></i> SOURCE CONTROL V1.0.2</div>
+            <div class="ticker-item"><i class="fas fa-microchip"></i> NEURAL ENGINE ACTIVE</div>
+            <div class="ticker-item"><i class="fas fa-database"></i> AZURE SQL LINK STABLE</div>
         </div>
     </div>
 
