@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* --- GLOBAL BRAND STYLES --- */
+        /* --- BRAND VARIABLES & RESET --- */
         :root {
             --brand-blue-light: #0077c8;
             --brand-blue-dark: #001f3f;
@@ -16,8 +16,6 @@
             --text-white: #ffffff;
             --glass-bg: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.1);
-            --cyan-glow: #00f2ff;
-            --green-glow: #39ff14;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,110 +30,71 @@
             overflow-x: hidden;
         }
 
-        /* --- NAVIGATION (Matches Index) --- */
-        nav {
-            width: 100%;
-            padding: 0.8rem 3%;
-            background: rgba(0, 31, 63, 0.4);
+        /* --- VIDEO BACKGROUND --- */
+        .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
+        #bg-video { min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; }
+        .video-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 119, 200, 0.7) 0%, rgba(0, 31, 63, 0.9) 100%); z-index: -1; }
+
+        /* --- MAIN LAYOUT --- */
+        .main-hero { 
+            flex: 1; 
+            padding: 40px 5%; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            text-align: center; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center;
+        }
+
+        h1 { font-size: 2.5rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 3px; }
+        .status-text { font-size: 1rem; color: var(--brand-gold); font-weight: 700; margin-bottom: 30px; letter-spacing: 1px; }
+
+        /* --- GAME PANEL (GLASS UI) --- */
+        .game-container {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
             backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--glass-border);
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1600px; margin: 0 auto;
-            display: flex; justify-content: space-between; align-items: center;
-            flex-wrap: wrap; gap: 15px;
-        }
-
-        .nav-left-group { display: flex; align-items: center; gap: 40px; }
-
-        .logo-static { 
-            font-size: 1.8rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
-            background: linear-gradient(to bottom, #fff 0%, #e0e0e0 45%, var(--brand-green) 50%, #fff 55%, #b0b0b0 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 5px rgba(0,0,0,0.8));
-        }
-
-        .nav-links { display: flex; gap: 20px; align-items: center; }
-        .nav-links a, .nav-links .dropdown-label { 
-            color: #ffffff !important; text-decoration: none; font-weight: 600; 
-            font-size: 0.8rem; text-transform: uppercase; transition: 0.3s; opacity: 0.9; 
-        }
-        .nav-links a:hover { color: var(--brand-gold) !important; opacity: 1; }
-
-        .nav-buttons { display: flex; gap: 10px; align-items: center; }
-        .nav-btn-green { 
-            text-decoration: none; padding: 6px 14px; border-radius: 50px; 
-            border: 2px solid var(--brand-green); color: white !important; 
-            font-weight: 700; font-size: 0.65rem; text-transform: uppercase; 
-        }
-
-        /* --- GAME LAYOUT & RESPONSIVENESS --- */
-        .game-hero {
-            flex: 1;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 40px 20px;
-            text-align: center;
+            transition: 0.3s;
         }
 
-        h1 {
-            font-size: 2rem;
-            color: var(--cyan-glow);
-            text-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-        }
-
-        .status {
-            font-size: 1.1rem;
-            margin-bottom: 25px;
-            color: var(--text-white);
-            opacity: 0.8;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        .board {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(3, min(100px, 25vw));
-            grid-template-rows: repeat(3, min(100px, 25vw));
-            gap: 15px;
-            background: var(--glass-bg);
-            padding: 20px;
-            border-radius: 20px;
-            border: 1px solid var(--glass-border);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 15px;
+            margin-bottom: 30px;
         }
 
         .cell {
+            width: 100px;
+            height: 100px;
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: min(3rem, 12vw);
-            font-weight: bold;
+            font-size: 2.5rem;
+            font-weight: 900;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
         }
-
-        .cell:hover { background: rgba(0, 242, 255, 0.05); border-color: var(--cyan-glow); }
-        .cell.x { color: var(--cyan-glow); text-shadow: 0 0 20px var(--cyan-glow); }
-        .cell.o { color: var(--brand-green); text-shadow: 0 0 20px var(--brand-green); }
+        .cell:hover { background: rgba(74, 222, 128, 0.1); border-color: var(--brand-green); }
+        .cell.x { color: var(--brand-gold); }
+        .cell.o { color: var(--brand-green); }
 
         .reboot-btn {
-            margin-top: 30px;
-            padding: 12px 30px;
             background: transparent;
-            color: var(--brand-green);
-            border: 1px solid var(--brand-green);
+            border: 2px solid var(--brand-green);
+            color: white;
+            padding: 12px 30px;
             border-radius: 50px;
             font-weight: 800;
             text-transform: uppercase;
@@ -143,43 +102,69 @@
             transition: 0.3s;
             letter-spacing: 1px;
         }
+        .reboot-btn:hover { background: var(--brand-green); color: var(--brand-blue-dark); box-shadow: 0 0 20px rgba(74, 222, 128, 0.4); }
 
-        .reboot-btn:hover {
-            background: rgba(74, 222, 128, 0.1);
-            box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
-        }
+        /* --- TICKER --- */
+        .ticker-wrapper { width: 100vw; height: 50px; background: rgba(0, 31, 63, 0.9); border-top: 1px solid rgba(74, 222, 128, 0.3); overflow: hidden; display: flex; align-items: center; }
+        .ticker-track { display: flex; animation: scrollText 40s linear infinite; width: max-content; }
+        .ticker-item { display: flex; align-items: center; padding: 0 30px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .ticker-item i { color: var(--brand-green); margin-right: 10px; }
 
-        footer { padding: 20px; background: #000b1a; text-align: center; font-size: 0.65rem; color: rgba(255,255,255,0.4); }
-
+        /* --- MOBILE ADAPTATION --- */
         @media (max-width: 768px) {
-            .nav-container { justify-content: center; }
-            .nav-left-group { flex-direction: column; gap: 5px; }
-            .logo-static { font-size: 1.4rem; }
-            h1 { font-size: 1.4rem; }
+            h1 { font-size: 1.8rem; }
+            .game-container { padding: 20px; transform: scale(0.9); }
+            .grid { grid-template-columns: repeat(3, 85px); grid-gap: 10px; }
+            .cell { width: 85px; height: 85px; font-size: 2rem; }
         }
+
+        @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        footer { padding: 15px; background: #000b1a; text-align: center; font-size: 0.65rem; color: rgba(255,255,255,0.4); }
     </style>
 </head>
 <body>
 
+    <div class="video-container">
+        <video id="bg-video" autoplay loop muted playsinline>
+            <source src="assets/video/WebsiteVideo.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
     <?php include 'header.php'; ?>
 
-    <div class="game-hero">
+    <main class="main-hero">
         <h1>Neural Break</h1>
-        <div class="status" id="status">System Ready. Your Turn (X)</div>
-        
-        <div class="board" id="board">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
-        </div>
+        <div class="status-text" id="status">HUMAN INPUT REQUIRED (X)</div>
 
-        <button class="reboot-btn" onclick="resetGame()">System Reboot</button>
+        <div class="game-container">
+            <div class="grid">
+                <div class="cell" onclick="handleCellClick(0)"></div>
+                <div class="cell" onclick="handleCellClick(1)"></div>
+                <div class="cell" onclick="handleCellClick(2)"></div>
+                <div class="cell" onclick="handleCellClick(3)"></div>
+                <div class="cell" onclick="handleCellClick(4)"></div>
+                <div class="cell" onclick="handleCellClick(5)"></div>
+                <div class="cell" onclick="handleCellClick(6)"></div>
+                <div class="cell" onclick="handleCellClick(7)"></div>
+                <div class="cell" onclick="handleCellClick(8)"></div>
+            </div>
+            <button class="reboot-btn" onclick="resetGame()">System Reboot</button>
+        </div>
+    </main>
+
+    <div class="ticker-wrapper">
+        <div class="ticker-track">
+            <div class="ticker-item"><i class="fas fa-sync-alt"></i> Legacy Reverse Engineering</div>
+            <div class="ticker-item"><i class="fas fa-infinity"></i> End-to-End Data Warehousing</div>
+            <div class="ticker-item"><i class="fas fa-network-wired"></i> Scalable Data Integration</div>
+            <div class="ticker-item"><i class="fas fa-cloud-upload-alt"></i> Cloud Data Migration</div>
+            <div class="ticker-item"><i class="fas fa-sitemap"></i> Dimensional Data Modeling</div>
+            <div class="ticker-item"><i class="fas fa-microchip"></i> High-Performance T-SQL</div>
+            <div class="ticker-item"><i class="fas fa-sync-alt"></i> Legacy Reverse Engineering</div>
+            <div class="ticker-item"><i class="fas fa-infinity"></i> End-to-End Data Warehousing</div>
+        </div>
     </div>
 
     <footer>
@@ -187,71 +172,78 @@
     </footer>
 
     <script>
-        const boardElement = document.getElementById('board');
-        const statusElement = document.getElementById('status');
         let board = ["", "", "", "", "", "", "", "", ""];
         let gameActive = true;
+        const statusDisplay = document.getElementById('status');
 
-        const winPatterns = [
-            [0,1,2], [3,4,5], [6,7,8], [0,3,6], [1,4,7], [2,5,8], [0,4,8], [2,4,6]
-        ];
-
-        function handleCellClick(e) {
-            const idx = e.target.getAttribute('data-index');
-            if (board[idx] !== "" || !gameActive) return;
-
-            executeMove(idx, "X");
-            if (gameActive) setTimeout(aiMove, 600);
-        }
-
-        function executeMove(idx, player) {
-            board[idx] = player;
-            const cell = document.querySelector(`[data-index='${idx}']`);
-            cell.innerText = player;
-            cell.classList.add(player.toLowerCase());
-            validateGame();
-        }
-
-        function aiMove() {
-            const available = board.map((v, i) => v === "" ? i : null).filter(v => v !== null);
-            if (available.length > 0 && gameActive) {
-                const move = available[Math.floor(Math.random() * available.length)];
-                executeMove(move, "O");
+        function handleCellClick(index) {
+            if (board[index] !== "" || !gameActive) return;
+            
+            board[index] = "X";
+            updateBoard();
+            checkResult();
+            
+            if (gameActive) {
+                statusDisplay.innerText = "SYSTEM ANALYZING...";
+                setTimeout(computerMove, 500);
             }
         }
 
-        function validateGame() {
-            let won = false;
-            for (let p of winPatterns) {
-                if (board[p[0]] && board[p[0]] === board[p[1]] && board[p[0]] === board[p[2]]) {
-                    won = true; break;
+        function computerMove() {
+            let emptyCells = board.map((val, idx) => val === "" ? idx : null).filter(val => val !== null);
+            if (emptyCells.length > 0) {
+                let randomIdx = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                board[randomIdx] = "O";
+                updateBoard();
+                checkResult();
+                if (gameActive) statusDisplay.innerText = "HUMAN INPUT REQUIRED (X)";
+            }
+        }
+
+        function updateBoard() {
+            const cells = document.querySelectorAll('.cell');
+            board.forEach((val, idx) => {
+                cells[idx].innerText = val;
+                cells[idx].classList.remove('x', 'o');
+                if (val === "X") cells[idx].classList.add('x');
+                if (val === "O") cells[idx].classList.add('o');
+            });
+        }
+
+        function checkResult() {
+            const winConditions = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+
+            let roundWon = false;
+            for (let condition of winConditions) {
+                let [a, b, c] = condition;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    roundWon = true;
+                    break;
                 }
             }
 
-            if (won) {
-                statusElement.innerText = "Neural Logic Complete: Winner!";
-                statusElement.style.color = "var(--brand-green)";
+            if (roundWon) {
+                statusDisplay.innerText = "SEQUENCE COMPLETE. WINNER DETECTED.";
                 gameActive = false;
-            } else if (!board.includes("")) {
-                statusElement.innerText = "Data Parity: It's a Draw!";
+                return;
+            }
+
+            if (!board.includes("")) {
+                statusDisplay.innerText = "DATA STALEMATE. REBOOT REQUIRED.";
                 gameActive = false;
-            } else {
-                statusElement.innerText = board.filter(x => x !== "").length % 2 === 0 ? "Your Turn (X)" : "Processing AI (O)...";
             }
         }
 
         function resetGame() {
             board = ["", "", "", "", "", "", "", "", ""];
             gameActive = true;
-            statusElement.innerText = "System Ready. Your Turn (X)";
-            statusElement.style.color = "white";
-            document.querySelectorAll('.cell').forEach(c => {
-                c.innerText = "";
-                c.classList.remove('x', 'o');
-            });
+            statusDisplay.innerText = "HUMAN INPUT REQUIRED (X)";
+            updateBoard();
         }
-
-        boardElement.addEventListener('click', handleCellClick);
     </script>
 </body>
 </html>
