@@ -4,7 +4,7 @@
 <style>
     header {
         display: flex;
-        justify-content: flex-start; /* Aligns hamburger and logo to the left */
+        justify-content: flex-start;
         align-items: center;
         padding: 15px 30px;
         background: rgba(0, 0, 0, 0.4);
@@ -21,14 +21,13 @@
         letter-spacing: 3px;
         color: #fff;
         text-decoration: none;
-        font-size: 1.4rem; /* Matching the prominent logo in your image */
+        font-size: 1.4rem;
         background: linear-gradient(to bottom, #fff, var(--brand-green, #4ade80));
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-transform: uppercase;
     }
 
-    /* --- HAMBURGER ON THE LEFT --- */
     .menu-toggle {
         display: flex;
         flex-direction: column;
@@ -43,25 +42,27 @@
         display: block;
         width: 28px;
         height: 2px;
-        background: var(--brand-green, #4ade80); /* Green lines like your image */
+        background: var(--brand-green, #4ade80);
         transition: 0.3s;
         box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
     }
 
-    /* --- SIDEBAR MENU (LEFT SIDE) --- */
+    /* --- SIDEBAR MENU (FIXED HEIGHT) --- */
     .nav-links {
         display: none; 
         position: absolute;
         top: 100%;
-        left: 0; /* Menu opens from the left like the image */
+        left: 0;
         width: 300px;
-        height: 100vh; /* Full height sidebar feel */
+        /* CHANGED: height auto ensures it ends after the buttons */
+        height: auto; 
         background: rgba(0, 11, 26, 0.98);
         flex-direction: column;
         padding: 40px 20px;
-        gap: 25px;
-        border-right: 1px solid var(--brand-green, #4ade80); /* Green vertical line */
-        box-shadow: 10px 0 30px rgba(0,0,0,0.5);
+        gap: 15px; /* Tighter gap to match the image */
+        border-right: 1px solid var(--brand-green, #4ade80);
+        border-bottom: 1px solid var(--brand-green, #4ade80); /* Added bottom border to close the box */
+        box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
     }
 
     .nav-links.active {
@@ -72,24 +73,20 @@
     .nav-links a {
         color: #fff;
         text-decoration: none;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         font-weight: bold;
         text-transform: uppercase;
         letter-spacing: 2px;
         transition: 0.3s;
-        padding: 10px;
+        padding: 12px;
         text-align: center;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .nav-links a:hover {
-        color: var(--brand-green, #4ade80);
-    }
-
-    /* --- NEW ACTION BUTTONS --- */
+    /* --- BUTTON STYLES MATCHING YOUR IMAGE --- */
     .btn-login {
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
-        margin-top: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.5) !important;
+        margin-top: 10px;
     }
 
     .btn-subscribe {
@@ -100,10 +97,6 @@
     @keyframes slideInLeft {
         from { opacity: 0; transform: translateX(-30px); }
         to { opacity: 1; transform: translateX(0); }
-    }
-
-    @media (max-width: 600px) {
-        .nav-links { width: 100%; border-right: none; }
     }
 </style>
 
@@ -134,7 +127,6 @@
         nav.classList.toggle('active');
     }
 
-    // Close menu when clicking outside
     document.addEventListener('click', function(event) {
         const nav = document.getElementById('navLinks');
         const btn = document.querySelector('.menu-toggle');
