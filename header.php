@@ -7,15 +7,53 @@
         -webkit-backdrop-filter: blur(15px);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         display: flex;
-        justify-content: flex-start; /* Aligns items to the left */
+        justify-content: space-between; /* Changes to push buttons to the right */
         align-items: center;
         position: sticky;
         top: 0;
         z-index: 1000;
-        gap: 20px; /* Space between hamburger and logo */
     }
 
-    /* The Hamburger Button - Now on the Left */
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    /* Action Buttons for the Right Side */
+    .header-actions {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .btn-login {
+        color: white;
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        transition: 0.3s;
+    }
+
+    .btn-subscribe {
+        padding: 8px 20px;
+        background: var(--brand-green);
+        color: #000 !important;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.8rem;
+        border-radius: 5px;
+        box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);
+        transition: 0.3s;
+    }
+
+    .btn-subscribe:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px rgba(74, 222, 128, 0.5);
+    }
+
+    /* --- THE REST OF YOUR EXISTING CSS --- */
     .menu-toggle {
         display: flex;
         flex-direction: column;
@@ -36,7 +74,6 @@
         box-shadow: 0 0 8px rgba(74, 222, 128, 0.5);
     }
 
-    /* Your Signature Chrome/Green Logo - Now follows the Hamburger */
     .logo-static { 
         font-size: 1.6rem; 
         font-weight: 900; 
@@ -47,16 +84,14 @@
         -webkit-text-fill-color: transparent;
         filter: drop-shadow(0px 1px 0px #ffffff) drop-shadow(0px 3px 5px rgba(0,0,0,0.8)) drop-shadow(0px 0px 12px rgba(74, 222, 128, 0.4));
         text-decoration: none;
-        margin-left: 10px;
     }
 
-    /* The Dropdown Menu (Hidden by default) */
     .nav-links {
         display: none; 
         flex-direction: column;
         position: absolute;
         top: 100%;
-        left: 0; /* Menu now drops down from the left side */
+        left: 0;
         width: 300px;
         background: rgba(0, 11, 26, 0.95);
         backdrop-filter: blur(20px);
@@ -64,13 +99,9 @@
         gap: 20px;
         border-right: 1px solid var(--brand-green);
         border-bottom: 1px solid var(--brand-green);
-        box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
     }
 
-    .nav-links.active {
-        display: flex;
-        animation: slideInLeft 0.3s ease-out;
-    }
+    .nav-links.active { display: flex; animation: slideInLeft 0.3s ease-out; }
 
     .nav-links a {
         color: #ffffff;
@@ -84,38 +115,26 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .nav-links a:hover {
-        color: var(--brand-green);
-        padding-left: 10px;
-    }
-
-    .nav-btn-green {
-        border: 2px solid var(--brand-green) !important;
-        color: var(--brand-green) !important;
-        text-align: center;
-        border-radius: 5px;
-        margin-top: 10px;
-    }
-
     @keyframes slideInLeft {
         from { opacity: 0; transform: translateX(-20px); }
         to { opacity: 1; transform: translateX(0); }
     }
-
-    @media (max-width: 600px) {
-        .logo-static { font-size: 1.1rem; letter-spacing: 1px; }
-        .nav-links { width: 100%; border-right: none; }
-    }
 </style>
 
 <header>
-    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+    <div class="header-left">
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <a href="index.php" class="logo-static">HDP</a>
+    </div>
 
-    <a href="index.php" class="logo-static">HOLISTIC DATA PRO</a>
+    <div class="header-actions">
+        <a href="login.php" class="btn-login">LOGIN</a>
+        <a href="subscribe.php" class="btn-subscribe">SUBSCRIBE</a>
+    </div>
 
     <nav class="nav-links" id="universalNav">
         <a href="index.php">Home</a>
@@ -123,22 +142,6 @@
         <a href="solutions.php">Solutions</a>
         <a href="neuralbreak.php">Neural Break</a>
         <a href="contact.php">Connect</a>
-        <a href="profile.php" class="nav-btn-green">View Profile</a>
+        <a href="dashboard.php" style="border: 2px solid var(--brand-green); color: var(--brand-green); text-align: center; border-radius: 5px; margin-top: 10px;">Dashboard</a>
     </nav>
 </header>
-
-<script>
-function toggleMenu() {
-    const nav = document.getElementById('universalNav');
-    nav.classList.toggle('active');
-}
-
-// Close menu if clicking outside
-document.addEventListener('click', function(event) {
-    const nav = document.getElementById('universalNav');
-    const btn = document.querySelector('.menu-toggle');
-    if (!nav.contains(event.target) && !btn.contains(event.target)) {
-        nav.classList.remove('active');
-    }
-});
-</script>
