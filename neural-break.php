@@ -36,7 +36,6 @@
             overflow: hidden;
         }
 
-        /* --- BACKGROUND (Restored Structure) --- */
         .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
         #bg-video { width: 100%; height: 100%; object-fit: cover; }
         .video-overlay {
@@ -70,37 +69,46 @@
 
         .label {
             position: absolute;
-            top: 15px;
-            left: 20px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            color: var(--brand-green);
-            font-weight: bold;
+            top: 15px; left: 20px;
+            font-size: 0.7rem; letter-spacing: 2px;
+            color: var(--brand-green); font-weight: bold;
             text-transform: uppercase;
         }
 
-        /* --- DATA PIPELINE BOARD: COLOR BLOCKING & STYLING --- */
+        /* --- BOARD CONTAINER FOR SVG OVERLAY --- */
+        .board-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
         .snakes-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             width: 100%;
-            max-width: 600px;
-            margin: 0 auto;
-            border: 3px solid #ffffff; /* Explicit white box border */
-            background: #111; /* Grounding color */
+            border: 3px solid #ffffff;
+            background: #111;
+        }
+
+        /* Ladder SVG Layer */
+        #ladder-svg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; /* Let clicks pass through to cells */
+            z-index: 5;
         }
 
         .s-cell {
             aspect-ratio: 1/1;
-            border: 0.5px solid rgba(255, 255, 255, 0.15); /* White grid lines */
+            border: 0.5px solid rgba(255, 255, 255, 0.15);
             display: flex; align-items: center; justify-content: center;
             font-size: 0.8rem; font-weight: 800; 
-            /* Enhanced readable numbers (not office jargon) */
             color: rgba(0, 0, 0, 0.8);
             position: relative;
         }
 
-        /* --- Specific Cell Color Blocks --- */
         .s-cell.c-o { background: var(--tile-orange); }
         .s-cell.c-p { background: var(--tile-purple); }
         .s-cell.c-g { background: var(--tile-green); }
@@ -115,6 +123,7 @@
             border: 3px solid #000; z-index: 10;
             display: flex; align-items: center; justify-content: center;
             color: #000; font-size: 0.7rem; box-shadow: 0 0 10px rgba(255,255,255,0.8);
+            transition: all 0.5s ease;
         }
 
         .btn-neural {
@@ -149,38 +158,41 @@
     <?php include 'header.php'; ?>
 
     <main class="main-stage">
-        
         <div class="game-column-left">
             <div class="glass-panel">
                 <span class="label">Primary Module: Data Pipeline</span>
-                <div class="snakes-grid" id="board">
-                    <?php 
-                    // Zig-Zag Logic for pathing
-                    for ($row = 9; $row >= 0; $row--) {
-                        if ($row % 2 != 0) { // L to R
-                            for ($col = 1; $col <= 10; $col++) {
-                                $num = ($row * 10) + $col;
-                                $c_class = getColorClass($num);
-                                echo "<div class='s-cell $c_class' id='cell-$num'>$num</div>";
-                            }
-                        } else { // R to L
-                            for ($col = 10; $col >= 1; $col--) {
-                                $num = ($row * 10) + $col;
-                                $c_class = getColorClass($num);
-                                echo "<div class='s-cell $c_class' id='cell-$num'>$num</div>";
+                
+                <div class="board-container">
+                    <svg id="ladder-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        </svg>
+
+                    <div class="snakes-grid" id="board">
+                        <?php 
+                        for ($row = 9; $row >= 0; $row--) {
+                            if ($row % 2 != 0) {
+                                for ($col = 1; $col <= 10; $col++) {
+                                    $num = ($row * 10) + $col;
+                                    $c_class = getColorClass($num);
+                                    echo "<div class='s-cell $c_class' id='cell-$num'>$num</div>";
+                                }
+                            } else {
+                                for ($col = 10; $col >= 1; $col--) {
+                                    $num = ($row * 10) + $col;
+                                    $c_class = getColorClass($num);
+                                    echo "<div class='s-cell $c_class' id='cell-$num'>$num</div>";
+                                }
                             }
                         }
-                    }
 
-                    // Helper to map color to number
-                    function getColorClass($num) {
-                        // Color indices: Orange, Purple, Green, Blue, Yellow, Teal, Magenta
-                        $colorArray = ['c-o','c-p','c-g','c-b','c-y','c-t','c-m'];
-                        $index = ($num - 1) % 7;
-                        return $colorArray[$index];
-                    }
-                    ?>
+                        function getColorClass($num) {
+                            $colorArray = ['c-o','c-p','c-g','c-b','c-y','c-t','c-m'];
+                            $index = ($num - 1) % 7;
+                            return $colorArray[$index];
+                        }
+                        ?>
+                    </div>
                 </div>
+
                 <button class="btn-neural" onclick="executeRoll()">EXECUTE ROLL</button>
             </div>
         </div>
@@ -196,7 +208,6 @@
                 <div style="text-align: center; margin: auto;">LOCKED</div>
             </div>
         </div>
-
     </main>
 
     <footer class="ticker-bar">
@@ -211,12 +222,55 @@
         let playerPos = 1;
         const totalCells = 100;
 
+        // Ladder Map: Start -> End
+        const ladders = {
+            4: 14,
+            9: 31,
+            20: 38,
+            28: 84,
+            40: 59,
+            51: 67,
+            63: 81,
+            71: 91
+        };
+
+        function drawLadders() {
+            const svg = document.getElementById('ladder-svg');
+            const board = document.getElementById('board');
+            const boardRect = board.getBoundingClientRect();
+
+            Object.keys(ladders).forEach(start => {
+                const end = ladders[start];
+                const startEl = document.getElementById('cell-' + start);
+                const endEl = document.getElementById('cell-' + end);
+
+                const sX = (startEl.offsetLeft + startEl.offsetWidth / 2) / board.offsetWidth * 100;
+                const sY = (startEl.offsetTop + startEl.offsetHeight / 2) / board.offsetHeight * 100;
+                const eX = (endEl.offsetLeft + endEl.offsetWidth / 2) / board.offsetWidth * 100;
+                const eY = (endEl.offsetTop + endEl.offsetHeight / 2) / board.offsetHeight * 100;
+
+                // Create a simple "ladder" visual using two lines and rungs
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", sX); line.setAttribute("y1", sY);
+                line.setAttribute("x2", eX); line.setAttribute("y2", eY);
+                line.setAttribute("stroke", "rgba(0,0,0,0.6)");
+                line.setAttribute("stroke-width", "1.5");
+                line.setAttribute("stroke-dasharray", "1, 2"); // Fake rungs
+                svg.appendChild(line);
+            });
+        }
+
         function executeRoll() {
             const roll = Math.floor(Math.random() * 6) + 1;
-            console.log("System Roll: " + roll);
-            
             let newPos = playerPos + roll;
+            
             if (newPos > totalCells) return; 
+
+            // Check for ladders
+            if (ladders[newPos]) {
+                console.log("Ladder found! Climbing to " + ladders[newPos]);
+                newPos = ladders[newPos];
+            }
 
             movePlayer(newPos);
             playerPos = newPos;
@@ -233,7 +287,10 @@
             targetCell.appendChild(token);
         }
 
-        window.onload = () => movePlayer(1);
+        window.onload = () => {
+            movePlayer(1);
+            drawLadders();
+        };
     </script>
 </body>
 </html>
