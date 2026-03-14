@@ -27,9 +27,7 @@
         }
 
         /* --- BACKGROUND --- */
-        .video-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-        }
+        .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
         #bg-video { width: 100%; height: 100%; object-fit: cover; }
         .video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -37,75 +35,98 @@
             z-index: -1;
         }
 
-        /* --- THREE-GAME GRID SYSTEM (Matches your image) --- */
+        /* --- THREE-GAME GRID SYSTEM --- */
         .main-stage {
             flex: 1;
             display: flex;
-            padding: 20px 50px;
+            padding: 20px 40px;
             gap: 20px;
             align-items: stretch;
         }
 
-        /* Left Side - Game 1 (Large) */
-        .game-column-left {
-            flex: 2; /* Takes more width */
-            display: flex;
-        }
-
-        /* Right Side - Game 2 & 3 (Stacked) */
-        .game-column-right {
-            flex: 1; /* Takes less width */
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+        .game-column-left { flex: 1.8; display: flex; }
+        .game-column-right { flex: 1; display: flex; flex-direction: column; gap: 20px; }
 
         .glass-panel {
             background: var(--glass-bg);
-            border: 2px solid #ffffff; /* Exact white box lines from mockup */
-            border-radius: 4px; /* Sharper corners to match drawing */
+            border: 2px solid #ffffff; /* Explicit white box lines */
+            border-radius: 4px;
             backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             padding: 20px;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
-        .game-1 { width: 100%; }
-        .game-2, .game-3 { flex: 1; }
-
         .label {
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             letter-spacing: 2px;
             color: var(--brand-green);
             font-weight: bold;
             text-transform: uppercase;
+            margin-bottom: 10px;
         }
 
-        /* --- TICKER (Footer) --- */
+        /* --- DATA PIPELINE GRID --- */
+        .snakes-container { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .snakes-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            width: 100%;
+            max-width: 450px;
+            border: 1px solid #ffffff;
+            background: rgba(0,0,0,0.3);
+        }
+        .s-cell {
+            aspect-ratio: 1/1;
+            border: 0.5px solid rgba(255,255,255,0.3);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.6rem; font-weight: bold; color: rgba(0,0,0,0.7);
+        }
+        /* Sequential Colors */
+        .s-cell:nth-child(5n+1) { background: #ff7675; }
+        .s-cell:nth-child(5n+2) { background: #fdcb6e; }
+        .s-cell:nth-child(5n+3) { background: #55efc4; }
+        .s-cell:nth-child(5n+4) { background: #81ecec; }
+        .s-cell:nth-child(5n+5) { background: #a29bfe; }
+
+        /* --- NEURAL LOGIC (Tic-Tac-Toe) --- */
+        .ttt-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin: auto;
+            width: 180px;
+        }
+        .ttt-box {
+            aspect-ratio: 1/1;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+        }
+
+        .btn-action {
+            margin-top: 15px;
+            background: transparent;
+            border: 1px solid var(--brand-green);
+            color: white;
+            padding: 6px 20px;
+            font-size: 0.7rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-action:hover { background: var(--brand-green); color: var(--brand-blue-dark); }
+
+        /* --- TICKER --- */
         .ticker-bar {
-            height: 50px;
-            background: rgba(0,0,0,0.8);
-            border-top: 2px solid #ffffff;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
+            height: 40px; background: rgba(0,0,0,0.9);
+            border-top: 1px solid #ffffff;
+            display: flex; align-items: center; overflow: hidden;
         }
-        .ticker-text { display: flex; animation: scroll 40s linear infinite; }
-        .ticker-item { 
-            padding: 0 40px; 
-            font-size: 0.75rem; 
-            color: #ffffff; 
-            white-space: nowrap; 
-            display: flex; 
-            align-items: center;
-        }
-        .ticker-item i { margin-right: 10px; color: var(--brand-green); }
+        .ticker-track { display: flex; animation: scroll 30s linear infinite; }
+        .ticker-item { padding: 0 30px; font-size: 0.7rem; white-space: nowrap; color: #fff; opacity: 0.8; }
+        .ticker-item i { color: var(--brand-green); margin-right: 8px; }
 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
@@ -122,39 +143,47 @@
     <?php include 'header.php'; ?>
 
     <main class="main-stage">
-        
         <div class="game-column-left">
-            <div class="glass-panel game-1">
+            <div class="glass-panel" style="width: 100%;">
                 <span class="label">Primary Module: Data Pipeline</span>
-                <h2 style="color: var(--brand-gold);">GAME 1 SLOT</h2>
-                <p style="font-size: 0.8rem; opacity: 0.6;">Awaiting Core Initialization...</p>
+                <div class="snakes-container">
+                    <div class="snakes-grid">
+                        <?php for($i=100; $i>=1; $i--) echo "<div class='s-cell'>$i</div>"; ?>
+                    </div>
+                    <button class="btn-action">EXECUTE ROLL</button>
+                </div>
             </div>
         </div>
 
         <div class="game-column-right">
-            <div class="glass-panel game-2">
+            <div class="glass-panel">
                 <span class="label">Secondary: Neural Logic</span>
-                <h3 style="color: var(--brand-gold);">GAME 2 SLOT</h3>
+                <div class="ttt-grid">
+                    <div class="ttt-box"></div><div class="ttt-box"></div><div class="ttt-box) "></div>
+                    <div class="ttt-box"></div><div class="ttt-box"></div><div class="ttt-box"></div>
+                    <div class="ttt-box"></div><div class="ttt-box"></div><div class="ttt-box"></div>
+                </div>
+                <button class="btn-action" style="width: fit-content; align-self: center;">RESET CORE</button>
             </div>
             
-            <div class="glass-panel game-3">
+            <div class="glass-panel">
                 <span class="label">Tertiary: System Choice</span>
-                <h3 style="color: var(--brand-gold);">GAME 3 SLOT</h3>
+                <div style="margin: auto; text-align: center;">
+                    <i class="fas fa-lock" style="font-size: 2rem; opacity: 0.2; margin-bottom: 10px;"></i>
+                    <p style="font-size: 0.6rem; color: var(--brand-gold);">AWAITING SELECTION...</p>
+                </div>
             </div>
         </div>
-
     </main>
 
     <footer class="ticker-bar">
-        <div class="ticker-text">
-            <div class="ticker-item"><i class="fas fa-microchip"></i> HIGH-PERFORMANCE T-SQL</div>
-            <div class="ticker-item"><i class="fas fa-code-branch"></i> LEGACY REVERSE ENGINEERING</div>
-            <div class="ticker-item"><i class="fas fa-database"></i> END-TO-END DATA WAREHOUSING</div>
-            <div class="ticker-item"><i class="fas fa-network-wired"></i> SCALABLE DATA INTEGRATION</div>
-            <div class="ticker-item"><i class="fas fa-microchip"></i> HIGH-PERFORMANCE T-SQL</div>
-            <div class="ticker-item"><i class="fas fa-code-branch"></i> LEGACY REVERSE ENGINEERING</div>
-            <div class="ticker-item"><i class="fas fa-database"></i> END-TO-END DATA WAREHOUSING</div>
-            <div class="ticker-item"><i class="fas fa-network-wired"></i> SCALABLE DATA INTEGRATION</div>
+        <div class="ticker-track">
+            <div class="ticker-item"><i class="fas fa-server"></i> AZURE SQL LINK STABLE</div>
+            <div class="ticker-item"><i class="fas fa-network-wired"></i> LPTMYBUSINESS CONNECTED</div>
+            <div class="ticker-item"><i class="fas fa-microchip"></i> NEURAL ENGINE ACTIVE</div>
+            <div class="ticker-item"><i class="fas fa-server"></i> AZURE SQL LINK STABLE</div>
+            <div class="ticker-item"><i class="fas fa-network-wired"></i> LPTMYBUSINESS CONNECTED</div>
+            <div class="ticker-item"><i class="fas fa-microchip"></i> NEURAL ENGINE ACTIVE</div>
         </div>
     </footer>
 
