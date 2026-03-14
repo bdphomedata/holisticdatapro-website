@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neural Break | Holistic Data Pro</title>
+    <title>Neural Break | Fun Zone</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
@@ -12,6 +12,12 @@
             --brand-gold: #ffc629;
             --brand-green: #4ade80;
             --glass-bg: rgba(255, 255, 255, 0.03);
+            /* Game Colors */
+            --tile-red: #ff5e57;
+            --tile-blue: #34e7e4;
+            --tile-yellow: #f7d794;
+            --tile-green: #58b19f;
+            --tile-purple: #c56cf0;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -27,9 +33,7 @@
         }
 
         /* --- BACKGROUND --- */
-        .video-container {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
-        }
+        .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; }
         #bg-video { width: 100%; height: 100%; object-fit: cover; }
         .video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -37,7 +41,7 @@
             z-index: -1;
         }
 
-        /* --- THREE-GAME GRID SYSTEM (STRICT MATCH TO IMAGE 1) --- */
+        /* --- STRUCTURE (HAPPY IMAGE 1) --- */
         .main-stage {
             flex: 1;
             display: flex;
@@ -46,17 +50,8 @@
             align-items: stretch;
         }
 
-        .game-column-left {
-            flex: 2; 
-            display: flex;
-        }
-
-        .game-column-right {
-            flex: 1; 
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+        .game-column-left { flex: 2; display: flex; }
+        .game-column-right { flex: 1; display: flex; flex-direction: column; gap: 20px; }
 
         .glass-panel {
             background: var(--glass-bg);
@@ -71,73 +66,69 @@
             position: relative;
         }
 
-        .game-1 { width: 100%; }
-        .game-2, .game-3 { flex: 1; }
-
         .label {
             position: absolute;
             top: 15px;
             left: 20px;
             font-size: 0.7rem;
             letter-spacing: 2px;
-            color: var(--brand-green);
+            color: var(--brand-gold);
             font-weight: bold;
             text-transform: uppercase;
         }
 
-        /* --- GAME ELEMENT STYLES (NO IMPACT ON BOX LINES) --- */
+        /* --- COOL SNAKES & LADDERS BOARD --- */
         .snakes-grid {
             display: grid;
             grid-template-columns: repeat(10, 1fr);
             width: 100%;
-            max-width: 480px;
-            border: 1px solid rgba(255,255,255,0.2);
+            max-width: 500px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
+
         .s-cell {
             aspect-ratio: 1/1;
-            border: 0.1px solid rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
             display: flex; align-items: center; justify-content: center;
-            font-size: 0.6rem; font-weight: bold; color: rgba(0,0,0,0.6);
-        }
-        .s-cell:nth-child(5n+1) { background: #ff7675; }
-        .s-cell:nth-child(5n+2) { background: #fdcb6e; }
-        .s-cell:nth-child(5n+3) { background: #55efc4; }
-        .s-cell:nth-child(5n+4) { background: #81ecec; }
-        .s-cell:nth-child(5n+5) { background: #a29bfe; }
-
-        .ttt-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 10px; width: 150px; margin-top: 20px;
-        }
-        .ttt-box {
-            aspect-ratio: 1/1; border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.05); border-radius: 4px;
+            font-size: 0.7rem; font-weight: 900; color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
-        .btn-neural {
-            margin-top: 20px; background: transparent; border: 1px solid var(--brand-green);
-            color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.7rem; cursor: pointer;
+        /* Vibrant Game Pattern */
+        .s-cell:nth-child(5n+1) { background-color: var(--tile-red); }
+        .s-cell:nth-child(5n+2) { background-color: var(--tile-blue); }
+        .s-cell:nth-child(5n+3) { background-color: var(--tile-yellow); }
+        .s-cell:nth-child(5n+4) { background-color: var(--tile-green); }
+        .s-cell:nth-child(5n+5) { background-color: var(--tile-purple); }
+
+        .pawn {
+            width: 25px; height: 25px;
+            background: #fff; border: 3px solid #333;
+            border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
-        /* --- TICKER (Footer) --- */
+        .btn-play {
+            margin-top: 20px;
+            padding: 10px 30px;
+            background: var(--brand-green);
+            border: none;
+            border-radius: 50px;
+            color: var(--brand-blue-dark);
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(74, 222, 128, 0.3);
+        }
+
+        /* --- TICKER --- */
         .ticker-bar {
-            height: 50px;
-            background: rgba(0,0,0,0.8);
+            height: 50px; background: rgba(0,0,0,0.8);
             border-top: 2px solid #ffffff;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
+            display: flex; align-items: center; overflow: hidden;
         }
         .ticker-text { display: flex; animation: scroll 40s linear infinite; }
-        .ticker-item { 
-            padding: 0 40px; 
-            font-size: 0.75rem; 
-            color: #ffffff; 
-            white-space: nowrap; 
-            display: flex; 
-            align-items: center;
-        }
-        .ticker-item i { margin-right: 10px; color: var(--brand-green); }
+        .ticker-item { padding: 0 40px; font-size: 0.75rem; color: #ffffff; white-space: nowrap; }
 
         @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
     </style>
@@ -157,29 +148,31 @@
         
         <div class="game-column-left">
             <div class="glass-panel game-1">
-                <span class="label">Primary Module: Data Pipeline</span>
+                <span class="label">Snakes & Ladders Classic</span>
                 <div class="snakes-grid">
-                    <?php for($i=100; $i>=1; $i--) echo "<div class='s-cell'>$i</div>"; ?>
+                    <?php 
+                    // Generate 100 tiles in the correct board order
+                    for($i=100; $i>=1; $i--) {
+                        echo "<div class='s-cell' id='tile-$i'>$i</div>";
+                    }
+                    ?>
                 </div>
-                <button class="btn-neural">EXECUTE ROLL</button>
+                <button class="btn-play">ROLL DICE</button>
             </div>
         </div>
 
         <div class="game-column-right">
             <div class="glass-panel game-2">
-                <span class="label">Secondary: Neural Logic</span>
-                <div class="ttt-grid">
-                    <div class="ttt-box"></div><div class="ttt-box"></div><div class="ttt-box"></div>
-                    <div class="ttt-box"></div><div class="ttt-box"></div><div class="ttt-box"></div>
-                    <div class="ttt-box"></div><div class="ttt-box"></div><div class="ttt-box"></div>
+                <span class="label">Quick Match: Tic-Tac-Toe</span>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 120px;">
+                    <?php for($i=0; $i<9; $i++) echo "<div style='aspect-ratio:1/1; background:rgba(255,255,255,0.1); border:1px solid #fff;'></div>"; ?>
                 </div>
-                <button class="btn-neural">RESET LOGIC</button>
             </div>
             
             <div class="glass-panel game-3">
-                <span class="label">Tertiary: System Choice</span>
-                <i class="fas fa-lock" style="font-size: 1.5rem; opacity: 0.2; margin-bottom: 10px;"></i>
-                <p style="font-size: 0.6rem; color: var(--brand-gold);">AWAITING CORE INITIALIZATION...</p>
+                <span class="label">Daily High Scores</span>
+                <i class="fas fa-trophy" style="font-size: 2rem; color: var(--brand-gold); margin-bottom: 10px;"></i>
+                <p style="font-size: 0.7rem;">Player 1: 100 pts</p>
             </div>
         </div>
 
@@ -187,14 +180,8 @@
 
     <footer class="ticker-bar">
         <div class="ticker-text">
-            <div class="ticker-item"><i class="fas fa-microchip"></i> HIGH-PERFORMANCE T-SQL</div>
-            <div class="ticker-item"><i class="fas fa-code-branch"></i> LEGACY REVERSE ENGINEERING</div>
-            <div class="ticker-item"><i class="fas fa-database"></i> END-TO-END DATA WAREHOUSING</div>
-            <div class="ticker-item"><i class="fas fa-network-wired"></i> SCALABLE DATA INTEGRATION</div>
-            <div class="ticker-item"><i class="fas fa-microchip"></i> HIGH-PERFORMANCE T-SQL</div>
-            <div class="ticker-item"><i class="fas fa-code-branch"></i> LEGACY REVERSE ENGINEERING</div>
-            <div class="ticker-item"><i class="fas fa-database"></i> END-TO-END DATA WAREHOUSING</div>
-            <div class="ticker-item"><i class="fas fa-network-wired"></i> SCALABLE DATA INTEGRATION</div>
+            <div class="ticker-item">★ TAKE A BREAK ★ RELAX ★ RECHARGE ★ NO WORK ALLOWED ★ JUST PLAY ★</div>
+            <div class="ticker-item">★ TAKE A BREAK ★ RELAX ★ RECHARGE ★ NO WORK ALLOWED ★ JUST PLAY ★</div>
         </div>
     </footer>
 
