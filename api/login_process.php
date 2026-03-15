@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_input_password = $_POST['user_password'];
 
     // 3. THE SQL QUERY
-    // We select SubscriberID, FirstName, and Password (hash) from the database
     $tsql = "SELECT SubscriberID, FirstName, Password FROM Subscribers WHERE Email = ?";
     $params = array($email);
 
@@ -40,25 +39,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $hashedPasswordFromDB = $row['Password'];
 
-        // Verify the hashed password
         if (password_verify($user_input_password, $hashedPasswordFromDB)) {
-            
-            // SUCCESS: Set all session variables required by dashboard.php
+            // SUCCESS: Set variables needed by dashboard.php
             $_SESSION['loggedin'] = true;
             $_SESSION['user_id'] = $row['SubscriberID']; 
             $_SESSION['user_name'] = $row['FirstName'];
-            $_SESSION['user_email'] = $email; // CRITICAL: Required for dashboard.php query
+            $_SESSION['user_email'] = $email; // CRITICAL FIX
 
-            // Redirect to the PHP dashboard
             header("Location: ../dashboard.php");
             exit();
         } else {
-            // PASSWORD WRONG - Redirect to .php version to avoid 404
             header("Location: ../login.php?error=1");
             exit();
         }
     } else {
-        // EMAIL NOT FOUND - Redirect to .php version to avoid 404
         header("Location: ../login.php?error=1");
         exit();
     }
