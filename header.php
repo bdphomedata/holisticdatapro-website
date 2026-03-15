@@ -161,7 +161,7 @@
             <i class="fas fa-caret-down"></i>
         </button>
         <div class="dropdown-container" id="servicesDropdown">
-            <a href="homeusers.php"><i class="fas fa-user-house"></i> Home Users</a>
+            <a href="homeusers.php"><i class="fas fa-house-user"></i> Home Users</a>
             <a href="corporate.php"><i class="fas fa-building"></i> SME & Corporate</a>
         </div>
 
