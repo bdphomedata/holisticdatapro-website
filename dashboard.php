@@ -31,13 +31,11 @@ try {
         $createdDate  = $subscriber['CreatedDate'];
 
         // 2. PROVISIONING & DATA RETRIEVAL LOGIC
-        // Check if extended profile exists
         $checkStmt = $conn->prepare("SELECT Bio, JobTitle FROM Subscriber_Personal WHERE SubscriberID = ?");
         $checkStmt->execute([$subscriberID]);
         $personal = $checkStmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$personal) {
-            // First time login: Insert rows into all related tables
             $conn->beginTransaction();
             try {
                 $conn->prepare("INSERT INTO Subscriber_Personal (SubscriberID, Bio, JobTitle) VALUES (?, 'New Dossier', 'Developer')")->execute([$subscriberID]);
@@ -50,7 +48,6 @@ try {
                 error_log("Provisioning Failed: " . $e->getMessage());
             }
         } else {
-            // Existing user: Fetch their specific details
             $bio = $personal['Bio'];
             $jobTitle = $personal['JobTitle'];
             
@@ -59,7 +56,6 @@ try {
             $prof = $profStmt->fetch(PDO::FETCH_ASSOC);
             $skills = $prof['Skills'] ?? $skills;
 
-            // Update last login activity
             $conn->prepare("UPDATE Subscriber_Account_Status SET LastLogin = CURRENT_TIMESTAMP WHERE SubscriberID = ?")->execute([$subscriberID]);
         }
     }
@@ -84,27 +80,39 @@ try {
         }
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000b1a; color: white; display: flex; min-height: 100vh; }
         
-        /* SIDEBAR */
         .sidebar { width: 300px; background: rgba(0, 31, 63, 0.95); backdrop-filter: blur(20px); border-right: 1px solid var(--glass-border); padding: 25px; position: fixed; height: 100vh; z-index: 1000; }
         .sidebar h2 { color: var(--brand-green); text-align: center; letter-spacing: 3px; border-bottom: 1px solid var(--glass-border); padding-bottom: 20px; }
         .nav-item { padding: 14px 18px; color: rgba(255,255,255,0.6); text-decoration: none; display: flex; align-items: center; gap: 15px; border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: 0.3s; }
         .nav-item.active, .nav-item:hover { background: rgba(74, 222, 128, 0.1); color: var(--brand-green); border: 1px solid rgba(74, 222, 128, 0.2); }
         
-        /* MAIN CONTENT */
         .main-panel { flex: 1; margin-left: 300px; padding: 40px; }
         .content-section { display: none; animation: fadeIn 0.3s ease-in; }
         .content-section.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* CARDS */
         .profile-hero { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 24px; padding: 35px; display: flex; align-items: center; gap: 35px; margin-bottom: 30px; }
         .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--brand-green); }
-        .data-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 30px; border-radius: 20px; }
-        .label { color: var(--brand-green); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-top: 15px; }
-        .value { font-size: 1.1rem; color: #fff; display: block; }
+        
+        /* DATA CARD GRID SYSTEM */
+        .data-card { 
+            background: var(--glass-bg); 
+            border: 1px solid var(--glass-border); 
+            padding: 30px; 
+            border-radius: 20px; 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+        .label { color: var(--brand-green); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; display: block; margin-top: 5px; }
+        .value { font-size: 1.1rem; color: #fff; display: block; margin-bottom: 10px; }
+        .full-width { grid-column: span 2; }
     </style>
 </head>
 <body>
+
+    <div style="position: fixed; top: 0; left: 0; width: 100%; background: red; color: white; text-align: center; padding: 10px; font-weight: bold; z-index: 9999;">
+        VERIFICATION: DASHBOARD FILE UPDATED SUCCESSFULLY
+    </div>
 
     <div class="sidebar">
         <h2>HDP CORE</h2>
@@ -118,35 +126,50 @@ try {
         <div class="profile-hero">
             <img src="assets/images/default-avatar.png" class="profile-img">
             <div>
-                <h1 style="margin: 0;">Intelligence Dossier: <span style="color: var(--brand-green);"><?php echo $firstName; ?></span></h1>
+                <h1 style="margin: 0;">Intelligence Dossier: <span style="color: var(--brand-green);"><?php echo htmlspecialchars($firstName); ?></span></h1>
                 <p>Subscriber #<?php echo $subscriberID; ?> | Joined <?php echo date('M Y', strtotime($createdDate)); ?></p>
             </div>
         </div>
 
         <div id="sec-basic" class="content-section active">
             <div class="data-card">
-                <span class="label">Full Name</span>
-                <span class="value"><?php echo "$firstName $surname"; ?></span>
-                <span class="label">Location</span>
-                <span class="value"><?php echo $country; ?></span>
-                <span class="label">Email</span>
-                <span class="value"><?php echo $userEmail; ?></span>
+                <div>
+                    <span class="label">First Name</span>
+                    <span class="value" style="color: #ffc629;"><?php echo htmlspecialchars($firstName); ?></span>
+                </div>
+                <div>
+                    <span class="label">Surname</span>
+                    <span class="value" style="color: #ffc629;"><?php echo htmlspecialchars($surname); ?></span>
+                </div>
+                <div>
+                    <span class="label">Gender</span>
+                    <span class="value" style="color: #ffc629;"><?php echo htmlspecialchars($gender ?: 'Not Specified'); ?></span>
+                </div>
+                <div>
+                    <span class="label">Ethnic Group</span>
+                    <span class="value" style="color: #ffc629;"><?php echo htmlspecialchars($ethnicGroup ?: 'Not Specified'); ?></span>
+                </div>
+                <div>
+                    <span class="label">Country</span>
+                    <span class="value" style="color: #ffc629;"><?php echo htmlspecialchars($country); ?></span>
+                </div>
+                <div>
+                    <span class="label">Primary Email</span>
+                    <span class="value" style="color: var(--brand-green);"><?php echo htmlspecialchars($userEmail); ?></span>
+                </div>
             </div>
         </div>
 
         <div id="sec-personal" class="content-section">
             <div class="data-card">
-                <span class="label">Job Title</span>
-                <span class="value"><?php echo htmlspecialchars($jobTitle); ?></span>
-                <span class="label">Bio</span>
-                <p class="value"><?php echo htmlspecialchars($bio); ?></p>
-            </div>
-        </div>
-
-        <div id="sec-pro" class="content-section">
-            <div class="data-card">
-                <span class="label">Technical Stack</span>
-                <span class="value"><?php echo htmlspecialchars($skills); ?></span>
+                <div class="full-width">
+                    <span class="label">Job Title</span>
+                    <span class="value"><?php echo htmlspecialchars($jobTitle); ?></span>
+                </div>
+                <div class="full-width">
+                    <span class="label">Bio</span>
+                    <p class="value"><?php echo htmlspecialchars($bio); ?></p>
+                </div>
             </div>
         </div>
     </main>
@@ -156,7 +179,6 @@ try {
         link.addEventListener('click', function() {
             document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
             document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
-            
             this.classList.add('active');
             document.getElementById(this.getAttribute('data-target')).classList.add('active');
         });
