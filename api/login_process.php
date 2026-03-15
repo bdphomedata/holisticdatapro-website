@@ -25,7 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_input_password = $_POST['user_password'];
 
     // 3. THE SQL QUERY
-    // We only search by Email. We fetch the Password (the hash) to check it in PHP.
     $tsql = "SELECT SubscriberID, FirstName, Password FROM Subscribers WHERE Email = ?";
     $params = array($email);
 
@@ -40,23 +39,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         $hashedPasswordFromDB = $row['Password'];
 
-        // Use password_verify to check if the typed password matches the scrambled hash
         if (password_verify($user_input_password, $hashedPasswordFromDB)) {
-            // SUCCESS: Credentials match!
+            // SUCCESS
             $_SESSION['loggedin'] = true;
-            $_SESSION['user_id'] = $row['SubscriberID']; // Match the column in your schema
-            $_SESSION['user_name'] = $row['FirstName'];   // Match the capital letters in your schema
+            $_SESSION['user_id'] = $row['SubscriberID']; 
+            $_SESSION['user_name'] = $row['FirstName'];  
 
             header("Location: ../dashboard.php");
             exit();
         } else {
-            // PASSWORD WRONG
-            header("Location: ../login.html?error=1");
+            // PASSWORD WRONG - Redirect to .php version to avoid 404
+            header("Location: ../login.php?error=1");
             exit();
         }
     } else {
-        // EMAIL NOT FOUND
-        header("Location: ../login.html?error=1");
+        // EMAIL NOT FOUND - Redirect to .php version to avoid 404
+        header("Location: ../login.php?error=1");
         exit();
     }
 }
