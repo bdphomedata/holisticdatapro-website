@@ -47,21 +47,19 @@
         box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
     }
 
-    /* --- SIDEBAR MENU (FIXED HEIGHT) --- */
     .nav-links {
         display: none; 
         position: absolute;
         top: 100%;
         left: 0;
         width: 300px;
-        /* CHANGED: height auto ensures it ends after the buttons */
         height: auto; 
         background: rgba(0, 11, 26, 0.98);
         flex-direction: column;
         padding: 40px 20px;
-        gap: 15px; /* Tighter gap to match the image */
+        gap: 10px; /* Reduced gap slightly for dropdown flow */
         border-right: 1px solid var(--brand-green, #4ade80);
-        border-bottom: 1px solid var(--brand-green, #4ade80); /* Added bottom border to close the box */
+        border-bottom: 1px solid var(--brand-green, #4ade80);
         box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
     }
 
@@ -70,7 +68,7 @@
         animation: slideInLeft 0.3s ease-out;
     }
 
-    .nav-links a {
+    .nav-links a, .dropdown-btn {
         color: #fff;
         text-decoration: none;
         font-size: 0.85rem;
@@ -81,9 +79,33 @@
         padding: 12px;
         text-align: center;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+        background: none;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        width: 100%;
     }
 
-    /* --- BUTTON STYLES MATCHING YOUR IMAGE --- */
+    /* --- DROPDOWN SUB-MENU --- */
+    .dropdown-container {
+        display: none;
+        background: rgba(255, 255, 255, 0.03);
+        flex-direction: column;
+    }
+
+    .dropdown-container a {
+        font-size: 0.75rem;
+        color: var(--brand-green, #4ade80);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+        padding-left: 20px;
+    }
+
+    .dropdown-container.show {
+        display: flex;
+    }
+
+    /* --- BUTTON STYLES --- */
     .btn-login {
         border: 1px solid rgba(255, 255, 255, 0.5) !important;
         margin-top: 10px;
@@ -111,7 +133,13 @@
     
     <nav class="nav-links" id="navLinks">
         <a href="index.php">Home</a>
-        <a href="services.php">Services</a>
+        
+        <button class="dropdown-btn" onclick="toggleDropdown()">Services <i class="fas fa-caret-down"></i></button>
+        <div class="dropdown-container" id="servicesDropdown">
+            <a href="home-users.php">Home Users</a>
+            <a href="corporate.php">SME & Corporate</a>
+        </div>
+
         <a href="solutions.php">Solutions</a>
         <a href="neuralbreak.php">Neural Break</a>
         <a href="contact.php">Connect</a>
@@ -125,13 +153,27 @@
     function toggleMenu() {
         const nav = document.getElementById('navLinks');
         nav.classList.toggle('active');
+        // Hide dropdown if menu is closed
+        if(!nav.classList.contains('active')) {
+            document.getElementById('servicesDropdown').classList.remove('show');
+        }
+    }
+
+    function toggleDropdown() {
+        const dropdown = document.getElementById('servicesDropdown');
+        dropdown.classList.toggle('show');
     }
 
     document.addEventListener('click', function(event) {
         const nav = document.getElementById('navLinks');
         const btn = document.querySelector('.menu-toggle');
-        if (nav.classList.contains('active') && !nav.contains(event.target) && !btn.contains(event.target)) {
+        const dropBtn = document.querySelector('.dropdown-btn');
+        
+        if (nav.classList.contains('active') && 
+            !nav.contains(event.target) && 
+            !btn.contains(event.target)) {
             nav.classList.remove('active');
+            document.getElementById('servicesDropdown').classList.remove('show');
         }
     });
 </script>
