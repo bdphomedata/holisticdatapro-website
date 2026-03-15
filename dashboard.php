@@ -31,9 +31,7 @@ try {
             $conn->commit();
             $stmt->execute([$subID]);
             $personal = $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (Exception $e) {
-            $conn->rollBack();
-        }
+        } catch (Exception $e) { $conn->rollBack(); }
     }
 
     // 3. FETCH PREFERENCES, PROFESSIONAL, & STATUS
@@ -49,111 +47,111 @@ try {
     $stmt->execute([$subID]);
     $status = $stmt->fetch(PDO::FETCH_ASSOC);
 
-} catch (PDOException $e) {
-    error_log("Database Error: " . $e->getMessage());
-}
+} catch (PDOException $e) { error_log("Database Error: " . $e->getMessage()); }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Holistic Data Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>
-    :root { 
-        --brand-green: #4ade80; 
-        --brand-gold: #ffc629; 
-        --glass: rgba(255,255,255,0.05); 
-        --border: rgba(255,255,255,0.1); 
-    }
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000b1a; color: white; display: flex; min-height: 100vh; }
-    
-    /* SIDEBAR BASE */
-    .sidebar { 
-        width: 300px; 
-        background: rgba(0, 31, 63, 0.95); 
-        padding: 25px; 
-        height: 100vh; 
-        position: fixed; 
-        border-right: 1px solid var(--border); 
-        z-index: 1000; 
-        transition: 0.3s;
-    }
-    .nav-item { padding: 15px; color: rgba(255,255,255,0.6); display: block; text-decoration: none; border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: 0.3s; }
-    .nav-item.active { background: rgba(74, 222, 128, 0.1); color: var(--brand-green); border: 1px solid rgba(74, 222, 128, 0.2); }
-    
-    /* MAIN PANEL BASE */
-    .main-panel { flex: 1; margin-left: 300px; padding: 40px; transition: 0.3s; }
-    
-    .profile-hero { background: var(--glass); border: 1px solid var(--border); border-radius: 24px; padding: 35px; display: flex; align-items: center; gap: 35px; margin-bottom: 30px; }
-    .profile-circle { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--brand-green); display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--brand-green); flex-shrink: 0; }
-    
-    .content-section { display: none; }
-    .content-section.active { display: block; animation: fadeIn 0.4s ease-out; }
-    
-    .data-card { background: var(--glass); border: 1px solid var(--border); padding: 30px; border-radius: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .label { color: var(--brand-green); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-    .value { font-size: 1.1rem; color: #fff; margin-bottom: 10px; display: block; word-break: break-word; }
-    .full { grid-column: span 2; }
+    <style>
+        :root {
+            --brand-blue-dark: #001f3f;
+            --brand-gold: #ffc629;
+            --brand-green: #4ade80;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
 
-    /* --- MOBILE RESPONSIVE FIX --- */
-    @media (max-width: 768px) {
-        body { flex-direction: column; }
-        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--brand-blue-dark);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+
+        /* VIDEO BACKGROUND */
+        .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; overflow: hidden; }
+        #bg-video { min-width: 100%; min-height: 100%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); object-fit: cover; }
+        .video-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(0, 31, 63, 0.8) 0%, rgba(0, 11, 26, 0.95) 100%); z-index: -1; }
+
+        /* SIDEBAR NAVIGATION */
         .sidebar { 
-            width: 100%; 
-            height: auto; 
-            position: relative; 
-            padding: 15px; 
-            border-right: none; 
-            border-bottom: 1px solid var(--border);
-        }
-        
-        .sidebar h2 { margin-bottom: 15px !important; font-size: 1.2rem; }
-        
-        .main-panel { 
-            margin-left: 0; 
-            padding: 20px; 
+            width: 300px; height: 100vh; position: fixed; 
+            background: rgba(0, 11, 26, 0.8); backdrop-filter: blur(15px);
+            border-right: 1px solid var(--glass-border); padding: 30px; z-index: 1000;
         }
 
-        .profile-hero { 
-            flex-direction: column; 
-            text-align: center; 
-            padding: 20px; 
-            gap: 15px;
+        .nav-item {
+            padding: 15px; color: rgba(255,255,255,0.6); display: block; 
+            text-decoration: none; border-radius: 12px; margin-bottom: 10px; 
+            cursor: pointer; transition: 0.3s; border: 1px solid transparent;
+        }
+        .nav-item.active { background: rgba(74, 222, 128, 0.1); color: var(--brand-green); border: 1px solid var(--brand-green); }
+
+        /* MAIN CONTENT PANEL */
+        .main-panel { flex: 1; margin-left: 300px; padding: 40px 5%; position: relative; }
+
+        .profile-hero {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            border-radius: 20px; padding: 35px; display: flex; align-items: center; 
+            gap: 30px; margin-bottom: 30px; backdrop-filter: blur(10px);
+        }
+        .profile-circle {
+            width: 90px; height: 90px; border-radius: 50%; border: 2px solid var(--brand-green);
+            display: flex; align-items: center; justify-content: center; font-size: 35px; color: var(--brand-green);
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.2);
         }
 
-        .data-card { 
-            grid-template-columns: 1fr; /* Stack columns on mobile */
-            padding: 20px; 
-        }
-        
-        .full { grid-column: span 1; }
-        
-        .nav-item { 
-            display: inline-flex; 
-            padding: 10px 15px; 
-            font-size: 0.85rem; 
-            margin-right: 5px;
-            white-space: nowrap;
+        .content-section { display: none; }
+        .content-section.active { display: block; animation: fadeIn 0.4s ease-out; }
+
+        .data-card {
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            padding: 30px; border-radius: 20px; display: grid; grid-template-columns: 1fr 1fr; 
+            gap: 20px; backdrop-filter: blur(10px);
         }
 
-        /* Allow sidebar items to scroll horizontally if they overflow */
-        .sidebar {
-            overflow-x: auto;
-            display: block;
-            white-space: nowrap;
-        }
-    }
+        .label { color: var(--brand-green); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; display: block; }
+        .value { font-size: 1.1rem; color: #fff; word-break: break-all; }
+        .full { grid-column: span 2; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-</style>
+        /* MOBILE RESPONSIVE ENGINE */
+        @media (max-width: 1024px) {
+            body { flex-direction: column; }
+            .sidebar { 
+                width: 100%; height: auto; position: relative; padding: 15px; 
+                display: flex; overflow-x: auto; gap: 10px; border-right: none; border-bottom: 1px solid var(--glass-border);
+            }
+            .sidebar h2 { display: none; }
+            .nav-item { margin-bottom: 0; padding: 10px 20px; white-space: nowrap; }
+            .main-panel { margin-left: 0; padding: 20px; }
+            .profile-hero { flex-direction: column; text-align: center; }
+            .data-card { grid-template-columns: 1fr; }
+            .full { grid-column: span 1; }
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
 </head>
 <body>
 
+    <div class="video-container">
+        <video id="bg-video" autoplay loop muted playsinline>
+            <source src="assets/video/WebsiteVideo.mp4" type="video/mp4">
+        </video>
+    </div>
+    <div class="video-overlay"></div>
+
     <div class="sidebar">
-        <h2 style="color: var(--brand-green); text-align: center; margin-bottom: 30px;">HDP CORE</h2>
+        <h2 style="color: var(--brand-green); text-align: center; margin-bottom: 30px; font-size: 1.2rem; letter-spacing: 2px;">HDP CORE</h2>
         <a class="nav-item active" data-target="sec-1"><i class="fas fa-id-card"></i> <span>1. Basic Info</span></a>
         <a class="nav-item" data-target="sec-2"><i class="fas fa-user"></i> <span>2. Personal Details</span></a>
         <a class="nav-item" data-target="sec-3"><i class="fas fa-cog"></i> <span>3. Preferences</span></a>
