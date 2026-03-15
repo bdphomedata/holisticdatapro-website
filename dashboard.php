@@ -17,7 +17,6 @@ try {
     $subID = $sub['SubscriberID'];
 
     // 2. FETCH & PROVISION LOGIC
-    // We check Personal table first; if missing, we provision all tables
     $stmt = $conn->prepare("SELECT Bio, DOB, Phone, JobTitle, Department FROM Subscriber_Personal WHERE SubscriberID = ?");
     $stmt->execute([$subID]);
     $personal = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -30,17 +29,14 @@ try {
             $conn->prepare("INSERT INTO Subscriber_Professional (SubscriberID, Skills) VALUES (?, 'PHP, Azure, SQL')")->execute([$subID]);
             $conn->prepare("INSERT INTO Subscriber_Account_Status (SubscriberID, AccountRole, LastLogin) VALUES (?, 'Member', CURRENT_TIMESTAMP)")->execute([$subID]);
             $conn->commit();
-            
-            // Re-fetch after provisioning
             $stmt->execute([$subID]);
             $personal = $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (Exception $e) {
             $conn->rollBack();
-            error_log("Provisioning Error: " . $e->getMessage());
         }
     }
 
-    // 3. FETCH REMAINING TABLES (Explicit Columns Only)
+    // 3. FETCH REMAINING TABLES (Explicit Columns)
     $stmt = $conn->prepare("SELECT UI_Language, Notify_Email, Privacy_Level, Theme FROM Subscriber_Settings WHERE SubscriberID = ?");
     $stmt->execute([$subID]);
     $settings = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -68,17 +64,19 @@ try {
         :root { --brand-green: #4ade80; --brand-gold: #ffc629; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); }
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000b1a; color: white; display: flex; min-height: 100vh; }
         
-        /* SIDEBAR */
         .sidebar { width: 300px; background: rgba(0, 31, 63, 0.95); padding: 25px; height: 100vh; position: fixed; border-right: 1px solid var(--border); z-index: 1000; }
         .nav-item { padding: 15px; color: rgba(255,255,255,0.6); display: block; text-decoration: none; border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: 0.3s; }
         .nav-item.active { background: rgba(74, 222, 128, 0.1); color: var(--brand-green); border: 1px solid rgba(74, 222, 128, 0.2); }
         
-        /* CONTENT PANELS */
         .main-panel { flex: 1; margin-left: 300px; padding: 40px; }
+        
+        /* RESTORED HERO HEADER STYLE */
+        .profile-hero { background: var(--glass); border: 1px solid var(--border); border-radius: 24px; padding: 35px; display: flex; align-items: center; gap: 35px; margin-bottom: 30px; }
+        .profile-circle { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--brand-green); display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--brand-green); }
+        
         .content-section { display: none; }
         .content-section.active { display: block; animation: fadeIn 0.4s ease-out; }
         
-        /* THE DATA GRID */
         .data-card { background: var(--glass); border: 1px solid var(--border); padding: 30px; border-radius: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .label { color: var(--brand-green); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         .value { font-size: 1.1rem; color: #fff; margin-bottom: 10px; display: block; }
@@ -98,13 +96,22 @@ try {
     </div>
 
     <main class="main-panel">
+        <div class="profile-hero">
+            <div class="profile-circle"><i class="fas fa-user-secret"></i></div>
+            <div>
+                <h1 style="margin: 0;">Intelligence Dossier: <span style="color: var(--brand-green);"><?php echo htmlspecialchars($sub['FirstName']); ?></span></h1>
+                <p style="margin-top: 5px; color: rgba(255,255,255,0.7);">Subscriber #<?php echo $subID; ?> | Joined <?php echo date('M Y', strtotime($sub['CreatedDate'])); ?></p>
+            </div>
+        </div>
+
         <div id="sec-1" class="content-section active">
             <div class="data-card">
                 <div><span class="label">First Name</span><span class="value" style="color: var(--brand-gold);"><?php echo htmlspecialchars($sub['FirstName']); ?></span></div>
                 <div><span class="label">Surname</span><span class="value" style="color: var(--brand-gold);"><?php echo htmlspecialchars($sub['Surname']); ?></span></div>
                 <div><span class="label">Gender</span><span class="value"><?php echo htmlspecialchars($sub['Gender'] ?? 'N/A'); ?></span></div>
                 <div><span class="label">Ethnic Group</span><span class="value"><?php echo htmlspecialchars($sub['EthnicGroup'] ?? 'N/A'); ?></span></div>
-                <div class="full"><span class="label">Primary Email</span><span class="value" style="color: var(--brand-green);"><?php echo htmlspecialchars($sub['Email']); ?></span></div>
+                <div><span class="label">Location</span><span class="value"><?php echo htmlspecialchars($sub['Country']); ?></span></div>
+                <div><span class="label">Primary Email</span><span class="value" style="color: var(--brand-green);"><?php echo htmlspecialchars($userEmail); ?></span></div>
             </div>
         </div>
 
@@ -114,36 +121,11 @@ try {
                 <div><span class="label">Department</span><span class="value"><?php echo htmlspecialchars($personal['Department'] ?? 'N/A'); ?></span></div>
                 <div><span class="label">DOB</span><span class="value"><?php echo htmlspecialchars($personal['DOB'] ?? 'N/A'); ?></span></div>
                 <div><span class="label">Phone</span><span class="value"><?php echo htmlspecialchars($personal['Phone'] ?? 'N/A'); ?></span></div>
-                <div class="full"><span class="label">Dossier Biography</span><span class="value"><?php echo htmlspecialchars($personal['Bio'] ?? 'N/A'); ?></span></div>
+                <div class="full"><span class="label">Biography</span><span class="value"><?php echo htmlspecialchars($personal['Bio'] ?? 'N/A'); ?></span></div>
             </div>
         </div>
 
-        <div id="sec-3" class="content-section">
-            <div class="data-card">
-                <div><span class="label">Interface Language</span><span class="value"><?php echo htmlspecialchars($settings['UI_Language'] ?? 'en'); ?></span></div>
-                <div><span class="label">Active Theme</span><span class="value"><?php echo htmlspecialchars($settings['Theme'] ?? 'Dark'); ?></span></div>
-                <div><span class="label">Email Alerts</span><span class="value"><?php echo ($settings['Notify_Email'] ?? 1) ? 'Enabled' : 'Disabled'; ?></span></div>
-                <div><span class="label">Privacy Status</span><span class="value"><?php echo htmlspecialchars($settings['Privacy_Level'] ?? 'Private'); ?></span></div>
-            </div>
-        </div>
-
-        <div id="sec-4" class="content-section">
-            <div class="data-card">
-                <div class="full"><span class="label">Technical Stack</span><span class="value" style="color: var(--brand-gold);"><?php echo htmlspecialchars($pro['Skills'] ?? 'N/A'); ?></span></div>
-                <div class="full"><span class="label">Education</span><span class="value"><?php echo htmlspecialchars($pro['Education'] ?? 'N/A'); ?></span></div>
-                <div class="full"><span class="label">Experience</span><span class="value"><?php echo htmlspecialchars($pro['Experience'] ?? 'N/A'); ?></span></div>
-                <div class="full"><span class="label">Portfolio</span><span class="value" style="color: var(--brand-green);"><?php echo htmlspecialchars($pro['PortfolioURL'] ?? 'N/A'); ?></span></div>
-            </div>
-        </div>
-
-        <div id="sec-5" class="content-section">
-            <div class="data-card">
-                <div><span class="label">Access Role</span><span class="value"><?php echo htmlspecialchars($status['AccountRole'] ?? 'Member'); ?></span></div>
-                <div><span class="label">Membership Tier</span><span class="value" style="color: var(--brand-gold);"><?php echo htmlspecialchars($status['MembershipTier'] ?? 'Free'); ?></span></div>
-                <div class="full"><span class="label">Last Security Handshake</span><span class="value"><?php echo htmlspecialchars($status['LastLogin'] ?? 'N/A'); ?></span></div>
-            </div>
-        </div>
-    </main>
+        </main>
 
     <script>
         document.querySelectorAll('.nav-item').forEach(btn => {
