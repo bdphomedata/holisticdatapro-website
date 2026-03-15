@@ -57,7 +57,7 @@
         background: rgba(0, 11, 26, 0.98);
         flex-direction: column;
         padding: 40px 20px;
-        gap: 10px; /* Reduced gap slightly for dropdown flow */
+        gap: 10px;
         border-right: 1px solid var(--brand-green, #4ade80);
         border-bottom: 1px solid var(--brand-green, #4ade80);
         box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
@@ -76,8 +76,8 @@
         text-transform: uppercase;
         letter-spacing: 2px;
         transition: 0.3s;
-        padding: 12px;
-        text-align: center;
+        padding: 12px 15px; /* Adjusted padding for better left-alignment flow */
+        text-align: left; /* CHANGED: Aligned to left */
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         cursor: pointer;
         background: none;
@@ -85,6 +85,9 @@
         border-left: none;
         border-right: none;
         width: 100%;
+        display: flex;
+        justify-content: space-between; /* Keeps the dropdown arrow on the right */
+        align-items: center;
     }
 
     /* --- DROPDOWN SUB-MENU --- */
@@ -98,7 +101,8 @@
         font-size: 0.75rem;
         color: var(--brand-green, #4ade80);
         border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-        padding-left: 20px;
+        padding-left: 30px; /* Indented for a nested look */
+        text-align: left; /* CHANGED: Aligned to left */
     }
 
     .dropdown-container.show {
@@ -109,11 +113,15 @@
     .btn-login {
         border: 1px solid rgba(255, 255, 255, 0.5) !important;
         margin-top: 10px;
+        justify-content: center !important; /* Keep text centered inside the box button */
+        text-align: center !important;
     }
 
     .btn-subscribe {
         border: 2px solid var(--brand-green, #4ade80) !important;
         color: var(--brand-green, #4ade80) !important;
+        justify-content: center !important; /* Keep text centered inside the box button */
+        text-align: center !important;
     }
 
     @keyframes slideInLeft {
@@ -153,7 +161,6 @@
     function toggleMenu() {
         const nav = document.getElementById('navLinks');
         nav.classList.toggle('active');
-        // Hide dropdown if menu is closed
         if(!nav.classList.contains('active')) {
             document.getElementById('servicesDropdown').classList.remove('show');
         }
@@ -167,7 +174,6 @@
     document.addEventListener('click', function(event) {
         const nav = document.getElementById('navLinks');
         const btn = document.querySelector('.menu-toggle');
-        const dropBtn = document.querySelector('.dropdown-btn');
         
         if (nav.classList.contains('active') && 
             !nav.contains(event.target) && 
