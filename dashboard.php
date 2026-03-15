@@ -16,7 +16,7 @@ try {
     $sub = $stmt->fetch(PDO::FETCH_ASSOC);
     $subID = $sub['SubscriberID'];
 
-    // 2. FETCH & PROVISION LOGIC
+    // 2. FETCH PERSONAL & PROVISIONING
     $stmt = $conn->prepare("SELECT Bio, DOB, Phone, JobTitle, Department FROM Subscriber_Personal WHERE SubscriberID = ?");
     $stmt->execute([$subID]);
     $personal = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -36,7 +36,7 @@ try {
         }
     }
 
-    // 3. FETCH REMAINING TABLES (Explicit Columns)
+    // 3. FETCH PREFERENCES, PROFESSIONAL, & STATUS
     $stmt = $conn->prepare("SELECT UI_Language, Notify_Email, Privacy_Level, Theme FROM Subscriber_Settings WHERE SubscriberID = ?");
     $stmt->execute([$subID]);
     $settings = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -64,19 +64,20 @@ try {
         :root { --brand-green: #4ade80; --brand-gold: #ffc629; --glass: rgba(255,255,255,0.05); --border: rgba(255,255,255,0.1); }
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000b1a; color: white; display: flex; min-height: 100vh; }
         
+        /* SIDEBAR */
         .sidebar { width: 300px; background: rgba(0, 31, 63, 0.95); padding: 25px; height: 100vh; position: fixed; border-right: 1px solid var(--border); z-index: 1000; }
         .nav-item { padding: 15px; color: rgba(255,255,255,0.6); display: block; text-decoration: none; border-radius: 12px; margin-bottom: 8px; cursor: pointer; transition: 0.3s; }
         .nav-item.active { background: rgba(74, 222, 128, 0.1); color: var(--brand-green); border: 1px solid rgba(74, 222, 128, 0.2); }
         
         .main-panel { flex: 1; margin-left: 300px; padding: 40px; }
         
-        /* RESTORED HERO HEADER STYLE */
+        /* HERO HEADER */
         .profile-hero { background: var(--glass); border: 1px solid var(--border); border-radius: 24px; padding: 35px; display: flex; align-items: center; gap: 35px; margin-bottom: 30px; }
         .profile-circle { width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--brand-green); display: flex; align-items: center; justify-content: center; font-size: 40px; color: var(--brand-green); }
         
+        /* DATA BLOCKS */
         .content-section { display: none; }
         .content-section.active { display: block; animation: fadeIn 0.4s ease-out; }
-        
         .data-card { background: var(--glass); border: 1px solid var(--border); padding: 30px; border-radius: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .label { color: var(--brand-green); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         .value { font-size: 1.1rem; color: #fff; margin-bottom: 10px; display: block; }
@@ -110,7 +111,7 @@ try {
                 <div><span class="label">Surname</span><span class="value" style="color: var(--brand-gold);"><?php echo htmlspecialchars($sub['Surname']); ?></span></div>
                 <div><span class="label">Gender</span><span class="value"><?php echo htmlspecialchars($sub['Gender'] ?? 'N/A'); ?></span></div>
                 <div><span class="label">Ethnic Group</span><span class="value"><?php echo htmlspecialchars($sub['EthnicGroup'] ?? 'N/A'); ?></span></div>
-                <div><span class="label">Location</span><span class="value"><?php echo htmlspecialchars($sub['Country']); ?></span></div>
+                <div><span class="label">Country</span><span class="value"><?php echo htmlspecialchars($sub['Country']); ?></span></div>
                 <div><span class="label">Primary Email</span><span class="value" style="color: var(--brand-green);"><?php echo htmlspecialchars($userEmail); ?></span></div>
             </div>
         </div>
@@ -121,11 +122,37 @@ try {
                 <div><span class="label">Department</span><span class="value"><?php echo htmlspecialchars($personal['Department'] ?? 'N/A'); ?></span></div>
                 <div><span class="label">DOB</span><span class="value"><?php echo htmlspecialchars($personal['DOB'] ?? 'N/A'); ?></span></div>
                 <div><span class="label">Phone</span><span class="value"><?php echo htmlspecialchars($personal['Phone'] ?? 'N/A'); ?></span></div>
-                <div class="full"><span class="label">Biography</span><span class="value"><?php echo htmlspecialchars($personal['Bio'] ?? 'N/A'); ?></span></div>
+                <div class="full"><span class="label">Biography</span><span class="value"><?php echo htmlspecialchars($personal['Bio'] ?? 'No dossier entry.'); ?></span></div>
             </div>
         </div>
 
-        </main>
+        <div id="sec-3" class="content-section">
+            <div class="data-card">
+                <div><span class="label">UI Language</span><span class="value"><?php echo htmlspecialchars($settings['UI_Language'] ?? 'en'); ?></span></div>
+                <div><span class="label">Active Theme</span><span class="value"><?php echo htmlspecialchars($settings['Theme'] ?? 'Dark'); ?></span></div>
+                <div><span class="label">Email Alerts</span><span class="value"><?php echo ($settings['Notify_Email'] ?? 1) ? 'Enabled' : 'Disabled'; ?></span></div>
+                <div><span class="label">Privacy Level</span><span class="value"><?php echo htmlspecialchars($settings['Privacy_Level'] ?? 'Private'); ?></span></div>
+            </div>
+        </div>
+
+        <div id="sec-4" class="content-section">
+            <div class="data-card">
+                <div class="full"><span class="label">Technical Stack</span><span class="value" style="color: var(--brand-gold);"><?php echo htmlspecialchars($pro['Skills'] ?? 'N/A'); ?></span></div>
+                <div class="full"><span class="label">Education</span><span class="value"><?php echo htmlspecialchars($pro['Education'] ?? 'N/A'); ?></span></div>
+                <div class="full"><span class="label">Experience</span><span class="value"><?php echo htmlspecialchars($pro['Experience'] ?? 'N/A'); ?></span></div>
+                <div class="full"><span class="label">Portfolio URL</span><span class="value" style="color: var(--brand-green);"><?php echo htmlspecialchars($pro['PortfolioURL'] ?? 'N/A'); ?></span></div>
+            </div>
+        </div>
+
+        <div id="sec-5" class="content-section">
+            <div class="data-card">
+                <div><span class="label">Role</span><span class="value"><?php echo htmlspecialchars($status['AccountRole'] ?? 'Member'); ?></span></div>
+                <div><span class="label">Tier</span><span class="value" style="color: var(--brand-gold);"><?php echo htmlspecialchars($status['MembershipTier'] ?? 'Free'); ?></span></div>
+                <div><span class="label">Status</span><span class="value"><?php echo ($status['IsActive'] ?? 1) ? 'Active' : 'Suspended'; ?></span></div>
+                <div class="full"><span class="label">Last Activity</span><span class="value"><?php echo htmlspecialchars($status['LastLogin'] ?? 'N/A'); ?></span></div>
+            </div>
+        </div>
+    </main>
 
     <script>
         document.querySelectorAll('.nav-item').forEach(btn => {
