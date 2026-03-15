@@ -93,7 +93,13 @@
         .nav-btn-green:hover { background: rgba(74, 222, 128, 0.15); box-shadow: 0 0 10px rgba(74, 222, 128, 0.4); transform: translateY(-1px); }
 
         /* --- SOLUTIONS CONTENT --- */
-        .solutions-hero { padding: 80px 5% 40px 5%; text-align: center; max-width: 1200px; margin: 0 auto; }
+        .solutions-hero { 
+        padding: 60px 5% 20px 5%; /* Reduced padding to bring cards up */
+        text-align: center; 
+        max-width: 1200px; 
+        margin: 0 auto; 
+        background: transparent; /* Ensures no dark box blocks the video */
+        }
         .solutions-hero h1 { font-size: 3rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 3px; }
         .solutions-hero p { color: var(--brand-green); font-weight: 700; letter-spacing: 2px; font-size: 1.1rem; }
         
