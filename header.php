@@ -76,8 +76,8 @@
         text-transform: uppercase;
         letter-spacing: 2px;
         transition: 0.3s;
-        padding: 12px 15px; /* Adjusted padding for better left-alignment flow */
-        text-align: left; /* CHANGED: Aligned to left */
+        padding: 12px 15px;
+        text-align: left;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         cursor: pointer;
         background: none;
@@ -86,8 +86,21 @@
         border-right: none;
         width: 100%;
         display: flex;
-        justify-content: space-between; /* Keeps the dropdown arrow on the right */
         align-items: center;
+    }
+
+    /* Icon Spacing */
+    .nav-links a i, .dropdown-btn i:first-child {
+        margin-right: 15px;
+        width: 20px; /* Keeps icons aligned even if widths differ */
+        color: var(--brand-green, #4ade80);
+        text-align: center;
+    }
+
+    /* Caret Alignment for Dropdown */
+    .dropdown-btn .fa-caret-down {
+        margin-left: auto;
+        margin-right: 0;
     }
 
     /* --- DROPDOWN SUB-MENU --- */
@@ -101,8 +114,7 @@
         font-size: 0.75rem;
         color: var(--brand-green, #4ade80);
         border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-        padding-left: 30px; /* Indented for a nested look */
-        text-align: left; /* CHANGED: Aligned to left */
+        padding-left: 50px; /* Pushed further to clear the main icons */
     }
 
     .dropdown-container.show {
@@ -113,16 +125,18 @@
     .btn-login {
         border: 1px solid rgba(255, 255, 255, 0.5) !important;
         margin-top: 10px;
-        justify-content: center !important; /* Keep text centered inside the box button */
-        text-align: center !important;
+        justify-content: center !important;
     }
+
+    .btn-login i { margin-right: 10px; }
 
     .btn-subscribe {
         border: 2px solid var(--brand-green, #4ade80) !important;
         color: var(--brand-green, #4ade80) !important;
-        justify-content: center !important; /* Keep text centered inside the box button */
-        text-align: center !important;
+        justify-content: center !important;
     }
+
+    .btn-subscribe i { margin-right: 10px; }
 
     @keyframes slideInLeft {
         from { opacity: 0; transform: translateX(-30px); }
@@ -140,20 +154,23 @@
     <a href="index.php" class="logo">HOLISTIC DATA PRO</a>
     
     <nav class="nav-links" id="navLinks">
-        <a href="index.php">Home</a>
+        <a href="index.php"><i class="fas fa-home"></i> Home</a>
         
-        <button class="dropdown-btn" onclick="toggleDropdown()">Services <i class="fas fa-caret-down"></i></button>
+        <button class="dropdown-btn" onclick="toggleDropdown()">
+            <i class="fas fa-layer-group"></i> Services 
+            <i class="fas fa-caret-down"></i>
+        </button>
         <div class="dropdown-container" id="servicesDropdown">
-            <a href="homeusers.php">Home Users</a>
-            <a href="corporate.php">SME & Corporate</a>
+            <a href="home-users.php"><i class="fas fa-user-house"></i> Home Users</a>
+            <a href="corporate.php"><i class="fas fa-building"></i> SME & Corporate</a>
         </div>
 
-        <a href="solutions.php">Solutions</a>
-        <a href="neuralbreak.php">Neural Break</a>
-        <a href="contact.php">Connect</a>
+        <a href="solutions.php"><i class="fas fa-lightbulb"></i> Solutions</a>
+        <a href="neuralbreak.php"><i class="fas fa-brain"></i> Neural Break</a>
+        <a href="contact.php"><i class="fas fa-link"></i> Connect</a>
         
-        <a href="login.php" class="btn-login">Login</a>
-        <a href="subscribe.php" class="btn-subscribe">Subscribe</a>
+        <a href="login.php" class="btn-login"><i class="fas fa-sign-in-alt"></i> Login</a>
+        <a href="subscribe.php" class="btn-subscribe"><i class="fas fa-bell"></i> Subscribe</a>
     </nav>
 </header>
 
