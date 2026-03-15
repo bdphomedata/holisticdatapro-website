@@ -143,7 +143,7 @@
 
     <header class="solutions-hero">
         <h1>The Intelligence Suite</h1>
-        <p>ENTERPRISE ARCHITECTURE | REAL-TIME AUTOMATION</p>
+        <p class="solutions-hero-subheader">ENTERPRISE ARCHITECTURE | REAL-TIME AUTOMATION</p>
     </header>
 
     <main class="solutions-grid">
