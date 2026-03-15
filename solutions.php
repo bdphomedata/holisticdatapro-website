@@ -111,17 +111,7 @@
             width: 100%;
         }
         
-        .solutions-hero h2 { 
-            color: var(--brand-green); 
-            font-weight: 700; 
-            letter-spacing: 2px; 
-            font-size: 1rem; 
-            text-transform: uppercase;
-            margin-top: 10px; /* SPACE BETWEEN THE TWO LINES */
-            display: block; /* FORCES LINE BREAK */
-            width: 100%;
-        }
-        
+     
         .solutions-hero p { color: var(--brand-green); font-weight: 700; letter-spacing: 2px; font-size: 1.1rem; }
         
         .solutions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; padding: 20px 5% 100px 5%; max-width: 1600px; margin: 0 auto; }
@@ -164,7 +154,6 @@
 
     <header class="solutions-hero">
         <h1>The Intelligence Suite</h1>
-        <h2>ENTERPRISE ARCHITECTURE | REAL-TIME AUTOMATION</h2>
     </header>
 
     <main class="solutions-grid">
