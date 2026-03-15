@@ -169,7 +169,8 @@
             <h2>CLIENT ACCESS</h2>
             <div id="error-msg">Invalid email or password. Please try again.</div>
 
-            <form action="https://www.holisticdatapro.com/api/login_process.php" method="POST">
+            <form action="/api/login_process.php" method="POST">                
+                
                 <input type="email" name="user_email" placeholder="Email Address" required>
                 <input type="password" name="user_password" id="loginPassword" placeholder="Password" required>
                 
